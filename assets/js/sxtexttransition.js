@@ -1,6 +1,6 @@
 var SxTextTransition = {};
 SxTextTransition.anim1 = {
-  in : {
+  "in": {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -9,21 +9,32 @@ SxTextTransition.anim1 = {
           $this.positions.push({x: $w , y: 0 , opacity : 0 , scale : 0.2 , char : $char});
           $w += $this.ctx.measureText($char).width;
       }
+	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
       for(var j = 0 ; j < $this.length ; j++){
-        
-        TweenMax.to(
-          $this.positions[j] ,
-          $opts.duration ,
-          {
-            opacity : 1 ,
-            scale : 1,
-            ease: $opts.easing,
-            delay : (j * (parseFloat($opts.duration)/$this.length)) + parseFloat($opts.delay) ,
-            onUpdate : (function(){
-              $this.fire('text:animated');
-            }).bind($this)
-          }
-         );
+		(function($pos,$i){
+			setTimeout(function(){
+				fabric.util.animate({
+					startValue: $pos.opacity,
+					endValue: 1,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.opacity = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: $pos.scale,
+					endValue: 1,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.scale = value;
+						$this.fire('text:animated');
+					}
+				});
+			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+		})($this.positions[j],j);
+		
       }
     },
     render : function($this){
@@ -38,7 +49,7 @@ SxTextTransition.anim1 = {
       }
     }
   },
-  out : {
+  "out" : {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -47,20 +58,35 @@ SxTextTransition.anim1 = {
           $this.positions.push({x: $w , y: 0 , opacity : 1 , scale : 1 , char : $char});
           $w += $this.ctx.measureText($char).width;
       }
+	  
+	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
+	  
       for(var j = 0 ; j < $this.length ; j++){
-        TweenMax.to(
-          $this.positions[j] ,
-          $opts.duration ,
-          {
-            opacity : 0 ,
-            scale : 0.2,
-            ease: $opts.easing,
-            delay : (j * (parseFloat($opts.duration)/$this.length)) + parseFloat($opts.delay) ,
-            onUpdate : (function(){
-              $this.fire('text:animated');
-            }).bind($this)
-          }
-         );
+		(function($pos,$i){
+			setTimeout(function(){
+				fabric.util.animate({
+					startValue: $pos.opacity,
+					endValue: 0,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.opacity = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: $pos.scale,
+					endValue: 0.2,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.scale = value;
+						$this.fire('text:animated');
+					}
+				});
+			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+		})($this.positions[j],j);
+		
+        
       }
     },
     render : function($this){
@@ -79,7 +105,7 @@ SxTextTransition.anim1 = {
 
 
 SxTextTransition.anim2 = {
-  in : {
+  "in": {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -88,24 +114,34 @@ SxTextTransition.anim2 = {
           $this.positions.push({x: $w , y: 0 , opacity : 0 , char : $char});
           $w += $this.ctx.measureText($char).width;
       }
+	  
+	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
+	  
       for(var j = 0 ; j < $this.length ; j++){
-        TweenMax.fromTo(
-          $this.positions[j] ,
-          $opts.duration ,
-          {
-            y : '+=20',
-            opacity : 0
-          },
-          {
-            y : '-= 20',
-            opacity : 1 ,    
-            ease: $opts.easing,
-            delay : (j * (parseFloat($opts.duration)/$this.length)) + parseFloat($opts.delay) ,
-            onUpdate : (function(){
-              $this.fire('text:animated');
-            }).bind($this)
-          }
-         );
+		(function($pos,$i){
+			setTimeout(function(){
+				fabric.util.animate({
+					startValue: $pos.y + 20,
+					endValue: $pos.y,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.y = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: 0,
+					endValue: 1,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.opacity = value;
+						$this.fire('text:animated');
+					}
+				});
+			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+		})($this.positions[j],j);
+		
       }
     },
     render : function($this){
@@ -118,7 +154,7 @@ SxTextTransition.anim2 = {
       }
     }
   },
-  out : {
+  "out" : {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -127,23 +163,36 @@ SxTextTransition.anim2 = {
           $this.positions.push({x: $w , y: 0 , opacity : 1 , char : $char});
           $w += $this.ctx.measureText($char).width;
       }
+	  
+	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
+	  
+	  
       for(var j = 0 ; j < $this.length ; j++){
-        TweenMax.fromTo(
-          $this.positions[j] ,
-          $opts.duration ,
-          {
-            opacity : 1
-          },
-          {
-            y : '-= 20',
-            opacity : 0 ,  
-            ease: $opts.easing,
-            delay : (j * (parseFloat($opts.duration)/$this.length)) + parseFloat($opts.delay) ,
-            onUpdate : (function(){
-              $this.fire('text:animated');
-            }).bind($this)
-          }
-         );
+		(function($pos,$i){
+			setTimeout(function(){
+				fabric.util.animate({
+					startValue: $pos.y,
+					endValue: $pos.y - 20,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.y = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: 1,
+					endValue: 0,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.opacity = value;
+						$this.fire('text:animated');
+					}
+				});
+			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+		})($this.positions[j],j);
+		
+        
       }
     },
     render : function($this){
@@ -159,7 +208,7 @@ SxTextTransition.anim2 = {
 };
 
 SxTextTransition.anim3 = {
-  in : {
+  "in": {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -168,26 +217,43 @@ SxTextTransition.anim3 = {
           $this.positions.push({x: $w , y: 0 , opacity : 0 , rotation : -90 , char : $char});
           $w += $this.ctx.measureText($char).width;
       }
+	  
+	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
+	  
       for(var j = 0 ; j < $this.length ; j++){
-        TweenMax.fromTo(
-          $this.positions[j] ,
-          $opts.duration ,
-          {
-            x : '-=100',
-            opacity : 0,
-            rotation : -90
-          },
-          {
-            x : '+= 100',
-            opacity : 1 ,    
-            rotation : 0,
-            ease: $opts.easing,
-            delay : (j * (parseFloat($opts.duration)/$this.length)) + parseFloat($opts.delay) ,
-            onUpdate : (function(){
-              $this.fire('text:animated');
-            }).bind($this)
-          }
-         );
+		(function($pos,$i){
+			setTimeout(function(){
+				fabric.util.animate({
+					startValue: $pos.x - 100,
+					endValue: $pos.x,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.x = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: -90,
+					endValue: 0,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.rotation = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: 0,
+					endValue: 1,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.opacity = value;
+						$this.fire('text:animated');
+					}
+				});
+			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+		})($this.positions[j],j);
+		
       }
     },
     render : function($this){
@@ -203,7 +269,7 @@ SxTextTransition.anim3 = {
       }
     }
   },
-  out : {
+  "out" : {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -212,25 +278,44 @@ SxTextTransition.anim3 = {
           $this.positions.push({x: $w , y: 0 , opacity : 0 , rotation : 0 , char : $char});
           $w += $this.ctx.measureText($char).width;
       }
+	  
+	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
+	  
+	  
       for(var j = 0 ; j < $this.length ; j++){
-        TweenMax.fromTo(
-          $this.positions[j] ,
-          $opts.duration ,
-          {
-            opacity : 1,
-            rotation : 0
-          },
-          {
-            x : '-= 100',
-            opacity : 0 ,    
-            rotation : -90,
-            ease: $opts.easing,
-            delay : (j * (parseFloat($opts.duration)/$this.length)) + parseFloat($opts.delay) ,
-            onUpdate : (function(){
-              $this.fire('text:animated');
-            }).bind($this)
-          }
-         );
+		(function($pos,$i){
+			setTimeout(function(){
+				fabric.util.animate({
+					startValue: $pos.x,
+					endValue: $pos.x - 100,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.x = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: 0,
+					endValue: -90,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.rotation = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: 0,
+					endValue: 1,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.opacity = value;
+						$this.fire('text:animated');
+					}
+				});
+			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+		})($this.positions[j],j);
+		
       }
     },
     render : function($this){
@@ -247,7 +332,7 @@ SxTextTransition.anim3 = {
 };
 
 SxTextTransition.anim4 = {
-  in : {
+  "in": {
     init : function($this , $opts){
       var $w = 0 , $char = '' , $lw = 0;
       $this.positions = [];
@@ -257,24 +342,35 @@ SxTextTransition.anim4 = {
           $this.positions.push({x: $w , y: 0 , width : $lw , opacity : 0 , rotation : -90 , char : $char});
           $w += $lw;
       }
+	  
+	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
+	  
       for(var j = 0 ; j < $this.length ; j++){
-        TweenMax.fromTo(
-          $this.positions[j] ,
-          $opts.duration ,
-          {
-            opacity : 0,
-            rotation : -180
-          },
-          {
-            opacity : 1 ,    
-            rotation : 0,
-            ease: $opts.easing,
-            delay : (j * (parseFloat($opts.duration)/$this.length)) + parseFloat($opts.delay) ,
-            onUpdate : (function(){
-              $this.fire('text:animated');
-            }).bind($this)
-          }
-         );
+	  (function($pos,$i){
+			setTimeout(function(){
+				fabric.util.animate({
+					startValue: -180,
+					endValue: 0,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.rotation = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: 0,
+					endValue: 1,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.opacity = value;
+						$this.fire('text:animated');
+					}
+				});
+			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+		})($this.positions[j],j);
+		
+        
       }
     },
     render : function($this){
@@ -288,7 +384,7 @@ SxTextTransition.anim4 = {
       }
     }
   },
-  out : {
+  "out" : {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -297,24 +393,35 @@ SxTextTransition.anim4 = {
           $this.positions.push({x: $w , y: 0 , opacity : 0 , rotation : 0 , char : $char});
           $w += $this.ctx.measureText($char).width;
       }
+	  
+	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
+	  
+	  
       for(var j = 0 ; j < $this.length ; j++){
-        TweenMax.fromTo(
-          $this.positions[j] ,
-          $opts.duration ,
-          {
-            opacity : 1,
-            rotation : 0
-          },
-          {
-            opacity : 0 ,    
-            rotation : -90,
-            ease: $opts.easing,
-            delay : (j * (parseFloat($opts.duration)/$this.length)) + parseFloat($opts.delay) ,
-            onUpdate : (function(){
-              $this.fire('text:animated');
-            }).bind($this)
-          }
-         );
+		(function($pos,$i){
+			setTimeout(function(){
+				fabric.util.animate({
+					startValue: 0,
+					endValue: -90,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.rotation = value;
+					}
+				});
+				fabric.util.animate({
+					startValue: 1,
+					endValue: 0,
+					duration: $duration + ($duration/2),
+					easing : fabric.util.ease[$opts.easing],
+					onChange: function(value) {
+						$pos.opacity = value;
+						$this.fire('text:animated');
+					}
+				});
+			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+		})($this.positions[j],j);
+		
       }
     },
     render : function($this){

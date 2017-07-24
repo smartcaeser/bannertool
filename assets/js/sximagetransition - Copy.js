@@ -11,23 +11,23 @@ SxImageTransition.anim1 = {
           
         }
       }
+	  var $delay = (parseFloat($opts.duration)/$this.totalTiles) * 1000;
 	  
       $this.totalTiles = $this.positions.length;
-	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
       for(var i = 0 ; i < $this.totalTiles ; i++){
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: $this.tileWidth,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 						$this.fire('image:loaded');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $delay /  $this.totalTiles) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
 			
       }
@@ -59,24 +59,23 @@ SxImageTransition.anim1 = {
         }
       }
 	  
-	  $this.totalTiles = $this.positions.length;
-	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
+	  var $delay = (parseFloat($opts.duration)/$this.totalTiles) * 1000;
 	  
-      
+      $this.totalTiles = $this.positions.length;
       for(var i = 0 ; i < $this.totalTiles ; i++){
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: 0,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 						$this.fire('image:loaded');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $delay /  $this.totalTiles) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
@@ -110,17 +109,15 @@ SxImageTransition.anim2 = {
           $this.positions.push({x: -($this.width / 2) + (x * $this.tileWidth) , y: -($this.height / 2) + (y * $this.tileHeight) , width : 0 , height : 0 });
         }
       }
-	  
       $this.totalTiles = $this.positions.length;
-	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
-	  
+	  var $delay = (parseFloat($opts.duration)/$this.totalTiles) * 1000;
       for(var i = 0 ; i < $this.totalTiles ; i++){
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: $this.tileWidth,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
@@ -129,14 +126,14 @@ SxImageTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.height,
 					endValue: $this.tileHeight,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.height = value;
 						$this.fire('image:loaded');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $delay /  $this.totalTiles) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
@@ -167,17 +164,15 @@ SxImageTransition.anim2 = {
           $this.positions.push({x: -($this.width / 2) + (x * $this.tileWidth) , y: -($this.height / 2) + (y * $this.tileHeight) , width : $this.tileWidth });
         }
       }
-	  
-	  $this.totalTiles = $this.positions.length;
-	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
-      
+	  var $delay = (parseFloat($opts.duration)/$this.totalTiles) * 1000;
+      $this.totalTiles = $this.positions.length;
       for(var i = 0 ; i < $this.totalTiles ; i++){
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: 0,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
@@ -186,14 +181,14 @@ SxImageTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.height,
 					endValue: 0,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.height = value;
 						$this.fire('image:loaded');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $delay /  $this.totalTiles) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
@@ -227,17 +222,15 @@ SxImageTransition.anim3 = {
           $this.positions.push({x: -($this.width / 2) + (x * $this.tileWidth) , y: -($this.height / 2) + (y * $this.tileHeight) , radius : 0 });
         }
       }
-	  
-	  $this.totalTiles = $this.positions.length;
-	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
-      
+	  var $delay = (parseFloat($opts.duration)/$this.totalTiles) * 1000;
+      $this.totalTiles = $this.positions.length;
       for(var i = 0 ; i < $this.totalTiles ; i++){
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.radius,
 					endValue:  0.5 * Math.sqrt($this.tileWidth * $this.tileWidth + $this.tileHeight * $this.tileHeight),
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.radius = value;
@@ -245,7 +238,7 @@ SxImageTransition.anim3 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $delay /  $this.totalTiles) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
@@ -276,17 +269,15 @@ SxImageTransition.anim3 = {
           $this.positions.push({x: -($this.width / 2) + (x * $this.tileWidth) , y: -($this.height / 2) + (y * $this.tileHeight) , radius : 0.5 * Math.sqrt($this.tileWidth * $this.tileWidth + $this.tileHeight * $this.tileHeight) });
         }
       }
-	  
-	  $this.totalTiles = $this.positions.length;
-	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
-      
+	  var $delay = (parseFloat($opts.duration)/$this.totalTiles) * 1000;
+      $this.totalTiles = $this.positions.length;
       for(var i = 0 ; i < $this.totalTiles ; i++){
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.radius,
 					endValue:  0,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.radius = value;
@@ -294,7 +285,7 @@ SxImageTransition.anim3 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $delay /  $this.totalTiles) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
 		
       }
@@ -331,16 +322,15 @@ SxImageTransition.anim4 = {
         }
       }
 	  
-	  $this.totalTiles = $this.positions.length;
-	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
-      
+	  var $delay = (parseFloat($opts.duration)/$this.totalTiles) * 1000;
+      $this.totalTiles = $this.positions.length;
       for(var i = 0 ; i < $this.totalTiles ; i++){
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.opacity,
 					endValue: 1,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
@@ -349,7 +339,7 @@ SxImageTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.scale,
 					endValue: 1,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles ,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.scale = value;
@@ -357,7 +347,7 @@ SxImageTransition.anim4 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $delay /  $this.totalTiles) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
@@ -391,16 +381,15 @@ SxImageTransition.anim4 = {
         }
       }
 	  
-	  $this.totalTiles = $this.positions.length;
-	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
-      
+	  var $delay = (parseFloat($opts.duration)/$this.totalTiles) * 1000;
+      $this.totalTiles = $this.positions.length;
       for(var i = 0 ; i < $this.totalTiles ; i++){
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.opacity,
 					endValue: 0,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
@@ -409,7 +398,7 @@ SxImageTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.scale,
 					endValue: 0.2,
-					duration: $duration + ($duration/2),
+					duration: $opts.duration * 1000 / $this.totalTiles,
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
 						$pos.scale = value;
@@ -417,7 +406,7 @@ SxImageTransition.anim4 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $delay /  $this.totalTiles) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
 		
       }

@@ -1,8 +1,8 @@
 var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     type: "sxtext",
     id:'000',
-    originX: 'center',
-    originY: 'center',
+    originX: 'left',
+    originY: 'top',
     text:'',
     fontFamily : '',
     fontSize : '',
@@ -11,13 +11,13 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     previewType : '',
     positions : [],
     transition : {
-      in : {
+      "in" : {
         type : 'none',
         easing : 'Expo.easeOut',
         duration : 0,
         delay : 0
       },
-      out : {
+      "out" : {
         type : 'none',
         easing : 'Expo.easeOut',
         duration : 0,

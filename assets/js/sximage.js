@@ -1,42 +1,74 @@
 var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     type: "sximage",
+	layerType : "image",
     id:'000',
-    originX: 'center',
-    originY: 'center',
+    originX: 'left',
+    originY: 'top',
     positions : [],
     previewMode : false,
     previewType : '',
+	opacity : 1,
+	resizable : true,
+	aspectRatio : false,
+	imageUrl : '',
+	enabled : true,
     transition : {
-      in : {
+      "in" : {
         type : 'none',
-        easing : 'Expo.easeOut',
+        easing : 'easeOutExpo',
         cols : 1,
         rows : 1,
-        duration : 0,
+        duration : 1,
         delay : 0
       },
-      out : {
+      "out" : {
         type : 'none',
-        easing : 'Expo.easeOut',
+        easing : 'easeOutExpo',
         cols : 1,
         rows : 1,
-        duration : 0,
+        duration : 1,
         delay : 0
       }
     },
+	angle : 0,
     tileWidth : 0,
     tileHeight : 0,
     totalTiles : 0,
     objectCaching: false,
     toObject: function() {
       return fabric.util.object.extend(this.callSuper('toObject'), {
-        transition: this.get('transition')
+        transition: this.get('transition'),
+        id : this.get('id'),
+        type : this.get('type'),
+        imageUrl : this.get('imageUrl'),
+		aspectRatio : this.get('aspectRatio'),
+		resizable : this.get('resizable'),
+		layerType : this.get('layerType'),
+		enabled : this.get('enabled')
       });
     },
-    initialize: function(src, options) {
-      this.callSuper('initialize', options);
-      this.id = 'img' + (new Date()).getTime();
-      this.setImage(src);
+    initialize: function(options) {
+		this.callSuper('initialize', options);
+		this.setImage(options.imageUrl);
+		if(options.resizable === false){
+			this.setControlsVisibility({
+				mt: false, 
+				mb: false, 
+				ml: false, 
+				mr: false, 
+				bl: false,
+				br: false, 
+				tl: false, 
+				tr: false,
+				mtr: false
+			});
+		}
+		if(options.aspectRatio === true){
+			this.lockUniScaling = true;
+		}
+		if(options.enabled === false){
+			this.selectable = false;
+		}
     },
     setImage : function(src){
       this.image = new Image();

@@ -1,27 +1,32 @@
 fabric.Object.prototype.transparentCorners = false;
 fabric.Object.prototype.padding = 5;
-var canvas = new fabric.Canvas('canvas') , $canvasElements = [];
+fabric.Object.prototype.getZIndex = function() {
+    return this.canvas.getObjects().indexOf(this);
+};
+
+fabric.Canvas.prototype.addToPosition = function(object,position) {
+    this.add(object);
+    while(object.getZIndex() > position) {
+        this.sendBackwards(object);
+    }
+};
+var canvas = new fabric.Canvas("canvas") , $canvasElements = [];
 
 
-function changeBgColor($color){
-  canvas.setBackgroundColor($color);
-  canvas.renderAll();
-}
-function changeBgDimension($width , $height){
-  canvas.setDimensions({width:$width,height:$height});
-  canvas.renderAll();
-}
 function addImage($url){
-  var $image = new SxImage($url, {
-    top: 100,
-    left: 100,
-    scaleX: 0.9,
-    scaleY: 0.9
+  banner.addImage({
+	id : 'img' + (new Date()).getTime(),
+    top: 0,
+    left: 0,
+    scaleX: 0.99,
+    scaleY: 0.99,
+	imageUrl : $url,
+	resizable : true,
+	aspectRatio : false,
+	layerType : 'image',
+	enabled : true
   });
-  $image.on('image:loaded', canvas.renderAll.bind(canvas));
-  canvas.add($image);
-  $canvasElements[$image.id] = $image;
-  canvas.renderAll();
+  
 }
 function addTransitionToImage($obj , $type , $opts){
 	$obj.setTransition($type , $opts);
@@ -38,7 +43,7 @@ function addText($txt){
     fontSize : font_size.value,
     fontColor : font_color.value
   });
-	$text.on('text:animated', canvas.renderAll.bind(canvas));
+	$text.on("text:animated", canvas.renderAll.bind(canvas));
   canvas.add($text);
   $canvasElements[$text.id] = $text;
   canvas.renderAll();

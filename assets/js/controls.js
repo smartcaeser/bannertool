@@ -1,7 +1,8 @@
 
 var $accordions = document.querySelectorAll('.accordion');
-$accordions.forEach(function(e,i){
-  var $handler = e.getElementsByTagName('h1')[0];
+for(var aa = 0 ; aa < $accordions.length ; aa++){
+	
+	var e = $accordions[aa] , $handler = e.getElementsByTagName('h1')[0];
   $handler.addEventListener('click' , function(){
     var itemClass = this.parentNode.className;
     for (var i = 0; i < $accordions.length; i++) {
@@ -11,10 +12,12 @@ $accordions.forEach(function(e,i){
         this.parentNode.className = 'accordion active';
     }
   });
-});
+}
+
 
 var $tabs = document.querySelectorAll('.tab_btn');
-$tabs.forEach(function(e,i){
+for(var bb = 0 ; bb < $tabs.length ; bb++){
+	var e = $tabs[bb];
   e.addEventListener('click' , function(){
     var $parent = this.parentNode;
     disableTabs($parent);
@@ -22,7 +25,8 @@ $tabs.forEach(function(e,i){
     var $tabcontent = document.getElementById(this.getAttribute('data-target'));
     $tabcontent.className = 'tab_content active';
   });
-});
+}
+
 function disableTabs($dom){
   var $btns = $dom.querySelectorAll('.tab_btn') , $btns_content = $dom.querySelectorAll('.tab_content');
   [].forEach.call($btns, function(el) {

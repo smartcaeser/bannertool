@@ -15,18 +15,16 @@ function handleTextEditor($obj){
 }
 function handleEditorVisible($id){
   var $trans_divs = document.querySelectorAll('.trans-container') , $targetDiv = document.getElementById($id);
-  $trans_divs.forEach(function(e,i){
-    e.className = 'trans-container';
-    
-  });
+  for(var d = 0 ; d < $trans_divs.length ; d++){
+	  $trans_divs[d].className = 'trans-container';
+  }
   $targetDiv.className += ' active';
 }
 function disactiveEditor(){
   var $trans_divs = document.querySelectorAll('.trans-container');
-  $trans_divs.forEach(function(e,i){
-    e.className = 'trans-container';
-    
-  });
+  for(var d = 0 ; d < $trans_divs.length ; d++){
+	$trans_divs[d].className = 'trans-container';
+  }
 }
 
 
@@ -53,7 +51,7 @@ $img_preview_btn_in.addEventListener('click',function(){
   if($object.get('type') == 'sximage'){
     addTransitionToImage($object , 'in' , {
       type : $img_anim_type_in.value,
-      easing : $img_easing_in.value + '.' + $img_easing_type_in.value,
+      easing : $img_easing_type_in.value + $img_easing_in.value,
       cols : img_cols_in.value,
       rows : img_rows_in.value,
       duration : img_duration_in.value,
@@ -68,7 +66,7 @@ $img_preview_btn_out.addEventListener('click',function(){
   if($object.get('type') == 'sximage'){
     addTransitionToImage($object , 'out' , {
       type : $img_anim_type_out.value,
-      easing : $img_easing_out.value + '.' + $img_easing_type_out.value,
+      easing : $img_easing_type_out.value + $img_easing_out.value,
       cols : img_cols_out.value,
       rows : img_rows_out.value,
       duration : img_duration_out.value,
@@ -99,7 +97,7 @@ $txt_preview_btn_in.addEventListener('click',function(){
   if($object.get('type') == 'sxtext'){
     addTransitionToText($object , 'in' , {
       type : $txt_anim_type_in.value,
-      easing : $txt_easing_in.value + '.' + $txt_easing_type_in.value,
+      easing : $txt_easing_type_in.value + $txt_easing_in.value,
       duration : txt_duration_in.value,
       delay : txt_delay_in.value
     });
@@ -112,7 +110,7 @@ $txt_preview_btn_out.addEventListener('click',function(){
   if($object.get('type') == 'sxtext'){
     addTransitionToText($object , 'out' , {
       type : $txt_anim_type_out.value,
-      easing : $txt_easing_out.value + '.' + $txt_easing_type_out.value,
+      easing : $txt_easing_type_out.value + $txt_easing_out.value,
       duration : txt_duration_out.value,
       delay : txt_delay_out.value
     });
