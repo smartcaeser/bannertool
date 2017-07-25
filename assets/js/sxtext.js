@@ -43,6 +43,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		id : this.get('id'),
         type : this.get('type'),
         transition: this.get('transition'),
+		ctx: this.get('ctx'),
         text: this.get('text'),
         fontFamily : this.get('fontFamily'),
         fontSize : this.get('fontSize'),
@@ -59,12 +60,12 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     },
     initialize: function(options) {
 		this.callSuper('initialize', options);
-		this.id = 'txt' + (new Date()).getTime();
 		this.ctx = this.context();
+		this.id = 'txt' + (new Date()).getTime();
 		this.setText(options);
 		if(options.resizable === false){
 			this.setControlsVisibility({
-				mt: false,
+				mt: false, 
 				mb: false, 
 				ml: false, 
 				mr: false, 
@@ -110,7 +111,10 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
       this.length = this.text.length;
       this.fontFamily = options.fontFamily;
       this.fontSize = options.fontSize;
-      this.fontColor = options.fontColor;      
+      this.fontColor = options.fontColor;
+      this.ctx.font = this.fontSize + ' ' + this.fontFamily;
+      this.width = this.ctx.measureText(this.text).width;
+      this.height = parseInt(this.fontSize);
     },
     setTransition : function($type , $opts){
       for (var key in $opts) {
@@ -128,11 +132,8 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
       }
     },
     _render: function(ctx) {
-		
 		ctx.font = this.fontSize + ' ' + this.fontFamily;
 		ctx.fillStyle = this.fontColor;
-		this.width = ctx.measureText(this.text).width;
-		this.height = parseInt(this.fontSize);
 		if(this.previewMode){
 			if(SxTextTransition[this.transition[this.previewType].type]){
 				SxTextTransition[this.transition[this.previewType].type][this.previewType].render(this);
