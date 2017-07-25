@@ -11,8 +11,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   fabric.window = window;
   // ensure globality even if entire library were function wrapped (as in Meteor.js packaging system)
   window.fabric = fabric;
-}
-else {
+} else {
   // assume we're running under node.js when document/window are not present
   fabric.document = require("jsdom")
     .jsdom(

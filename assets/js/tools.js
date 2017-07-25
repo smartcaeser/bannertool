@@ -28,6 +28,22 @@ add_image_btn.addEventListener('click',function(){
 });
 add_txt_btn.addEventListener('click',function(){
   if(add_txt.value !== ''){
-    addText(add_txt.value);
+    addText({
+		id : 'txt' + (new Date()).getTime(),
+		top: 0,
+		left: 0,
+		text : add_txt.value,
+		fontFamily : font_family.value,
+		fontSize : font_size.value,
+		fontColor : font_color.value,
+		fontStyleBold : false,
+		fontStyleItalic : false,
+		fontStyleUnderline : false,
+		resizable : true,
+		aspectRatio : false,
+		layerType : 'image',
+		enabled : true,
+		sortOrder : 0
+	});
   }
 });

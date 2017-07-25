@@ -51,6 +51,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     },
     initialize: function(options) {
 		this.callSuper('initialize', options);
+		
 		this.setImage(options.imageUrl);
 		if(options.resizable === false){
 			this.setControlsVisibility({

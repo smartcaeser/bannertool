@@ -3,11 +3,15 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	layerType : "text",
     id:'000',
     originX: 'left',
+	ctx : '',
     originY: 'top',
     text:'',
     fontFamily : '',
     fontSize : '',
     fontColor : '',
+	fontStyleBold : false,
+	fontStyleItalic : false,
+	fontStyleUnderline : false,
     previewMode : false,
     previewType : '',
     positions : [],
@@ -43,6 +47,9 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
         fontFamily : this.get('fontFamily'),
         fontSize : this.get('fontSize'),
         fontColor : this.get('fontColor'),
+		fontStyleBold : this.get('fontStyleBold'),
+		fontStyleItalic : this.get('fontStyleItalic'),
+		fontStyleUnderline : this.get('fontStyleUnderline'),
 		aspectRatio : this.get('aspectRatio'),
 		resizable : this.get('resizable'),
 		layerType : this.get('layerType'),
@@ -53,11 +60,11 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     initialize: function(options) {
 		this.callSuper('initialize', options);
 		this.id = 'txt' + (new Date()).getTime();
-		this.ctx = canvas.getContext();
+		this.ctx = this.context();
 		this.setText(options);
 		if(options.resizable === false){
 			this.setControlsVisibility({
-				mt: false, 
+				mt: false,
 				mb: false, 
 				ml: false, 
 				mr: false, 
@@ -103,10 +110,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
       this.length = this.text.length;
       this.fontFamily = options.fontFamily;
       this.fontSize = options.fontSize;
-      this.fontColor = options.fontColor;
-      this.ctx.font = this.fontSize + ' ' + this.fontFamily;
-      this.width = this.ctx.measureText(this.text).width;
-      this.height = parseInt(this.fontSize);
+      this.fontColor = options.fontColor;      
     },
     setTransition : function($type , $opts){
       for (var key in $opts) {
@@ -124,16 +128,19 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
       }
     },
     _render: function(ctx) {
-      ctx.font = this.fontSize + ' ' + this.fontFamily;
-      ctx.fillStyle = this.fontColor;
-      if(this.previewMode){
-        if(SxTextTransition[this.transition[this.previewType].type]){
-          SxTextTransition[this.transition[this.previewType].type][this.previewType].render(this);
-        } else {
-           ctx.fillText(this.text, -this.width / 2,parseInt(this.fontSize)/3);
-        }
-      } else {
-        ctx.fillText(this.text, -this.width / 2,parseInt(this.fontSize)/3);
-      }
+		
+		ctx.font = this.fontSize + ' ' + this.fontFamily;
+		ctx.fillStyle = this.fontColor;
+		this.width = ctx.measureText(this.text).width;
+		this.height = parseInt(this.fontSize);
+		if(this.previewMode){
+			if(SxTextTransition[this.transition[this.previewType].type]){
+				SxTextTransition[this.transition[this.previewType].type][this.previewType].render(this);
+			} else {
+				ctx.fillText(this.text, -this.width / 2,parseInt(this.fontSize)/3);
+			}
+		} else {
+			ctx.fillText(this.text, -this.width / 2,parseInt(this.fontSize)/3);
+		}
     }
   });
