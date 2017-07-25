@@ -12,6 +12,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	aspectRatio : false,
 	imageUrl : '',
 	enabled : true,
+	sortOrder : 0,
     transition : {
       "in" : {
         type : 'none',
@@ -44,7 +45,8 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		aspectRatio : this.get('aspectRatio'),
 		resizable : this.get('resizable'),
 		layerType : this.get('layerType'),
-		enabled : this.get('enabled')
+		enabled : this.get('enabled'),
+		sortOrder : this.get('sortOrder')
       });
     },
     initialize: function(options) {
@@ -69,17 +71,43 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		if(options.enabled === false){
 			this.selectable = false;
 		}
+		this.on('event:modified',function(){
+			console.log('changed');
+		});
     },
+	refresh : function(){
+		this.setImage(this.imageUrl);
+		if(this.resizable === false){
+			this.setControlsVisibility({
+				mt: false, 
+				mb: false, 
+				ml: false, 
+				mr: false, 
+				bl: false,
+				br: false, 
+				tl: false, 
+				tr: false,
+				mtr: false
+			});
+		}
+		if(this.aspectRatio === true){
+			this.lockUniScaling = true;
+		}
+		if(this.enabled === false){
+			this.selectable = false;
+		}
+	},
     setImage : function(src){
-      this.image = new Image();
-      this.image.src = src;
-      this.image.onload = (function() {
-        this.width = this.image.width;
-        this.height = this.image.height;
-        this.loaded = true;
-        this.setCoords();
-        this.fire('image:loaded');
-      }).bind(this);
+		this.loaded = true;
+	  this.image = new Image();
+	  this.image.src = src;
+	  this.image.onload = (function() {
+		this.width = this.image.width;
+		this.height = this.image.height;
+		this.loaded = true;
+		this.setCoords();
+		this.fire('image:loaded');
+	  }).bind(this);
     },
     setTransition : function($type , $opts){
       for (var key in $opts) {

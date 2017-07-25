@@ -9,7 +9,15 @@ function Banner(){
     this.init();
 }
 Banner.prototype.init = function($model){
+	var $this = this;
     canvas.on({"mouse:down": selectObject()});
+	canvas.on('object:modified', onObjectModified);
+
+	function onObjectModified(e) {    
+		if(e.target.refresh){
+			e.target.refresh();
+		}
+	}
 	function selectObject() {
 		return function(e) {
 		  if (e.target && e.target.id) {
@@ -28,13 +36,17 @@ Banner.prototype.init = function($model){
 	}
 	document.addEventListener("keydown",function(e){
 	  if(e.keyCode == 46){
-		this.deleteObjects();
+		$this.deleteObjects();
 		disactiveEditor();
 	  }
 	});
 };
 Banner.prototype.addText = function($model){
-    
+	var $text = new SxText($model);
+    $text.on("text:animated", canvas.renderAll.bind(canvas));
+	canvas.add($text);
+	this.layers[$text.id] = $text;
+	canvas.renderAll();
 };
 Banner.prototype.addImage = function($model){
 	var $image = new SxImage($model);
@@ -81,7 +93,11 @@ Banner.prototype.updateProp = function($prop,$val){
 Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
     var activeObject = canvas.setActiveObject(this.layers[$layerId]);
 	if (activeObject) {
-        activeObject.set($prop , $val);
+        this.layers[$layerId].set($prop , $val);
+		if($prop == 'sortOrder'){
+			canvas.moveTo(activeObject,$val);
+		}
+		canvas.trigger('object:modified', {target: this.layers[$layerId]});
 		canvas.renderAll();
     }
 };
