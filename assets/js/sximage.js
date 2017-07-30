@@ -45,6 +45,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
         transition: this.get('transition'),
         transitionIn: this.get('transitionIn'),
         transitionOut: this.get('transitionOut'),
+        runMode: this.get('runMode'),
         id : this.get('id'),
         type : this.get('type'),
         imageUrl : this.get('imageUrl'),

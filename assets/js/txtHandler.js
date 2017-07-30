@@ -19,7 +19,7 @@ add_txt_btn.addEventListener('click',function(){
 			fontStyleUnderline : false,
 			resizable : true,
 			aspectRatio : false,
-			layerType : 'image',
+			layerType : 'text',
 			enabled : true,
 			sortOrder : 0
 		});

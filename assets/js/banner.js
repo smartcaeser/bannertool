@@ -83,6 +83,7 @@ Banner.prototype.deleteObjects = function(){
         if (confirm('Are you sure?')) {
             var objectsInGroup = activeGroup.getObjects();
             this.canvas.discardActiveGroup();
+			
             objectsInGroup.forEach(function(object) {
               delete this.layers[object.id]
               this.canvas.remove(object);
@@ -132,16 +133,38 @@ Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
 Banner.prototype.selectLayer = function($layerId){
     this.canvas.setActiveObject(this.layers[$layerId]);
 };
+// run full preview
 Banner.prototype.run = function(){
     for (var $layerId in this.layers) {
 		this.layers[$layerId].run();
 	}
 };
 Banner.prototype.load = function($data){
-    
+    var $this = this;
+	this.layers = [];
+	for(var $bannerOpt in $data.banner){
+		this.updateProp($bannerOpt , $data.banner[$bannerOpt]);
+	}
+	
+	for(var $layer in $data.layers.objects){
+		if($data.layers.objects[$layer].type == 'sximage'){
+			this.addImage($data.layers.objects[$layer]);
+		} else if($data.layers.objects[$layer].type == 'sxtext'){
+			this.addText($data.layers.objects[$layer]);
+		}
+	}
+	
 };
 Banner.prototype.getBannerModel = function(){
-    return JSON.stringify(this.canvas);
+	
+    return JSON.stringify({"banner" : {
+		"bannerBackgroundColor" : this.bannerBackgroundColor,
+		"bannerWidth" : this.bannerWidth,
+		"bannerHeight" : this.bannerHeight,
+		"bannerZoom" : this.bannerZoom,
+		"originalBannerWidth" : this.originalBannerWidth,
+		"originalBannerHeight" : this.originalBannerHeight,
+		}  , "layers" : this.canvas.toDatalessJSON()});
 };
 
 
