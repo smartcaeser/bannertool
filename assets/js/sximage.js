@@ -5,14 +5,18 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     originX: 'left',
     originY: 'top',
     positions : [],
+	runMode : false,
     previewMode : false,
     previewType : '',
+	previewOpts : {},
 	opacity : 1,
 	resizable : true,
 	aspectRatio : false,
 	imageUrl : '',
 	enabled : true,
 	sortOrder : 0,
+	transitionIn : {},
+	transitionOut : {},
     transition : {
       "in" : {
         type : 'none',
@@ -39,6 +43,8 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     toObject: function() {
       return fabric.util.object.extend(this.callSuper('toObject'), {
         transition: this.get('transition'),
+        transitionIn: this.get('transitionIn'),
+        transitionOut: this.get('transitionOut'),
         id : this.get('id'),
         type : this.get('type'),
         imageUrl : this.get('imageUrl'),
@@ -100,45 +106,77 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	},
     setImage : function(src){
 		this.loaded = true;
-	  this.image = new Image();
-	  this.image.src = src;
-	  this.image.onload = (function() {
-		this.width = this.image.width;
-		this.height = this.image.height;
-		this.loaded = true;
-		this.setCoords();
-		this.fire('image:loaded');
-	  }).bind(this);
+		this.image = new Image();
+		this.image.src = src;
+		this.image.onload = (function() {
+			this.width = this.image.width;
+			this.height = this.image.height;
+			this.loaded = true;
+			this.setCoords();
+			this.fire('image:loaded');
+		}).bind(this);
     },
     setTransition : function($type , $opts){
-      for (var key in $opts) {
-        if ($opts.hasOwnProperty(key)) {
-          this.transition[$type][key] = $opts[key];
-        }
-      }
-      this.preview($type);
+		for (var key in $opts) {
+			if ($opts.hasOwnProperty(key)) {
+				this.transition[$type][key] = $opts[key];
+			}
+		}
+		this.preview($type);
     },
-    preview : function($type){
-      this.previewMode = true;
-      this.previewType = $type;
-      if(SxImageTransition[this.transition[$type].type]){
-        SxImageTransition[this.transition[$type].type][$type].init(this , this.transition[$type]);
-      }
-      
-      
+	preview : function($type , $val){
+		this.runMode = false;
+		this.previewMode = true;
+		this.previewType = $type;
+		this.previewOpts = $val;
+		if(SxImageTransition[$val.type]){
+			SxImageTransition[$val.type][$type].init(this , $val);
+		}
+    },
+    run : function(){
+		this.previewMode = true;
+		this.runMode = false;
+		
+		this.previewType = 'in';
+		this.previewOpts = this.transitionIn;
+		
+		if(SxImageTransition[this.transitionIn.type]){
+			SxImageTransition[this.transitionIn.type]['in'].init(this , this.transitionIn);
+		}
+		if(this.transitionOut.type){
+			if(SxImageTransition[this.transitionOut.type]){
+				var $this = this;
+				setTimeout(function(){
+					$this.previewType = 'out';
+					$this.previewOpts = $this.transitionOut;
+					SxImageTransition[$this.transitionOut.type]['out'].init($this , $this.transitionOut);
+				},parseFloat(this.transitionOut.delay) * 1000);
+			}
+		}
     },
     _render: function(ctx) {
-      this.ctx = ctx;
-      if(this.previewMode){
-        if(SxImageTransition[this.transition[this.previewType].type]){
-          SxImageTransition[this.transition[this.previewType].type][this.previewType].render(this);
-        } else {
-          ctx.drawImage(this.image, -this.width / 2, -this.height / 2);
-        }
-        
-      } else {
-        ctx.drawImage(this.image, -this.width / 2, -this.height / 2);
-      }
-      
+		this.ctx = ctx;
+		if(this.previewMode){
+			if(SxImageTransition[this.previewOpts.type]){
+				SxImageTransition[this.previewOpts.type][this.previewType].render(this);
+			} else {
+				ctx.drawImage(this.image, -this.width / 2, -this.height / 2);
+			}
+		} else if(this.runMode){
+			if(this.transitionIn.type){
+				if(SxImageTransition[this.transitionIn.type]){
+					SxImageTransition[this.transitionIn.type]['in'].render(this);
+				}
+			}
+			
+			if(this.transitionOut.type){
+				if(SxImageTransition[this.transitionOut.type]){
+					SxImageTransition[this.transitionOut.type]['out'].render(this);
+				}
+			}
+			
+		} else {
+			ctx.drawImage(this.image, -this.width / 2, -this.height / 2);
+		}
     }
-  });
+});

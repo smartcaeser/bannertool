@@ -12,6 +12,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	fontStyleBold : false,
 	fontStyleItalic : false,
 	fontStyleUnderline : false,
+	runMode : false,
     previewMode : false,
     previewType : '',
     positions : [],
@@ -22,6 +23,8 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	enabled : true,
 	sortOrder : 0,
 	angle : 0,
+	transitionIn : {},
+	transitionOut : {},
     transition : {
       "in" : {
         type : 'none',
@@ -124,22 +127,61 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
       }
       this.preview($type);
     },
-    preview : function($type){
-      this.previewMode = true;
-      this.previewType = $type;
-      if(SxTextTransition[this.transition[$type].type]){
-        SxTextTransition[this.transition[$type].type][$type].init(this , this.transition[$type]);
-      }
+    preview : function($type , $val){
+		this.runMode = false;
+		this.previewMode = true;
+		this.previewType = $type;
+		this.previewOpts = $val;
+		if(SxTextTransition[$val.type]){
+			SxTextTransition[$val.type][$type].init(this , $val);
+		}
+		
+    },
+	run : function(){
+		this.previewMode = true;
+		this.runMode = false;
+		
+		this.previewType = 'in';
+		this.previewOpts = this.transitionIn;
+		
+		if(SxTextTransition[this.transitionIn.type]){
+			SxTextTransition[this.transitionIn.type]['in'].init(this , this.transitionIn);
+		}
+		if(this.transitionOut.type){
+			if(SxTextTransition[this.transitionOut.type]){
+				var $this = this;
+				setTimeout(function(){
+					$this.previewType = 'out';
+					$this.previewOpts = $this.transitionOut;
+					SxTextTransition[$this.transitionOut.type]['out'].init($this , $this.transitionOut);
+				},parseFloat(this.transitionOut.delay) * 1000);
+			}
+		}
+		
+		
+		
     },
     _render: function(ctx) {
 		ctx.font = this.fontSize + ' ' + this.fontFamily;
 		ctx.fillStyle = this.fontColor;
 		if(this.previewMode){
-			if(SxTextTransition[this.transition[this.previewType].type]){
-				SxTextTransition[this.transition[this.previewType].type][this.previewType].render(this);
+			if(SxTextTransition[this.previewOpts.type]){
+				SxTextTransition[this.previewOpts.type][this.previewType].render(this);
 			} else {
 				ctx.fillText(this.text, -this.width / 2,parseInt(this.fontSize)/3);
 			}
+		} else if(this.runMode){
+			if(this.transitionIn.type){
+				if(SxTextTransition[this.transitionIn.type]){
+					SxTextTransition[this.transitionIn.type]['in'].render(this);
+				}
+			}
+			if(this.transitionOut.type){
+				if(SxTextTransition[this.transitionOut.type]){
+					SxTextTransition[this.transitionOut.type]['out'].render(this);
+				}
+			}
+			
 		} else {
 			ctx.fillText(this.text, -this.width / 2,parseInt(this.fontSize)/3);
 		}

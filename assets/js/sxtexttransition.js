@@ -83,7 +83,7 @@ SxTextTransition.anim1 = {
 						$this.fire('text:animated');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , $i * ($duration - ($duration/2))) ;
 		})($this.positions[j],j);
 		
         
@@ -189,7 +189,7 @@ SxTextTransition.anim2 = {
 						$this.fire('text:animated');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , $i * ($duration - ($duration/2))) ;
 		})($this.positions[j],j);
 		
         
@@ -275,7 +275,7 @@ SxTextTransition.anim3 = {
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
           $char = $this.text.charAt(i);
-          $this.positions.push({x: $w , y: 0 , opacity : 0 , rotation : 0 , char : $char});
+          $this.positions.push({x: $w , y: 0 , opacity : 1 , rotation : 0 , char : $char});
           $w += $this.ctx.measureText($char).width;
       }
 	  
@@ -304,8 +304,8 @@ SxTextTransition.anim3 = {
 					}
 				});
 				fabric.util.animate({
-					startValue: 0,
-					endValue: 1,
+					startValue: 1,
+					endValue: 0,
 					duration: $duration + ($duration/2),
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
@@ -313,7 +313,7 @@ SxTextTransition.anim3 = {
 						$this.fire('text:animated');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , $i * ($duration - ($duration/2))) ;
 		})($this.positions[j],j);
 		
       }
@@ -419,7 +419,7 @@ SxTextTransition.anim4 = {
 						$this.fire('text:animated');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , $i * ($duration - ($duration/2))) ;
 		})($this.positions[j],j);
 		
       }

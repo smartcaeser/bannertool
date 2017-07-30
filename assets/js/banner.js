@@ -100,6 +100,24 @@ Banner.prototype.updateProp = function($prop,$val){
 	this.canvas.setDimensions({width:this.bannerWidth,height:this.bannerHeight});
 	this.canvas.renderAll();
 };
+Banner.prototype.updateSelectedObject = function($prop,$val){
+    var activeObject = this.canvas.getActiveObject()
+	if (activeObject) {
+        this.layers[activeObject.id].set($prop , $val);
+		if($prop == 'sortOrder'){
+			this.canvas.moveTo(activeObject,$val);
+		}
+		this.canvas.trigger('object:modified', {target: this.layers[activeObject.id]});
+		this.canvas.renderAll();
+    }
+};
+Banner.prototype.previewTransitionToSelectedObject = function($type,$val){
+    var activeObject = this.canvas.getActiveObject()
+	if (activeObject) {
+        this.layers[activeObject.id].preview($type , $val);
+		this.canvas.renderAll();
+    }
+};
 Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
     var activeObject = this.canvas.setActiveObject(this.layers[$layerId]);
 	if (activeObject) {
@@ -113,6 +131,11 @@ Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
 };
 Banner.prototype.selectLayer = function($layerId){
     this.canvas.setActiveObject(this.layers[$layerId]);
+};
+Banner.prototype.run = function(){
+    for (var $layerId in this.layers) {
+		this.layers[$layerId].run();
+	}
 };
 Banner.prototype.load = function($data){
     

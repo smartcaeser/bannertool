@@ -8,7 +8,6 @@ SxImageTransition.anim1 = {
       for(var y = 0 ; y < $opts.rows ; y++){
         for(var x = 0 ; x < $opts.cols ; x++){
           $this.positions.push({x: -($this.width / 2) + (x * $this.tileWidth) , y: -($this.height / 2) + (y * $this.tileHeight) , width : 0 });
-          
         }
       }
 	  
@@ -76,9 +75,8 @@ SxImageTransition.anim1 = {
 						$this.fire('image:loaded');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , $i * ($duration - ($duration/2))) ;
 		})($this.positions[i],i);
-        
       }
     },
     render : function($this){
@@ -193,7 +191,7 @@ SxImageTransition.anim2 = {
 						$this.fire('image:loaded');
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , $i * ($duration - ($duration/2))) ;
 		})($this.positions[i],i);
         
       }
@@ -294,7 +292,7 @@ SxImageTransition.anim3 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , $i * ($duration - ($duration/2))) ;
 		})($this.positions[i],i);
 		
       }
@@ -417,7 +415,7 @@ SxImageTransition.anim4 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , $i * ($duration - ($duration/2))) ;
 		})($this.positions[i],i);
 		
       }
