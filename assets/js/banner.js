@@ -30,26 +30,9 @@ Banner.prototype.init = function($model){
 	}
 	function selectObject() {
 		return function(e) {
-		  if (e.target && e.target.id) {
-		   switch(e.target.get('type')){
-			 case 'sximage':
-			   handleImageEditor(e.target);
-			   break;
-			 case 'sxtext':
-			   handleTextEditor(e.target);
-			   break;
-		   }
-		  } else {
-			disactiveEditor();
-		  }
+            $this.dispatchEvent( { type: 'select', item: e.target});
 		};
 	}
-	document.addEventListener("keydown",function(e){
-	  if(e.keyCode == 46){
-		$this.deleteObjects();
-		disactiveEditor();
-	  }
-	});
 };
 Banner.prototype.addText = function($model){
 	var $text = new SxText($model);
@@ -166,5 +149,5 @@ Banner.prototype.getBannerModel = function(){
 		"originalBannerHeight" : this.originalBannerHeight,
 		}  , "layers" : this.canvas.toDatalessJSON()});
 };
-
+Object.assign(Banner.prototype, EventDispatcher.prototype);
 

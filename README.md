@@ -2,6 +2,7 @@
 ## Usage
 ```html
 <script src="assets/js/fabric.js"></script>
+<script src="assets/js/eventdispatcher.js"></script>
 <script src="assets/js/sximage.js"></script>
 <script src="assets/js/sximagetransition.js"></script>
 <script src="assets/js/sxtext.js"></script>
@@ -25,6 +26,26 @@
 - `selectLayer($layerId)` Select Object on banner stage by `layer id`
 - `updateSelectedObject($prop,$val)` Update properties for selected object on banner stage
 - `previewTransitionToSelectedObject($type,$val)` Make an animation preview for selected object on banner stage , `$type:string(in|out)` 
+
+## Events
+- `addEventListener('select',function(e){ console.log(e.item);});` Event listener on select text or image on the stage return in function in `e.item`
+```html
+	// Please check Example assets/js/custom.js
+	banner.addEventListener("select",function(e){
+        if (e.item) {  
+           switch(e.item.layerType){
+             case 'image':
+               handleImageEditor(e.item);
+               break;
+             case 'text':
+               handleTextEditor(e.item);
+               break;
+           }
+        } else {
+            disactiveEditor();
+        }
+    });
+```
 
 ## Make Update On Banner 
 please check example in `assets/js/bgHandler.js`
