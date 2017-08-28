@@ -140,14 +140,14 @@ Banner.prototype.load = function($data){
 };
 Banner.prototype.getBannerModel = function(){
 	
-    return JSON.stringify({"banner" : {
+    return {"banner" : {
 		"bannerBackgroundColor" : this.bannerBackgroundColor,
 		"bannerWidth" : this.bannerWidth,
 		"bannerHeight" : this.bannerHeight,
 		"bannerZoom" : this.bannerZoom,
 		"originalBannerWidth" : this.originalBannerWidth,
 		"originalBannerHeight" : this.originalBannerHeight,
-		}  , "layers" : this.canvas.toDatalessJSON()});
+		}  , "layers" : this.canvas.toDatalessJSON()};
 };
 Object.assign(Banner.prototype, EventDispatcher.prototype);
 
