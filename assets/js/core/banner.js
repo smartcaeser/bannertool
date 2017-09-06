@@ -150,7 +150,7 @@ Banner.prototype.getBannerModel = function(){
 		"bannerZoom" : this.bannerZoom,
 		"originalBannerWidth" : this.originalBannerWidth,
 		"originalBannerHeight" : this.originalBannerHeight,
-		"layers" : this.canvas.toDatalessJSON()
+		"layers" : this.canvas.toDatalessJSON().objects
 		};
 };
 Object.assign(Banner.prototype, EventDispatcher.prototype);
