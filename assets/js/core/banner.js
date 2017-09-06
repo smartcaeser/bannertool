@@ -91,6 +91,9 @@ Banner.prototype.updateSelectedObject = function($prop,$val){
 		if($prop == 'sortOrder'){
 			this.canvas.moveTo(activeObject,$val);
 		}
+		if($prop == 'enabled'){
+			this.layers[activeObject.id].set('selectable' , $val);
+		}
 		this.canvas.trigger('object:modified', {target: this.layers[activeObject.id]});
 		this.canvas.renderAll();
     }
@@ -109,12 +112,19 @@ Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
 		if($prop == 'sortOrder'){
 			this.canvas.moveTo(activeObject,$val);
 		}
+		if($prop == 'enabled'){
+			this.layers[$layerId].set('selectable' , $val);
+		}
 		this.canvas.trigger('object:modified', {target: this.layers[$layerId]});
 		this.canvas.renderAll();
     }
 };
 Banner.prototype.selectLayer = function($layerId){
     this.canvas.setActiveObject(this.layers[$layerId]);
+};
+Banner.prototype.unSelectLayers = function(){
+	this.canvas.discardActiveObject();
+	this.canvas.renderAll();
 };
 // run full preview
 Banner.prototype.run = function(){
