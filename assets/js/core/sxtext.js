@@ -67,7 +67,6 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     initialize: function(options) {
 		this.callSuper('initialize', options);
 		this.ctx = this.context();
-		this.id = 'txt' + (new Date()).getTime();
 		this.setText(options);
 		if(options.resizable === false){
 			this.setControlsVisibility({
