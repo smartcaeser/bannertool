@@ -125,8 +125,11 @@ Banner.prototype.run = function(){
 Banner.prototype.load = function($data){
     var $this = this;
 	this.layers = [];
-	for(var $bannerOpt in $data.banner){
-		this.updateProp($bannerOpt , $data.banner[$bannerOpt]);
+	for(var $bannerOpt in $data){
+		if($bannerOpt != "layers"){
+			this.updateProp($bannerOpt , $data[$bannerOpt]);
+		}
+		
 	}
 	
 	for(var $layer in $data.layers.objects){
@@ -140,14 +143,15 @@ Banner.prototype.load = function($data){
 };
 Banner.prototype.getBannerModel = function(){
 	
-    return {"banner" : {
+    return {
 		"bannerBackgroundColor" : this.bannerBackgroundColor,
 		"bannerWidth" : this.bannerWidth,
 		"bannerHeight" : this.bannerHeight,
 		"bannerZoom" : this.bannerZoom,
 		"originalBannerWidth" : this.originalBannerWidth,
 		"originalBannerHeight" : this.originalBannerHeight,
-		}  , "layers" : this.canvas.toDatalessJSON()};
+		"layers" : this.canvas.toDatalessJSON()
+		};
 };
 Object.assign(Banner.prototype, EventDispatcher.prototype);
 
