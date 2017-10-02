@@ -4,6 +4,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     id:'000',
     originX: 'left',
     originY: 'top',
+    name: '',
     positions : [],
 	runMode : false,
     previewMode : false,
@@ -49,6 +50,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
         id : this.get('id'),
         type : this.get('type'),
         imageUrl : this.get('imageUrl'),
+		name : this.get('name'),
 		aspectRatio : this.get('aspectRatio'),
 		resizable : this.get('resizable'),
 		layerType : this.get('layerType'),
@@ -72,11 +74,27 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 				tr: false,
 				mtr: false
 			});
+		} else {
+			this.setControlsVisibility({
+				mt: true, 
+				mb: true, 
+				ml: true, 
+				mr: true, 
+				bl: true,
+				br: true, 
+				tl: true, 
+				tr: true,
+				mtr: true
+			});
 		}
 		if(options.aspectRatio === true){
 			this.lockUniScaling = true;
+		} else {
+			this.lockUniScaling = false;
 		}
-		if(options.enabled === false){
+		if(options.enabled === true){
+			this.selectable = true;
+		} else {
 			this.selectable = false;
 		}
 		this.on('event:modified',function(){
@@ -97,11 +115,27 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 				tr: false,
 				mtr: false
 			});
+		} else {
+			this.setControlsVisibility({
+				mt: true, 
+				mb: true, 
+				ml: true, 
+				mr: true, 
+				bl: true,
+				br: true, 
+				tl: true, 
+				tr: true,
+				mtr: true
+			});
 		}
 		if(this.aspectRatio === true){
 			this.lockUniScaling = true;
+		} else {
+			this.lockUniScaling = false;
 		}
-		if(this.enabled === false){
+		if(this.enabled === true){
+			this.selectable = true;
+		} else {
 			this.selectable = false;
 		}
 	},

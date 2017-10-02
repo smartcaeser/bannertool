@@ -9,6 +9,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     fontFamily : '',
     fontSize : '',
     fontColor : '',
+	name : '',
 	fontStyleBold : false,
 	fontStyleItalic : false,
 	fontStyleUnderline : false,
@@ -55,6 +56,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
         fontSize : this.get('fontSize'),
         fontColor : this.get('fontColor'),
 		fontStyleBold : this.get('fontStyleBold'),
+		name : this.get('name'),
 		fontStyleItalic : this.get('fontStyleItalic'),
 		fontStyleUnderline : this.get('fontStyleUnderline'),
 		aspectRatio : this.get('aspectRatio'),
@@ -80,11 +82,27 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 				tr: false,
 				mtr: false
 			});
+		} else {
+			this.setControlsVisibility({
+				mt: true, 
+				mb: true, 
+				ml: true, 
+				mr: true, 
+				bl: true,
+				br: true, 
+				tl: true, 
+				tr: true,
+				mtr: true
+			});
 		}
 		if(options.aspectRatio === true){
 			this.lockUniScaling = true;
+		} else {
+			this.lockUniScaling = false;
 		}
-		if(options.enabled === false){
+		if(options.enabled === true){
+			this.selectable = true;
+		} else {
 			this.selectable = false;
 		}
       
@@ -103,21 +121,44 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 				tr: false,
 				mtr: false
 			});
+		} else {
+			this.setControlsVisibility({
+				mt: true, 
+				mb: true, 
+				ml: true, 
+				mr: true, 
+				bl: true,
+				br: true, 
+				tl: true, 
+				tr: true,
+				mtr: true
+			});
 		}
 		if(this.aspectRatio === true){
 			this.lockUniScaling = true;
+		} else {
+			this.lockUniScaling = false;
 		}
-		if(this.enabled === false){
+		if(this.enabled === true){
+			this.selectable = true;
+		} else {
 			this.selectable = false;
 		}
 	},
     setText : function(options){
+		var exstr = '';
+		if(options.fontStyleBold === true){
+			exstr += 'bold ';
+		}
+		if(options.fontStyleItalic === true){
+			exstr += 'italic ';
+		}
       this.text = options.text;
       this.length = this.text.length;
       this.fontFamily = options.fontFamily;
       this.fontSize = options.fontSize;
       this.fontColor = options.fontColor;
-      this.ctx.font = this.fontSize + ' ' + this.fontFamily;
+      this.ctx.font = exstr + this.fontSize + ' ' + this.fontFamily;
       this.width = this.ctx.measureText(this.text).width;
       this.height = parseInt(this.fontSize);
     },
@@ -163,8 +204,45 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		
 		
     },
+	underline: function(context,text,x,y,color,textSize,align){
+		var textWidth =context.measureText(text).width;
+		var startX = 0;
+		var startY = y+(parseInt(textSize)/2);
+		var endX = 0;
+		var endY = startY;
+		var underlineHeight = parseInt(textSize)/15;
+
+		if(underlineHeight < 1){
+			underlineHeight = 1;
+		}
+
+		context.beginPath();
+		if(align == "center"){
+		startX = x - (textWidth/2);
+		endX = x + (textWidth/2);
+		}else if(align == "right"){
+		startX = x-textWidth;
+		endX = x;
+		}else{
+		startX = x;
+		endX = x + textWidth;
+  }
+  
+  context.strokeStyle = color;
+  context.lineWidth = underlineHeight;
+  context.moveTo(startX,startY);
+  context.lineTo(endX,endY);
+  context.stroke();
+	},
     _render: function(ctx) {
-		ctx.font = this.fontSize + ' ' + this.fontFamily;
+		var exstr = '';
+		if(this.fontStyleBold === true){
+			exstr += 'bold ';
+		}
+		if(this.fontStyleItalic === true){
+			exstr += 'italic ';
+		}
+		ctx.font = exstr + this.fontSize + ' ' + this.fontFamily;
 		ctx.fillStyle = this.fontColor;
 		if(this.previewMode){
 			if(SxTextTransition[this.previewOpts.type]){
@@ -186,6 +264,9 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			
 		} else {
 			ctx.fillText(this.text, -this.width / 2,parseInt(this.fontSize)/3);
+		}
+		if(this.fontStyleUnderline === true){
+			this.underline(ctx , this.text , 0 , 0 , this.fontColor , this.fontSize , 'center');
 		}
     }
   });

@@ -79,12 +79,17 @@ Banner.prototype.deleteObject = function($id){
 	delete this.layers[$id];
 };
 Banner.prototype.updateProp = function($prop,$val){
+	console.groupCollapsed("Update Prop");
+	console.log($prop,$val);
+	console.groupEnd();
+	
     this[$prop] = $val;
 	this.canvas.setBackgroundColor(this.bannerBackgroundColor);
 	this.canvas.setDimensions({width:this.bannerWidth,height:this.bannerHeight});
 	this.canvas.renderAll();
 };
 Banner.prototype.updateSelectedObject = function($prop,$val){
+	
     var activeObject = this.canvas.getActiveObject()
 	if (activeObject) {
         this.layers[activeObject.id].set($prop , $val);
@@ -106,6 +111,10 @@ Banner.prototype.previewTransitionToSelectedObject = function($type,$val){
     }
 };
 Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
+	console.groupCollapsed("Update Layer Prop");
+	console.log($layerId,$prop,$val);
+	console.groupEnd();
+	
     var activeObject = this.canvas.setActiveObject(this.layers[$layerId]);
 	if (activeObject) {
         this.layers[$layerId].set($prop , $val);
