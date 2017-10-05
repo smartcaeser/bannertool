@@ -13,8 +13,8 @@
 </script>
 ```
 ## Main Methods
-- `addImage($model)` Adding Image layer as `Object` include `id` , `top:int` , `left:int` , `imageUrl:string` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `sortOrder:int`
-- `addText($model)` Adding text layer as `Object` include `id` , `top:int` , `left:int` , `text:string` , `fontFamily:string` , `fontSize:int` , `fontColor:string` , `fontStyleBold:true|false` , `fontStyleItalic:true|false` , `fontStyleUnderline:true|false` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `sortOrder:int`
+- `addImage($model)` Adding Image layer as `Object` include `id` , `top:int` , `left:int` , `imageUrl:string` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
+- `addText($model)` Adding text layer as `Object` include `id` , `top:int` , `left:int` , `text:string` , `fontFamily:string` , `fontSize:int` , `fontColor:string` , `fontStyleBold:true|false` , `fontStyleItalic:true|false` , `fontStyleUnderline:true|false` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
 - `updateProp($prop,$val)` Update Banner properties such as `bannerBackgroundColor:string`  , `bannerWidth:int` , `bannerHeight:int` , `bannerZoom:int` , `originalBannerWidth:int` , `originalBannerHeight`
 - `updateLayerProp($layerId,$prop,$val)` Update layer properties according to layer type `image|text`
 - `deleteObject($layerId)` Remove object out of banner stage by layer id
