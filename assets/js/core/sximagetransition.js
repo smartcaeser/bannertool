@@ -1,6 +1,7 @@
 var SxImageTransition = {};
 SxImageTransition.anim1 = {
-  "in" : {
+	"name" : "Animation 1",
+	"in" : {
     init : function($this , $opts){
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
@@ -98,7 +99,8 @@ SxImageTransition.anim1 = {
 };
 
 SxImageTransition.anim2 = {
-  "in" : {
+	"name" : "Animation 2",
+	"in" : {
     init : function($this , $opts){
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
@@ -215,7 +217,8 @@ SxImageTransition.anim2 = {
 };
 
 SxImageTransition.anim3 = {
-  "in" : {
+	"name" : "Animation 3",
+	"in" : {
     init : function($this , $opts){
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
@@ -317,7 +320,8 @@ SxImageTransition.anim3 = {
 };
 
 SxImageTransition.anim4 = {
-  "in" : {
+	"name" : "Animation 4",
+	"in" : {
     init : function($this , $opts){
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);

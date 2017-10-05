@@ -21,6 +21,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	resizable : true,
 	aspectRatio : false,
 	imageUrl : '',
+	readonly : false,
 	enabled : true,
 	sortOrder : 0,
 	angle : 0,
@@ -62,6 +63,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		aspectRatio : this.get('aspectRatio'),
 		resizable : this.get('resizable'),
 		layerType : this.get('layerType'),
+		readonly : this.get('readonly'),
 		enabled : this.get('enabled'),
 		sortOrder : this.get('sortOrder')
       });
@@ -100,12 +102,21 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		} else {
 			this.lockUniScaling = false;
 		}
-		if(options.enabled === true){
+		
+		if(options.readonly === true){
+			this.selectable = false;
+		} else {
 			this.selectable = true;
+		}
+		
+		if(options.enabled === true){
+			if(this.readonly === false){
+				this.selectable = true;
+			}
 		} else {
 			this.selectable = false;
 		}
-      
+		
     },
 	refresh : function(){
 		this.setText(this);
@@ -139,8 +150,15 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		} else {
 			this.lockUniScaling = false;
 		}
-		if(this.enabled === true){
+		if(this.readonly === true){
+			this.selectable = false;
+		} else {
 			this.selectable = true;
+		}
+		if(this.enabled === true){
+			if(this.readonly === false){
+				this.selectable = true;
+			}
 		} else {
 			this.selectable = false;
 		}
@@ -235,6 +253,8 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
   context.stroke();
 	},
     _render: function(ctx) {
+		
+		if(this.enabled === false) return;
 		var exstr = '';
 		if(this.fontStyleBold === true){
 			exstr += 'bold ';

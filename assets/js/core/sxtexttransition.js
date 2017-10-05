@@ -1,6 +1,7 @@
 var SxTextTransition = {};
 SxTextTransition.anim1 = {
-  "in": {
+	"name" : "Animation 1",
+	"in": {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -105,7 +106,8 @@ SxTextTransition.anim1 = {
 
 
 SxTextTransition.anim2 = {
-  "in": {
+	"name" : "Animation 2",
+	"in": {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -208,7 +210,8 @@ SxTextTransition.anim2 = {
 };
 
 SxTextTransition.anim3 = {
-  "in": {
+	"name" : "Animation 3",
+	"in": {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
@@ -332,7 +335,8 @@ SxTextTransition.anim3 = {
 };
 
 SxTextTransition.anim4 = {
-  "in": {
+	"name" : "Animation 4",
+	"in": {
     init : function($this , $opts){
       var $w = 0 , $char = '' , $lw = 0;
       $this.positions = [];

@@ -96,7 +96,7 @@ Banner.prototype.updateSelectedObject = function($prop,$val){
 		if($prop == 'sortOrder'){
 			this.canvas.moveTo(activeObject,$val);
 		}
-		if($prop == 'enabled'){
+		if($prop == 'readonly'){
 			this.layers[activeObject.id].set('selectable' , $val);
 		}
 		this.canvas.trigger('object:modified', {target: this.layers[activeObject.id]});
@@ -121,7 +121,7 @@ Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
 		if($prop == 'sortOrder'){
 			this.canvas.moveTo(activeObject,$val);
 		}
-		if($prop == 'enabled'){
+		if($prop == 'readonly'){
 			this.layers[$layerId].set('selectable' , $val);
 		}
 		this.canvas.trigger('object:modified', {target: this.layers[$layerId]});
@@ -134,6 +134,27 @@ Banner.prototype.selectLayer = function($layerId){
 Banner.prototype.unSelectLayers = function(){
 	this.canvas.discardActiveObject();
 	this.canvas.renderAll();
+};
+Banner.prototype.getAnimationsList = function($type){
+	var list = [];
+	switch($type){
+		case 'text':
+		list =this.getAnimations(SxTextTransition);
+		break;
+		
+		case 'image':
+		list =this.getAnimations(SxImageTransition);
+		break;
+	}
+	return list;
+};
+Banner.prototype.getAnimations = function($type){
+	var ids = Object.keys($type) ,
+	total_ids = ids.length,anims = [];
+	for(var i = 0 ; i < total_ids ; i++){
+		anims.push({"key": ids[i] ,"value":$type[ids[i]].name});
+	}
+	return anims;
 };
 // run full preview
 Banner.prototype.run = function(){
