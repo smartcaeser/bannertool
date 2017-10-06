@@ -25,7 +25,7 @@
 ## Useful Methods
 - `selectLayer($layerId)` Select Object on banner stage by `layer id`
 - `updateSelectedObject($prop,$val)` Update properties for selected object on banner stage
-- `getAnimationsList('text'|'image')` Return array hold available animations for text and image . ex:banner.getSettings().getAnimationsList('image'); return [{"key":"anim1","value" : "Animations"}] 
+- `settings() Return object with all available setting like `banner.getSettings().animations.image|banner.getSettings().animations.text`
 - `previewTransitionToSelectedObject($type,$val)` Make an animation preview for selected object on banner stage , `$type:string(in|out)` 
 
 ## Events
