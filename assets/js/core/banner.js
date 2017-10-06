@@ -135,18 +135,23 @@ Banner.prototype.unSelectLayers = function(){
 	this.canvas.discardActiveObject();
 	this.canvas.renderAll();
 };
-Banner.prototype.getAnimationsList = function($type){
-	var list = [];
-	switch($type){
-		case 'text':
-		list =this.getAnimations(SxTextTransition);
-		break;
-		
-		case 'image':
-		list =this.getAnimations(SxImageTransition);
-		break;
-	}
-	return list;
+Banner.prototype.getSettings = function(){
+	var $this = this;
+	return {
+		getAnimationsList : function($type){
+			var list = [];
+			switch($type){
+				case 'text':
+				list = $this.getAnimations(SxTextTransition);
+				break;
+				
+				case 'image':
+				list = $this.getAnimations(SxImageTransition);
+				break;
+			}
+			return list;
+		}
+	};
 };
 Banner.prototype.getAnimations = function($type){
 	var ids = Object.keys($type) ,
