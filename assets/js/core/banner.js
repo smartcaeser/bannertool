@@ -48,6 +48,13 @@ Banner.prototype.addImage = function($model){
 	this.layers[$image.id] = $image;
 	this.canvas.renderAll();
 };
+Banner.prototype.addVideo = function($model){
+	var $video = new SxVideo($model);
+	$video.on("image:loaded", this.canvas.renderAll.bind(this.canvas));
+	this.canvas.add($video);
+	this.layers[$video.id] = $video;
+	this.canvas.renderAll();
+};
 Banner.prototype.getActiveObject = function(){
     var obj = this.canvas.getActiveObject();
 	if (!obj) return;
@@ -104,7 +111,7 @@ Banner.prototype.updateSelectedObject = function($prop,$val){
     }
 };
 Banner.prototype.previewTransitionToSelectedObject = function($type,$val){
-    var activeObject = this.canvas.getActiveObject()
+    var activeObject = this.canvas.getActiveObject();
 	if (activeObject) {
         this.layers[activeObject.id].preview($type , $val);
 		this.canvas.renderAll();
@@ -140,7 +147,8 @@ Banner.prototype.getSettings = function(){
 	return {
 		animations : {
 			image : this.getAnimationsList('image'),
-			text : this.getAnimationsList('text')
+			text : this.getAnimationsList('text'),
+			video : this.getAnimationsList('video')
 		}
 		
 	};
@@ -154,6 +162,10 @@ Banner.prototype.getAnimationsList = function($type){
 		
 		case 'image':
 		list = this.getAnimations(SxImageTransition);
+		break;
+		
+		case 'video':
+		list = this.getAnimations(SxVideoTransition);
 		break;
 	}
 	return list;
@@ -187,6 +199,8 @@ Banner.prototype.load = function($data){
 			this.addImage($data.layers.objects[$layer]);
 		} else if($data.layers.objects[$layer].type == 'sxtext'){
 			this.addText($data.layers.objects[$layer]);
+		} else if($data.layers.objects[$layer].type == 'sxvideo'){
+			this.addVideo($data.layers.objects[$layer]);
 		}
 	}
 	

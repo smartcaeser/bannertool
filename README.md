@@ -7,6 +7,8 @@
 <script src="assets/js/sximagetransition.js"></script>
 <script src="assets/js/sxtext.js"></script>
 <script src="assets/js/sxtexttransition.js"></script>
+<script src="assets/js/sxvideo.js"></script>
+<script src="assets/js/sxvideotransition.js"></script>
 <script src="assets/js/banner.js"></script>
 <script>
 	var banner = new Banner("canvas"); // id of canvas
@@ -14,6 +16,7 @@
 ```
 ## Main Methods
 - `addImage($model)` Adding Image layer as `Object` include `id` , `top:int` , `left:int` , `imageUrl:string` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
+- `addVideo($model)` Adding Video layer as `Object` include `id` , `top:int` , `left:int` , `videoUrl:string` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text|video` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
 - `addText($model)` Adding text layer as `Object` include `id` , `top:int` , `left:int` , `text:string` , `fontFamily:string` , `fontSize:int` , `fontColor:string` , `fontStyleBold:true|false` , `fontStyleItalic:true|false` , `fontStyleUnderline:true|false` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
 - `updateProp($prop,$val)` Update Banner properties such as `bannerBackgroundColor:string`  , `bannerWidth:int` , `bannerHeight:int` , `bannerZoom:int` , `originalBannerWidth:int` , `originalBannerHeight`
 - `updateLayerProp($layerId,$prop,$val)` Update layer properties according to layer type `image|text`
@@ -40,6 +43,9 @@
                break;
              case 'text':
                handleTextEditor(e.item);
+               break;
+			 case 'video':
+               handleVideoEditor(e.item);
                break;
            }
         } else {

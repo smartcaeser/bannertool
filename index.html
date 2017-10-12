@@ -45,6 +45,18 @@
               </button>
             </div>
           </div>
+		  <div class="accordion">
+            <h1>
+                Video
+            </h1>
+            <div class="accordion-body">
+              <label>Video Url</label>
+              <input type="text" name="video_url" value="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4">
+              <button id="add_video_btn">
+                Add Video
+              </button>
+            </div>
+          </div>
           <div class="accordion">
             <h1>
                 Text
@@ -290,6 +302,109 @@
                   </button>
                 </div>
               </div>
+			  <div id="sxvideo" class="trans-container">
+                <button class="tab_btn active" id="vid_build_in_btn" data-target="vid_build_in">
+                  Build In
+                </button>
+                <button class="tab_btn" id="vid_build_out_btn" data-target="vid_build_out">
+                  Build Out
+                </button>
+                <div id="vid_build_in" class="tab_content active">
+                  <label>Animation Type</label>
+                  <select id="vid-transition-type-in">
+                    <option value="none">None</option>
+                    <option value="anim1">Animation 1</option>
+                    <option value="anim2">Animation 2</option>
+                    <option value="anim3">Animation 3</option>
+                    <option value="anim4">Animation 4</option>
+                  </select>
+                  <label>Easing</label>
+                  <select id="vid-easing-in">
+                    <option value="Expo">Expo</option>
+                    <option value="Cubic">Cubic</option>
+                    <option value="Quad">Quad</option>
+                    <option value="Quart">Quart</option>
+                    <option value="Sine">Sine</option>
+                    <option value="Circ">Circ</option>
+                    <option value="Back">Back</option>
+                    <option value="Elastic">Elastic</option>
+                    <option value="Bounce">Bounce</option>
+                  </select>
+                   <label>Easing Type</label>
+                  <select id="vid-easing-type-in">
+                    <option value="easeIn">easeIn</option>
+                    <option value="easeOut">easeOut</option>
+                    <option value="easeInOut">easeInOut</option>
+                  </select>
+                  <div class="trans-options-extra">
+                    <label>Cols</label>
+                    <input type="text" name="vid_cols_in" value="1">
+                    <label>Rows</label>
+                    <input type="text" name="vid_rows_in" value="1">
+                  </div>
+                  <div class="trans-options">
+                    <label>Duration (Sec)</label>
+                    <input type="text" name="vid_duration_in" value="1">
+                    <label>Delay (Sec)</label>
+                    <input type="text" name="vid_delay_in" value="0">
+                  </div>
+
+                  <button id="vid_preview_btn_in">
+                    Preview
+                  </button>
+				  <button id="vid_apply_btn_in">
+                    Apply
+                  </button>
+                </div>
+                <div id="vid_build_out" class="tab_content">
+                  <label>Animation Type</label>
+                  <select id="vid-transition-type-out">
+                    <option value="none">None</option>
+                    <option value="anim1">Animation 1</option>
+                    <option value="anim2">Animation 2</option>
+                    <option value="anim3">Animation 3</option>
+                    <option value="anim4">Animation 4</option>
+                  </select>
+                  <label>Easing</label>
+                  <select id="vid-easing-out">
+                    <option value="Expo">Expo</option>
+                    <option value="Cubic">Cubic</option>
+                    <option value="Quad">Quad</option>
+                    <option value="Quart">Quart</option>
+                    <option value="Sine">Sine</option>
+                    <option value="Circ">Circ</option>
+                    <option value="Back">Back</option>
+                    <option value="Elastic">Elastic</option>
+                    <option value="Bounce">Bounce</option>
+                  </select>
+                   <label>Easing Type</label>
+                  <select id="vid-easing-type-out">
+                    <option value="easeIn">easeIn</option>
+                    <option value="easeOut">easeOut</option>
+                    <option value="easeInOut">easeInOut</option>
+                  </select>
+                  <div class="trans-options-extra">
+                    <label>Cols</label>
+                    <input type="text" name="vid_cols_out" value="1">
+                    <label>Rows</label>
+                    <input type="text" name="vid_rows_out" value="1">
+                  </div>
+                  <div class="trans-options">
+                    <label>Duration (Sec)</label>
+                    <input type="text" name="vid_duration_out" value="1">
+                    <label>Delay (Sec)</label>
+                    <input type="text" name="vid_delay_out" value="0">
+                  </div>
+
+                  <button id="vid_preview_btn_out">
+                    Preview
+                  </button>
+				  <button id="vid_apply_btn_out">
+                    Apply
+                  </button>
+                </div>
+                
+              </div>
             </div>
           </div>
         </div>
@@ -300,6 +415,8 @@
 		<script src="assets/js/core/sximagetransition.js"></script>
 		<script src="assets/js/core/sxtext.js"></script>
 		<script src="assets/js/core/sxtexttransition.js"></script>
+		<script src="assets/js/core/sxvideo.js"></script>
+		<script src="assets/js/core/sxvideotransition.js"></script>
 		<script src="assets/js/core/banner.js"></script>
 		<!--/Main Files-->
 		 
@@ -307,6 +424,7 @@
 		<script src="assets/js/controls.js"></script>
 		<script src="assets/js/bgHandler.js"></script>
 		<script src="assets/js/imgHandler.js"></script>
+		<script src="assets/js/vidHandler.js"></script>
 		<script src="assets/js/txtHandler.js"></script>
 		<script src="assets/js/tools-animation.js"></script>
 		 
