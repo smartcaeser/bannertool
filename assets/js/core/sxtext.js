@@ -220,9 +220,6 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 				},parseFloat(this.transitionOut.delay) * 1000);
 			}
 		}
-		
-		
-		
     },
 	underline: function(context,text,x,y,color,textSize,align){
 		var textWidth = this.finalWidth;
@@ -254,29 +251,29 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		context.lineTo(endX,endY);
 		context.stroke();
 	},
-	letterSpacing : function(context, text, x, y, spacing){
-		spacing = parseInt(spacing);
-		var txtWidth = context.measureText(text).width , char = '',wShorter = 0,wChar = 0;
+	_letterSpacing : function($context, $text, $x, $y, $spacing){
+		$spacing = parseInt($spacing);
+		var txtWidth = context.measureText($text).width , $char = '',$wShorter = 0,$wChar = 0;
 		this.finalWidth = 0;
 		this.txtPositions = [];
 		do{
-			char = text.substr(0, 1);
-			text = text.substr(1);
-			context.fillText(char, x, y);
-			this.txtPositions.push({x : x, y : y , char : char});
-			if (text == ""){
-				wShorter = 0;
+			$char = $text.substr(0, 1);
+			$text = $text.substr(1);
+			$context.fillText($char, x, y);
+			this.txtPositions.push({x : $x, y : $y , char : $char});
+			if ($text == ""){
+				$wShorter = 0;
 			} else {
-				wShorter = context.measureText(text).width;
+				$wShorter = context.measureText($text).width;
 			}
-			wChar = txtWidth - wShorter;
-			x += wChar + spacing;
+			$wChar = txtWidth - $wShorter;
+			$x += $wChar + $spacing;
 			
-			this.finalWidth += context.measureText(char).width + spacing;
+			this.finalWidth += context.measureText($char).width + $spacing;
 
-			txtWidth = wShorter;
-		} while (text != "");
-		this.width = this.finalWidth - spacing;
+			txtWidth = $wShorter;
+		} while ($text != "");
+		this.width = this.finalWidth - $spacing;
 	},
     _render: function(ctx) {
 		if(this.enabled === false) return;
@@ -293,7 +290,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			if(SxTextTransition[this.previewOpts.type]){
 				SxTextTransition[this.previewOpts.type][this.previewType].render(this);
 			} else {
-				this.letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
+				this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
 			}
 		} else if(this.runMode){
 			if(this.transitionIn.type){
@@ -308,7 +305,8 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			}
 		} else {
 			console.log(this);
-			this.letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
+			console.log(this._letterSpacing);
+			this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
 		}
 		if(this.fontStyleUnderline === true){
 			this.underline(ctx , this.text , 0 , 0 , this.fontColor , this.fontSize , 'center');
