@@ -253,7 +253,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	},
 	_letterSpacing : function($context, $text, $x, $y, $spacing){
 		$spacing = parseInt($spacing);
-		var txtWidth = context.measureText($text).width , $char = '',$wShorter = 0,$wChar = 0;
+		var txtWidth = $context.measureText($text).width , $char = '',$wShorter = 0,$wChar = 0;
 		this.finalWidth = 0;
 		this.txtPositions = [];
 		do{
@@ -264,12 +264,12 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			if ($text == ""){
 				$wShorter = 0;
 			} else {
-				$wShorter = context.measureText($text).width;
+				$wShorter = $context.measureText($text).width;
 			}
 			$wChar = txtWidth - $wShorter;
 			$x += $wChar + $spacing;
 			
-			this.finalWidth += context.measureText($char).width + $spacing;
+			this.finalWidth += $context.measureText($char).width + $spacing;
 
 			txtWidth = $wShorter;
 		} while ($text != "");
@@ -304,8 +304,6 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 				}
 			}
 		} else {
-			console.log(this);
-			console.log(this._letterSpacing);
 			this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
 		}
 		if(this.fontStyleUnderline === true){
