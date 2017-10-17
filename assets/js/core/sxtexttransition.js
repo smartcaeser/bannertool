@@ -5,10 +5,8 @@ SxTextTransition.anim1 = {
     init : function($this , $opts){
       var $w = 0 , $char = '';
       $this.positions = [];
-      for(var i = 0 ; i < $this.length ; i++){
-          $char = $this.text.charAt(i);
-          $this.positions.push({x: $w , y: 0 , opacity : 0 , scale : 0.2 , char : $char});
-          $w += $this.ctx.measureText($char).width;
+      for(var i = 0 ; i < $this.txtPositions.length ; i++){
+          $this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 0 , scale : 0.2 , char : $this.txtPositions[i].char});
       }
 	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
       for(var j = 0 ; j < $this.length ; j++){
@@ -41,7 +39,7 @@ SxTextTransition.anim1 = {
     render : function($this){
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
-            $this.ctx.translate(-$this.width / 2 + $this.positions[$this.i].x ,parseInt($this.fontSize)/3 + $this.positions[$this.i].y);
+            $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
             $this.ctx.scale($this.positions[$this.i].scale , $this.positions[$this.i].scale);
             $this.ctx.fillText($this.positions[$this.i].char, 0 , 0);
@@ -55,9 +53,7 @@ SxTextTransition.anim1 = {
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
-          $char = $this.text.charAt(i);
-          $this.positions.push({x: $w , y: 0 , opacity : 1 , scale : 1 , char : $char});
-          $w += $this.ctx.measureText($char).width;
+		  $this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 1 , scale : 1 , char : $this.txtPositions[i].char});
       }
 	  
 	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
@@ -93,7 +89,7 @@ SxTextTransition.anim1 = {
     render : function($this){
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
-            $this.ctx.translate(-$this.width / 2 + $this.positions[$this.i].x ,parseInt($this.fontSize)/3 + $this.positions[$this.i].y);
+            $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
             $this.ctx.scale($this.positions[$this.i].scale , $this.positions[$this.i].scale);
             $this.ctx.fillText($this.positions[$this.i].char, 0 , 0);
@@ -112,9 +108,7 @@ SxTextTransition.anim2 = {
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
-          $char = $this.text.charAt(i);
-          $this.positions.push({x: $w , y: 0 , opacity : 0 , char : $char});
-          $w += $this.ctx.measureText($char).width;
+		  $this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 0 , char : $this.txtPositions[i].char});
       }
 	  
 	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
@@ -150,7 +144,7 @@ SxTextTransition.anim2 = {
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
-            $this.ctx.fillText($this.positions[$this.i].char, -$this.width / 2 + $this.positions[$this.i].x ,parseInt($this.fontSize)/3 + $this.positions[$this.i].y);
+            $this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y);
             $this.ctx.restore();
             
       }
@@ -161,9 +155,7 @@ SxTextTransition.anim2 = {
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
-          $char = $this.text.charAt(i);
-          $this.positions.push({x: $w , y: 0 , opacity : 1 , char : $char});
-          $w += $this.ctx.measureText($char).width;
+		  $this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 1, char : $this.txtPositions[i].char});
       }
 	  
 	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
@@ -201,7 +193,7 @@ SxTextTransition.anim2 = {
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
-            $this.ctx.fillText($this.positions[$this.i].char, -$this.width / 2 + $this.positions[$this.i].x ,parseInt($this.fontSize)/3 + $this.positions[$this.i].y);
+            $this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y);
             $this.ctx.restore();
             
       }
@@ -216,9 +208,7 @@ SxTextTransition.anim3 = {
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
-          $char = $this.text.charAt(i);
-          $this.positions.push({x: $w , y: 0 , opacity : 0 , rotation : -90 , char : $char});
-          $w += $this.ctx.measureText($char).width;
+		  $this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 0 , rotation : -90 , char : $this.txtPositions[i].char});
       }
 	  
 	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
@@ -262,9 +252,8 @@ SxTextTransition.anim3 = {
     render : function($this){
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
-            $this.ctx.translate(-$this.width / 2 + $this.positions[$this.i].x ,parseInt($this.fontSize)/3 + $this.positions[$this.i].y);
+            $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
-          
             $this.ctx.rotate($this.positions[$this.i].rotation * Math.PI/180);
             $this.ctx.fillText($this.positions[$this.i].char, 0 , 0);
             $this.ctx.restore();
@@ -277,9 +266,7 @@ SxTextTransition.anim3 = {
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
-          $char = $this.text.charAt(i);
-          $this.positions.push({x: $w , y: 0 , opacity : 1 , rotation : 0 , char : $char});
-          $w += $this.ctx.measureText($char).width;
+		  $this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 1 , rotation : 0 , char : $this.txtPositions[i].char});
       }
 	  
 	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
@@ -324,7 +311,7 @@ SxTextTransition.anim3 = {
     render : function($this){
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
-            $this.ctx.translate(-$this.width / 2 + $this.positions[$this.i].x ,parseInt($this.fontSize)/3 + $this.positions[$this.i].y);
+            $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
             $this.ctx.rotate($this.positions[$this.i].rotation * Math.PI/180);
             $this.ctx.fillText($this.positions[$this.i].char, 0 , 0);
@@ -341,9 +328,8 @@ SxTextTransition.anim4 = {
       var $w = 0 , $char = '' , $lw = 0;
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
-          $char = $this.text.charAt(i);
-          $lw = $this.ctx.measureText($char).width;
-          $this.positions.push({x: $w , y: 0 , width : $lw , opacity : 0 , rotation : -90 , char : $char});
+		  $this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , width : $lw , opacity : 0 , rotation : -90 , char : $this.txtPositions[i].char});
+          $lw = $this.ctx.measureText($this.txtPositions[i].char).width;
           $w += $lw;
       }
 	  
@@ -380,7 +366,7 @@ SxTextTransition.anim4 = {
     render : function($this){
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
-            $this.ctx.translate(-$this.width / 2 + $this.positions[$this.i].x + ($this.positions[$this.i].width / 2) ,parseInt($this.fontSize)/3 + $this.positions[$this.i].y);
+            $this.ctx.translate($this.positions[$this.i].x + ($this.positions[$this.i].width / 2) ,$this.positions[$this.i].y);
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
             $this.ctx.rotate($this.positions[$this.i].rotation * Math.PI/180);
             $this.ctx.fillText($this.positions[$this.i].char, -($this.positions[$this.i].width / 2) , 0);
@@ -393,9 +379,7 @@ SxTextTransition.anim4 = {
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
-          $char = $this.text.charAt(i);
-          $this.positions.push({x: $w , y: 0 , opacity : 0 , rotation : 0 , char : $char});
-          $w += $this.ctx.measureText($char).width;
+		  $this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 0 , rotation : 0 , char : $this.txtPositions[i].char});
       }
 	  
 	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
@@ -431,7 +415,7 @@ SxTextTransition.anim4 = {
     render : function($this){
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
-            $this.ctx.translate(-$this.width / 2 + $this.positions[$this.i].x ,parseInt($this.fontSize)/3 + $this.positions[$this.i].y);
+            $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
             $this.ctx.rotate($this.positions[$this.i].rotation * Math.PI/180);
             $this.ctx.fillText($this.positions[$this.i].char, 0 , 0);

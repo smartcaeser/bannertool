@@ -149,8 +149,9 @@ Banner.prototype.getSettings = function(){
 			image : this.getAnimationsList('image'),
 			text : this.getAnimationsList('text'),
 			video : this.getAnimationsList('video')
-		}
-		
+		},
+		easing : ['Expo','Cubic','Quad','Quart','Sine','Circ','Back','Elastic','Bounce'],
+		easingType : ['easeIn','easeOut','easeInOut']
 	};
 };
 Banner.prototype.getAnimationsList = function($type){
