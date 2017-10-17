@@ -259,7 +259,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		do{
 			$char = $text.substr(0, 1);
 			$text = $text.substr(1);
-			$context.fillText($char, x, y);
+			$context.fillText($char, $x, $y);
 			this.txtPositions.push({x : $x, y : $y , char : $char});
 			if ($text == ""){
 				$wShorter = 0;
