@@ -1,7 +1,13 @@
-function Banner($canvasId){
+function Banner($canvasId , runMode){
 	fabric.Object.prototype.transparentCorners = false;
 	fabric.Object.prototype.padding = 0;
-	this.canvas = new fabric.Canvas($canvasId);
+	this.runMode = runMode 
+	this.runMode = (runMode === void 0) ? false : runMode;
+	if(this.runMode){
+		this.canvas = new fabric.StaticCanvas($canvasId);
+	} else {
+		this.canvas = new fabric.Canvas($canvasId);
+	}
 	this.layers = [];
 	this.bannerBackgroundColor = '#ffffff';
 	this.bannerWidth = 300;
@@ -33,8 +39,10 @@ Banner.prototype.init = function($model){
             $this.dispatchEvent( { type: 'select', item: e.target});
 		};
 	}
+
 };
 Banner.prototype.addText = function($model){
+	$model.playlistMode = this.runMode;
 	var $text = new SxText($model);
     $text.on("text:animated", this.canvas.renderAll.bind(this.canvas));
 	this.canvas.add($text);
@@ -42,6 +50,7 @@ Banner.prototype.addText = function($model){
 	this.canvas.renderAll();
 };
 Banner.prototype.addImage = function($model){
+	$model.playlistMode = this.runMode;
 	var $image = new SxImage($model);
 	$image.on("image:loaded", this.canvas.renderAll.bind(this.canvas));
 	this.canvas.add($image);
@@ -49,6 +58,7 @@ Banner.prototype.addImage = function($model){
 	this.canvas.renderAll();
 };
 Banner.prototype.addVideo = function($model){
+	$model.playlistMode = this.runMode;
 	var $video = new SxVideo($model);
 	$video.on("image:loaded", this.canvas.renderAll.bind(this.canvas));
 	this.canvas.add($video);
@@ -86,9 +96,12 @@ Banner.prototype.deleteObject = function($id){
 	delete this.layers[$id];
 };
 Banner.prototype.updateProp = function($prop,$val){
-	console.groupCollapsed("Update Prop");
-	console.log($prop,$val);
-	console.groupEnd();
+	if(!this.runMode){
+		console.groupCollapsed("Update Prop");
+		console.log($prop,$val);
+		console.groupEnd();
+	}
+	
 	
     this[$prop] = $val;
 	this.canvas.setBackgroundColor(this.bannerBackgroundColor);
@@ -118,9 +131,11 @@ Banner.prototype.previewTransitionToSelectedObject = function($type,$val){
     }
 };
 Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
-	console.groupCollapsed("Update Layer Prop");
-	console.log($layerId,$prop,$val);
-	console.groupEnd();
+	if(!this.runMode){
+		console.groupCollapsed("Update Layer Prop");
+		console.log($layerId,$prop,$val);
+		console.groupEnd();
+	}
 	
     var activeObject = this.canvas.setActiveObject(this.layers[$layerId]);
 	if (activeObject) {
@@ -181,9 +196,25 @@ Banner.prototype.getAnimations = function($type){
 };
 // run full preview
 Banner.prototype.run = function(){
-    for (var $layerId in this.layers) {
-		this.layers[$layerId].run();
-	}
+	var $this = this;
+	this.runVal = 0 , this.layersLoaded = 0 , this.layersSize = 0;
+	this.runVal = setInterval(function(){
+		$this.layersLoaded = 0;
+		$this.layersSize = 0;
+		for (var $layerId in $this.layers) {
+			$this.layersSize++;
+			if($this.layers[$layerId].loaded){
+				$this.layersLoaded++;
+			}
+		}
+		if($this.layersLoaded == $this.layersSize){
+			clearInterval($this.runVal);
+			for (var $layerId in $this.layers) {
+				$this.layers[$layerId].run();
+			}
+		}
+	},200);
+    
 };
 Banner.prototype.load = function($data){
     var $this = this;
@@ -194,14 +225,14 @@ Banner.prototype.load = function($data){
 		}
 		
 	}
-	
-	for(var $layer in $data.layers.objects){
-		if($data.layers.objects[$layer].type == 'sximage'){
-			this.addImage($data.layers.objects[$layer]);
-		} else if($data.layers.objects[$layer].type == 'sxtext'){
-			this.addText($data.layers.objects[$layer]);
-		} else if($data.layers.objects[$layer].type == 'sxvideo'){
-			this.addVideo($data.layers.objects[$layer]);
+	var $layersData = ($data.layers.objects) ? $data.layers.objects : $data.layers;
+	for(var $layer in $layersData){
+		if($layersData[$layer].type == 'sximage'){
+			this.addImage($layersData[$layer]);
+		} else if($layersData[$layer].type == 'sxtext'){
+			this.addText($layersData[$layer]);
+		} else if($layersData[$layer].type == 'sxvideo'){
+			this.addVideo($layersData[$layer]);
 		}
 	}
 	

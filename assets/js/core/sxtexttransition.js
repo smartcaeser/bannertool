@@ -1,4 +1,5 @@
 var SxTextTransition = {};
+
 SxTextTransition.anim1 = {
 	"name" : "Animation 1",
 	"in": {
@@ -80,7 +81,7 @@ SxTextTransition.anim1 = {
 						$this.fire('text:animated');
 					}
 				});
-			} , $i * ($duration - ($duration/2))) ;
+			} ,  ($i * ($duration - ($duration/2)))) ;
 		})($this.positions[j],j);
 		
         
@@ -183,7 +184,7 @@ SxTextTransition.anim2 = {
 						$this.fire('text:animated');
 					}
 				});
-			} , $i * ($duration - ($duration/2))) ;
+			} ,  ($i * ($duration - ($duration/2)))) ;
 		})($this.positions[j],j);
 		
         
@@ -303,7 +304,7 @@ SxTextTransition.anim3 = {
 						$this.fire('text:animated');
 					}
 				});
-			} , $i * ($duration - ($duration/2))) ;
+			} ,  ($i * ($duration - ($duration/2)))) ;
 		})($this.positions[j],j);
 		
       }
@@ -407,7 +408,7 @@ SxTextTransition.anim4 = {
 						$this.fire('text:animated');
 					}
 				});
-			} , $i * ($duration - ($duration/2))) ;
+			} ,  ($i * ($duration - ($duration/2)))) ;
 		})($this.positions[j],j);
 		
       }
@@ -421,6 +422,411 @@ SxTextTransition.anim4 = {
             $this.ctx.fillText($this.positions[$this.i].char, 0 , 0);
             $this.ctx.restore();
       }
+    }
+  }
+};
+SxTextTransition.fade = {
+	"name" : "Fade",
+	"in": {
+    init : function($this , $opts){
+		var $w = 0 , $char = '';
+		$this.positions = [];
+		$this.opacityVal = 0;
+		for(var i = 0 ; i < $this.txtPositions.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+		var $duration = parseFloat($opts.duration) * 1000;
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+					$this.fire('text:animated');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+		
+    },
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y);
+		}
+		$this.ctx.restore();
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $w = 0 , $char = '';
+		$this.positions = [];
+		for(var i = 0 ; i < $this.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 1, char : $this.txtPositions[i].char});
+		}
+	  
+		var $duration = parseFloat($opts.duration) * 1000;
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 1,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+				$this.fire('text:animated');
+			}
+		});
+    },
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y);
+		}
+		$this.ctx.restore();
+    }
+  }
+};
+
+SxTextTransition.fadeDown = {
+	"name" : "FadeDown",
+	"in": {
+    init : function($this , $opts){
+		var $w = 0 , $char = '' ,$duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		$this.yStart = 0;
+		$this.positions = [];
+		for(var i = 0 ; i < $this.txtPositions.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+				}
+			});
+			fabric.util.animate({
+				startValue: 200,
+				endValue: 0,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.yStart = value;
+					$this.fire('text:animated');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y - $this.yStart);
+		}
+		$this.ctx.restore();
+		
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $w = 0 , $char = '' , $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		$this.yStart = 0;
+
+		$this.positions = [];
+		for(var i = 0 ; i < $this.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 1, char : $this.txtPositions[i].char});
+		}
+	  
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+			}
+		});
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 200,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.yStart = value;
+				$this.fire('text:animated');
+			}
+		});
+	},
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y + $this.yStart);
+		}
+		$this.ctx.restore();
+    }
+  }
+};
+
+
+SxTextTransition.fadeUp = {
+	"name" : "FadeUp",
+	"in": {
+    init : function($this , $opts){
+		var $w = 0 , $char = '' ,$duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		$this.yStart = 0;
+		$this.positions = [];
+		for(var i = 0 ; i < $this.txtPositions.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+				}
+			});
+			fabric.util.animate({
+				startValue: 200,
+				endValue: 0,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.yStart = value;
+					$this.fire('text:animated');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y + $this.yStart);
+		}
+		$this.ctx.restore();
+		
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $w = 0 , $char = '' , $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		$this.yStart = 0;
+
+		$this.positions = [];
+		for(var i = 0 ; i < $this.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+	  
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+			}
+		});
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 200,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.yStart = value;
+				$this.fire('text:animated');
+			}
+		});
+	},
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y - $this.yStart);
+		}
+		$this.ctx.restore();
+    }
+  }
+};
+
+SxTextTransition.fadeRight = {
+	"name" : "FadeRight",
+	"in": {
+    init : function($this , $opts){
+		var $w = 0 , $char = '' ,$duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		$this.xStart = 0;
+		$this.positions = [];
+		for(var i = 0 ; i < $this.txtPositions.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+				}
+			});
+			fabric.util.animate({
+				startValue: 200,
+				endValue: 0,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.xStart = value;
+					$this.fire('text:animated');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x + $this.xStart,$this.positions[$this.i].y);
+		}
+		$this.ctx.restore();
+		
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $w = 0 , $char = '' , $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		$this.xStart = 0;
+
+		$this.positions = [];
+		for(var i = 0 ; i < $this.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+	  
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+			}
+		});
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 200,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.xStart = value;
+				$this.fire('text:animated');
+			}
+		});
+	},
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x + $this.xStart,$this.positions[$this.i].y);
+		}
+		$this.ctx.restore();
+    }
+  }
+};
+
+SxTextTransition.fadeLeft = {
+	"name" : "FadeLeft",
+	"in": {
+    init : function($this , $opts){
+		var $w = 0 , $char = '' ,$duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		$this.xStart = 0;
+		$this.positions = [];
+		for(var i = 0 ; i < $this.txtPositions.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+				}
+			});
+			fabric.util.animate({
+				startValue: 200,
+				endValue: 0,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.xStart = value;
+					$this.fire('text:animated');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x - $this.xStart,$this.positions[$this.i].y);
+		}
+		$this.ctx.restore();
+		
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $w = 0 , $char = '' , $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		$this.xStart = 0;
+
+		$this.positions = [];
+		for(var i = 0 ; i < $this.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+	  
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+			}
+		});
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 200,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.xStart = value;
+				$this.fire('text:animated');
+			}
+		});
+	},
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x - $this.xStart,$this.positions[$this.i].y);
+		}
+		$this.ctx.restore();
     }
   }
 };

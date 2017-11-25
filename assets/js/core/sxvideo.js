@@ -7,6 +7,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     name: '',
     positions : [],
 	runMode : false,
+	playlistMode : false,
     previewMode : false,
     previewType : '',
 	previewOpts : {},
@@ -15,6 +16,8 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 	aspectRatio : false,
 	videoUrl : '',
 	readonly : false,
+	loopVideo : false,
+	muteVideo : false,
 	enabled : true,
 	sortOrder : 0,
 	transitionIn : {},
@@ -56,6 +59,8 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		resizable : this.get('resizable'),
 		layerType : this.get('layerType'),
 		readonly : this.get('readonly'),
+		loopVideo : this.get('loopVideo'),
+		muteVideo : this.get('muteVideo'),
 		enabled : this.get('enabled'),
 		sortOrder : this.get('sortOrder')
       });
@@ -66,8 +71,8 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		this.callSuper('initialize' , this.video, this.options);
 		this.video.src = options.videoUrl;
 		this.video.autoPlay = false;
-		this.video.loop = true;
-		this.video.muted = false;
+		this.video.loop = options.loopVideo;
+		this.video.muted = options.muteVideo;
 		this.videoContainer = {
 			 video : this.video,
 			 ready : false,   
@@ -76,6 +81,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 			
 		};
 		this.video.oncanplay = this.readyToPlayVideo.bind(this);
+		this.loaded = false;
 		this.setVideo(options.videoUrl);
 		if(options.resizable === false){
 			this.setControlsVisibility({
@@ -183,9 +189,14 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		this.loaded = true;
 		this.setCoords();
 		this.fire('image:loaded');
-		this.getElement().play();
+		
 		this.renderVideo();
     },
+	playVideo : function(){
+		if(this.loaded){
+			this.getElement().play();
+		}
+	},
     setTransition : function($type , $opts){
 		for (var key in $opts) {
 			if ($opts.hasOwnProperty(key)) {
@@ -202,11 +213,14 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		
 		if(SxVideoTransition[$val.type]){
 			SxVideoTransition[$val.type][$type].init(this , $val);
+			this.playVideo();
 		}
+		
 		
     },
     run : function(){
-
+		var $this = this;
+		
 		this.previewMode = true;
 		this.runMode = false;
 		
@@ -215,6 +229,9 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		
 		if(SxVideoTransition[this.transitionIn.type]){
 			SxVideoTransition[this.transitionIn.type]['in'].init(this , this.transitionIn);
+			setTimeout(function(){
+				$this.playVideo();
+			},(parseFloat($this.transitionIn.delay) * 1000));
 		}
 		if(this.transitionOut.type){
 			if(SxVideoTransition[this.transitionOut.type]){
@@ -230,6 +247,9 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     },
     _render: function(ctx) {
 		if(this.enabled === false) return;
+		if(this.playlistMode){
+			ctx.globalAlpha = 0;
+		}
 		this.ctx = ctx;
 		//this.callSuper('_render', ctx);
 		

@@ -15,6 +15,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	fontStyleUnderline : false,
 	fontLetterSpacing : 0,
 	runMode : false,
+	playlistMode : false,
     previewMode : false,
     previewType : '',
     positions : [],
@@ -167,6 +168,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		}
 	},
     setText : function(options){
+		this.loaded = true;
 		var exstr = '';
 		if(options.fontStyleBold === true){
 			exstr += 'bold ';
@@ -276,7 +278,11 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		this.width = this.finalWidth - $spacing;
 	},
     _render: function(ctx) {
+		
 		if(this.enabled === false) return;
+		if(this.playlistMode){
+			ctx.globalAlpha = 0;
+		}
 		var exstr = '';
 		if(this.fontStyleBold === true){
 			exstr += 'bold ';
@@ -304,10 +310,13 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 				}
 			}
 		} else {
+			
 			this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
+			
 		}
 		if(this.fontStyleUnderline === true){
 			this.underline(ctx , this.text , 0 , 0 , this.fontColor , this.fontSize , 'center');
 		}
+		
     }
   });

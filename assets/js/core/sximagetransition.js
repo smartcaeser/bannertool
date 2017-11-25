@@ -76,7 +76,7 @@ SxImageTransition.anim1 = {
 						$this.fire('image:loaded');
 					}
 				});
-			} , $i * ($duration - ($duration/2))) ;
+			} , ($i * ($duration - ($duration/2)))) ;
 		})($this.positions[i],i);
       }
     },
@@ -193,7 +193,7 @@ SxImageTransition.anim2 = {
 						$this.fire('image:loaded');
 					}
 				});
-			} , $i * ($duration - ($duration/2))) ;
+			} , ($i * ($duration - ($duration/2)))) ;
 		})($this.positions[i],i);
         
       }
@@ -295,7 +295,7 @@ SxImageTransition.anim3 = {
 					}
 				});
 				
-			} , $i * ($duration - ($duration/2))) ;
+			} , ($i * ($duration - ($duration/2)))) ;
 		})($this.positions[i],i);
 		
       }
@@ -328,7 +328,7 @@ SxImageTransition.anim4 = {
       $this.positions = [];
       for(var y = 0 ; y < $opts.rows ; y++){
         for(var x = 0 ; x < $opts.cols ; x++){
-          $this.positions.push({x: x * $this.tileWidth , y: y * $this.tileHeight , opacity : 0 , scale : 0.2});
+          $this.positions.push({x: x * $this.tileWidth , y: y * $this.tileHeight , opacity : 0 , scale : 0});
           
         }
       }
@@ -410,7 +410,7 @@ SxImageTransition.anim4 = {
 				});
 				fabric.util.animate({
 					startValue: $pos.scale,
-					endValue: 0.2,
+					endValue: 0,
 					duration: $duration + ($duration/2),
 					easing : fabric.util.ease[$opts.easing],
 					onChange: function(value) {
@@ -418,8 +418,7 @@ SxImageTransition.anim4 = {
 						$this.fire('image:loaded');
 					}
 				});
-				
-			} , $i * ($duration - ($duration/2))) ;
+			} , ($i * ($duration - ($duration/2)))) ;
 		})($this.positions[i],i);
 		
       }
@@ -439,6 +438,365 @@ SxImageTransition.anim4 = {
           }
         }
       }
+    }
+  }
+};
+SxImageTransition.fade = {
+	"name" : "Fade",
+	"in" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+					$this.fire('image:loaded');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+				$this.fire('image:loaded');
+			}
+		});
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  }
+};
+
+SxImageTransition.fadeDown = {
+	"name" : "Fade Down",
+	"in" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		$this.yStart = 0;
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+				}
+			});
+			fabric.util.animate({
+				startValue: 200,
+				endValue: 0,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.yStart = value;
+					$this.fire('image:loaded');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) - $this.yStart);
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		$this.yStart = 0;
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+			}
+		});
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 200,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.yStart = value;
+				$this.fire('image:loaded');
+			}
+		});
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) + $this.yStart);
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  }
+};
+
+SxImageTransition.fadeUp = {
+	"name" : "Fade Up",
+	"in" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		$this.yStart = 0;
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+				}
+			});
+			fabric.util.animate({
+				startValue: 200,
+				endValue: 0,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.yStart = value;
+					$this.fire('image:loaded');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) + $this.yStart);
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		$this.yStart = 0;
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+			}
+		});
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 200,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.yStart = value;
+				$this.fire('image:loaded');
+			}
+		});
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) - $this.yStart);
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  }
+};
+
+SxImageTransition.fadeRight = {
+	"name" : "Fade Right",
+	"in" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		$this.xStart = 0;
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+				}
+			});
+			fabric.util.animate({
+				startValue: 200,
+				endValue: 0,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.xStart = value;
+					$this.fire('image:loaded');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate((-$this.width / 2) + $this.xStart ,(-$this.height / 2));
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		$this.xStart = 0;
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+			}
+		});
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 200,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.xStart = value;
+				$this.fire('image:loaded');
+			}
+		});
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate((-$this.width / 2) + $this.xStart ,(-$this.height / 2));
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  }
+};
+
+SxImageTransition.fadeLeft = {
+	"name" : "Fade Left",
+	"in" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		$this.xStart = 0;
+		setTimeout(function(){
+			fabric.util.animate({
+				startValue: 0,
+				endValue: 1,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.opacityVal = value;
+				}
+			});
+			fabric.util.animate({
+				startValue: 200,
+				endValue: 0,
+				duration: $duration ,
+				easing : fabric.util.ease[$opts.easing],
+				onChange: function(value) {
+					$this.xStart = value;
+					$this.fire('image:loaded');
+				}
+			});
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate((-$this.width / 2) - $this.xStart ,(-$this.height / 2));
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		$this.xStart = 0;
+		fabric.util.animate({
+			startValue: 1,
+			endValue: 0,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.opacityVal = value;
+			}
+		});
+		fabric.util.animate({
+			startValue: 0,
+			endValue: 200,
+			duration: $duration ,
+			easing : fabric.util.ease[$opts.easing],
+			onChange: function(value) {
+				$this.xStart = value;
+				$this.fire('image:loaded');
+			}
+		});
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate((-$this.width / 2) - $this.xStart ,(-$this.height / 2));
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.image, 0, 0);
+			$this.ctx.restore();
+		}
     }
   }
 };
