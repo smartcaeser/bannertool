@@ -290,7 +290,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		if(this.fontStyleItalic === true){
 			exstr += 'italic ';
 		}
-		ctx.font = exstr + this.fontSize + ' ' + this.fontFamily;
+		ctx.font = exstr + this.fontSize + 'pt ' + this.fontFamily;
 		ctx.fillStyle = this.fontColor;
 		if(this.previewMode){
 			if(SxTextTransition[this.previewOpts.type]){
