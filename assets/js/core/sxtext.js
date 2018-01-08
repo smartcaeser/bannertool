@@ -193,6 +193,17 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		}
 		this.preview($type);
     },
+	animationComplete : function(){
+		if(this.previewMode){
+			this.previewMode = false;
+			this.fire('text:animated');
+		}
+	},
+	reset : function(){
+		this.previewMode = false;
+		this.runMode = false;
+		this.fire('text:animated');
+	},
     preview : function($type , $val){
 		this.runMode = false;
 		this.previewMode = true;
@@ -203,8 +214,8 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		}
     },
 	run : function(){
-		this.previewMode = true;
-		this.runMode = false;
+		this.previewMode = false;
+		this.runMode = true;
 		
 		this.previewType = 'in';
 		this.previewOpts = this.transitionIn;

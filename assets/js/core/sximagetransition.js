@@ -25,6 +25,11 @@ SxImageTransition.anim1 = {
 					onChange: function(value) {
 						$pos.width = value;
 						$this.fire('image:loaded');
+					},
+					onComplete : function(e){
+						if($i == $this.totalTiles - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
@@ -74,6 +79,11 @@ SxImageTransition.anim1 = {
 					onChange: function(value) {
 						$pos.width = value;
 						$this.fire('image:loaded');
+					},
+					onComplete : function(e){
+						if($i == $this.totalTiles - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2)))) ;
@@ -134,6 +144,11 @@ SxImageTransition.anim2 = {
 					onChange: function(value) {
 						$pos.height = value;
 						$this.fire('image:loaded');
+					},
+					onComplete : function(e){
+						if($i == $this.totalTiles - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
@@ -191,6 +206,11 @@ SxImageTransition.anim2 = {
 					onChange: function(value) {
 						$pos.height = value;
 						$this.fire('image:loaded');
+					},
+					onComplete : function(e){
+						if($i == $this.totalTiles - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2)))) ;
@@ -243,6 +263,11 @@ SxImageTransition.anim3 = {
 					onChange: function(value) {
 						$pos.radius = value;
 						$this.fire('image:loaded');
+					},
+					onComplete : function(e){
+						if($i == $this.totalTiles - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 				
@@ -292,6 +317,11 @@ SxImageTransition.anim3 = {
 					onChange: function(value) {
 						$pos.radius = value;
 						$this.fire('image:loaded');
+					},
+					onComplete : function(e){
+						if($i == $this.totalTiles - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 				
@@ -356,6 +386,11 @@ SxImageTransition.anim4 = {
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('image:loaded');
+					},
+					onComplete : function(e){
+						if($i == $this.totalTiles - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 				
@@ -416,6 +451,11 @@ SxImageTransition.anim4 = {
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('image:loaded');
+					},
+					onComplete : function(e){
+						if($i == $this.totalTiles - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2)))) ;
@@ -456,6 +496,9 @@ SxImageTransition.fade = {
 				onChange: function(value) {
 					$this.opacityVal = value;
 					$this.fire('image:loaded');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -482,6 +525,9 @@ SxImageTransition.fade = {
 			onChange: function(value) {
 				$this.opacityVal = value;
 				$this.fire('image:loaded');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
     },
@@ -522,6 +568,9 @@ SxImageTransition.fadeDown = {
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('image:loaded');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -558,6 +607,9 @@ SxImageTransition.fadeDown = {
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('image:loaded');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
     },
@@ -598,6 +650,9 @@ SxImageTransition.fadeUp = {
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('image:loaded');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -634,6 +689,9 @@ SxImageTransition.fadeUp = {
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('image:loaded');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
     },
@@ -674,6 +732,9 @@ SxImageTransition.fadeRight = {
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('image:loaded');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -710,6 +771,9 @@ SxImageTransition.fadeRight = {
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('image:loaded');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
     },
@@ -750,6 +814,9 @@ SxImageTransition.fadeLeft = {
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('image:loaded');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -786,6 +853,9 @@ SxImageTransition.fadeLeft = {
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('image:loaded');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
     },

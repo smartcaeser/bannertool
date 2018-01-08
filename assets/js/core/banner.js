@@ -1,13 +1,13 @@
 function Banner($canvasId , runMode){
 	fabric.Object.prototype.transparentCorners = false;
 	fabric.Object.prototype.padding = 0;
-	this.runMode = runMode 
 	this.runMode = (runMode === void 0) ? false : runMode;
 	if(this.runMode){
 		this.canvas = new fabric.StaticCanvas($canvasId);
 	} else {
 		this.canvas = new fabric.Canvas($canvasId);
 	}
+	
 	this.layers = [];
 	this.bannerBackgroundColor = '#ffffff';
 	this.bannerWidth = 300;
@@ -15,9 +15,17 @@ function Banner($canvasId , runMode){
 	this.bannerZoom = 1;
 	this.originalBannerWidth = 300;
 	this.originalBannerHeight = 250;
+	
+	this.canvas.wrapperEl.style.webkitTransformOrigin = "0 0";
+	this.canvas.wrapperEl.style.msTransformOrigin = "0 0";
+	this.canvas.wrapperEl.style.transformOrigin = "0 0";
+
+	
     this.init();
 }
 Banner.prototype.init = function($model){
+	
+	
 	var $this = this;
 	fabric.Object.prototype.getZIndex = function() {
 		return $this.canvas.getObjects().indexOf(this);
@@ -106,11 +114,17 @@ Banner.prototype.updateProp = function($prop,$val){
     this[$prop] = $val;
 	this.canvas.setBackgroundColor(this.bannerBackgroundColor);
 	this.canvas.setDimensions({width:this.bannerWidth,height:this.bannerHeight});
+	
+	this.canvas.wrapperEl.style.webkitTransform = "scale(" + this.bannerZoom +  ")";
+	this.canvas.wrapperEl.style.msTransform = "scale(" + this.bannerZoom +  ")";
+	this.canvas.wrapperEl.style.transform = "scale(" + this.bannerZoom +  ")";
+	
+		  
 	this.canvas.renderAll();
 };
 Banner.prototype.updateSelectedObject = function($prop,$val){
 	
-    var activeObject = this.canvas.getActiveObject()
+    var activeObject = this.canvas.getActiveObject();
 	if (activeObject) {
         this.layers[activeObject.id].set($prop , $val);
 		if($prop == 'sortOrder'){
@@ -138,17 +152,7 @@ Banner.prototype.updateLayerProp = function($layerId,$prop,$val){
 	}
 	
     var activeObject = this.canvas.setActiveObject(this.layers[$layerId]);
-	if (activeObject) {
-        this.layers[$layerId].set($prop , $val);
-		if($prop == 'sortOrder'){
-			this.canvas.moveTo(activeObject,$val);
-		}
-		if($prop == 'readonly'){
-			this.layers[$layerId].set('selectable' , $val);
-		}
-		this.canvas.trigger('object:modified', {target: this.layers[$layerId]});
-		this.canvas.renderAll();
-    }
+	this.updateSelectedObject($prop,$val);
 };
 Banner.prototype.selectLayer = function($layerId){
     this.canvas.setActiveObject(this.layers[$layerId]);
@@ -197,7 +201,7 @@ Banner.prototype.getAnimations = function($type){
 // run full preview
 Banner.prototype.run = function(){
 	var $this = this;
-	this.runVal = 0 , this.layersLoaded = 0 , this.layersSize = 0;
+	this.runVal = 0 , this.layersLoaded = 0 , this.layersSize = 0 , this.bannerDuration = 0;
 	this.runVal = setInterval(function(){
 		$this.layersLoaded = 0;
 		$this.layersSize = 0;
@@ -210,8 +214,23 @@ Banner.prototype.run = function(){
 		if($this.layersLoaded == $this.layersSize){
 			clearInterval($this.runVal);
 			for (var $layerId in $this.layers) {
+				if($this.layers[$layerId].transitionIn.duration){
+					$this.bannerDuration += parseFloat($this.layers[$layerId].transitionIn.duration) + parseFloat($this.layers[$layerId].transitionIn.delay);
+				}
+				if($this.layers[$layerId].transitionOut.duration){
+					$this.bannerDuration += parseFloat($this.layers[$layerId].transitionOut.duration) + parseFloat($this.layers[$layerId].transitionOut.delay);
+				}
 				$this.layers[$layerId].run();
 			}
+			$this.bannerDuration = $this.bannerDuration * 1000;
+			if(!this.runMode){
+				setTimeout(function(){
+					for (var $layerId in $this.layers) {
+						$this.layers[$layerId].reset();
+					}
+				},$this.bannerDuration);
+			}
+			
 		}
 	},200);
     

@@ -30,6 +30,11 @@ SxTextTransition.anim1 = {
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('text:animated');
+					},
+					onComplete : function(e){
+						if($i == $this.length - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
@@ -38,6 +43,7 @@ SxTextTransition.anim1 = {
       }
     },
     render : function($this){
+		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
@@ -79,6 +85,11 @@ SxTextTransition.anim1 = {
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('text:animated');
+					},
+					onComplete : function(e){
+						if($i == $this.length - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} ,  ($i * ($duration - ($duration/2)))) ;
@@ -88,6 +99,7 @@ SxTextTransition.anim1 = {
       }
     },
     render : function($this){
+		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
@@ -134,6 +146,11 @@ SxTextTransition.anim2 = {
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
+					},
+					onComplete : function(e){
+						if($i == $this.length - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
@@ -142,6 +159,7 @@ SxTextTransition.anim2 = {
       }
     },
     render : function($this){
+		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
@@ -182,6 +200,11 @@ SxTextTransition.anim2 = {
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
+					},
+					onComplete : function(e){
+						if($i == $this.length - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} ,  ($i * ($duration - ($duration/2)))) ;
@@ -191,6 +214,7 @@ SxTextTransition.anim2 = {
       }
     },
     render : function($this){
+		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.globalAlpha = $this.positions[$this.i].opacity;
@@ -243,6 +267,11 @@ SxTextTransition.anim3 = {
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
+					},
+					onComplete : function(e){
+						if($i == $this.length - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
@@ -251,6 +280,7 @@ SxTextTransition.anim3 = {
       }
     },
     render : function($this){
+		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
@@ -302,6 +332,11 @@ SxTextTransition.anim3 = {
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
+					},
+					onComplete : function(e){
+						if($i == $this.length - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} ,  ($i * ($duration - ($duration/2)))) ;
@@ -310,6 +345,7 @@ SxTextTransition.anim3 = {
       }
     },
     render : function($this){
+		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
@@ -356,6 +392,11 @@ SxTextTransition.anim4 = {
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
+					},
+					onComplete : function(e){
+						if($i == $this.length - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
@@ -365,6 +406,7 @@ SxTextTransition.anim4 = {
       }
     },
     render : function($this){
+		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.translate($this.positions[$this.i].x + ($this.positions[$this.i].width / 2) ,$this.positions[$this.i].y);
@@ -406,6 +448,11 @@ SxTextTransition.anim4 = {
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
+					},
+					onComplete : function(e){
+						if($i == $this.length - 1){
+							$this.animationComplete();
+						}
 					}
 				});
 			} ,  ($i * ($duration - ($duration/2)))) ;
@@ -414,6 +461,7 @@ SxTextTransition.anim4 = {
       }
     },
     render : function($this){
+		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
             $this.ctx.translate($this.positions[$this.i].x ,$this.positions[$this.i].y);
@@ -445,6 +493,9 @@ SxTextTransition.fade = {
 				onChange: function(value) {
 					$this.opacityVal = value;
 					$this.fire('text:animated');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -476,6 +527,9 @@ SxTextTransition.fade = {
 			onChange: function(value) {
 				$this.opacityVal = value;
 				$this.fire('text:animated');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
     },
@@ -519,6 +573,9 @@ SxTextTransition.fadeDown = {
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('text:animated');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -561,6 +618,9 @@ SxTextTransition.fadeDown = {
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('text:animated');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
 	},
@@ -605,6 +665,9 @@ SxTextTransition.fadeUp = {
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('text:animated');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -647,6 +710,9 @@ SxTextTransition.fadeUp = {
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('text:animated');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
 	},
@@ -690,6 +756,9 @@ SxTextTransition.fadeRight = {
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('text:animated');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -732,6 +801,9 @@ SxTextTransition.fadeRight = {
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('text:animated');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
 	},
@@ -775,6 +847,9 @@ SxTextTransition.fadeLeft = {
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('text:animated');
+				},
+				onComplete : function(e){
+					$this.animationComplete();
 				}
 			});
 		} , (parseFloat($opts.delay) * 1000)) ;
@@ -817,6 +892,9 @@ SxTextTransition.fadeLeft = {
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('text:animated');
+			},
+			onComplete : function(e){
+				$this.animationComplete();
 			}
 		});
 	},
