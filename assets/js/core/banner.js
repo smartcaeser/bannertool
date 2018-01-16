@@ -5,7 +5,7 @@ function Banner($canvasId , runMode){
 	if(this.runMode){
 		this.canvas = new fabric.StaticCanvas($canvasId);
 	} else {
-		this.canvas = new fabric.Canvas($canvasId);
+		this.canvas = new fabric.Canvas($canvasId,{ preserveObjectStacking: true });
 	}
 	
 	this.layers = [];
