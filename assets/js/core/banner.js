@@ -16,15 +16,15 @@ function Banner($canvasId , runMode){
 	this.bannerZoom = 1;
 	this.originalBannerWidth = 300;
 	this.originalBannerHeight = 250;
-	
-	this.canvas.wrapperEl.style.webkitTransformOrigin = "0 0";
-	this.canvas.wrapperEl.style.msTransformOrigin = "0 0";
-	this.canvas.wrapperEl.style.transformOrigin = "0 0";
-	
-	this.canvas.wrapperEl.style.webkitTransform = "scale(" + this.bannerZoom +  ")";
-	this.canvas.wrapperEl.style.msTransform = "scale(" + this.bannerZoom +  ")";
-	this.canvas.wrapperEl.style.transform = "scale(" + this.bannerZoom +  ")";
-
+	if(!this.runMode){
+		this.canvas.wrapperEl.style.webkitTransformOrigin = "0 0";
+		this.canvas.wrapperEl.style.msTransformOrigin = "0 0";
+		this.canvas.wrapperEl.style.transformOrigin = "0 0";
+		
+		this.canvas.wrapperEl.style.webkitTransform = "scale(" + this.bannerZoom +  ")";
+		this.canvas.wrapperEl.style.msTransform = "scale(" + this.bannerZoom +  ")";
+		this.canvas.wrapperEl.style.transform = "scale(" + this.bannerZoom +  ")";
+	}
 
 	
     this.init();
@@ -130,14 +130,12 @@ Banner.prototype.updateProp = function($prop,$val){
     this[$prop] = $val;
 	this.canvas.setBackgroundColor(this.bannerBackgroundColor);
 	this.canvas.setDimensions({width:this.bannerWidth,height:this.bannerHeight});
-	
-	this.canvas.wrapperEl.style.webkitTransform = "scale(" + this.bannerZoom +  ")";
-	this.canvas.wrapperEl.style.msTransform = "scale(" + this.bannerZoom +  ")";
-	this.canvas.wrapperEl.style.transform = "scale(" + this.bannerZoom +  ")";
-	
-	
-	this.checkCornerSize();
-		  
+	if(!this.runMode){
+		this.canvas.wrapperEl.style.webkitTransform = "scale(" + this.bannerZoom +  ")";
+		this.canvas.wrapperEl.style.msTransform = "scale(" + this.bannerZoom +  ")";
+		this.canvas.wrapperEl.style.transform = "scale(" + this.bannerZoom +  ")";
+		this.checkCornerSize();
+	}
 	this.canvas.renderAll();
 };
 Banner.prototype.updateSelectedObject = function($prop,$val){
