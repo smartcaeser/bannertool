@@ -22,7 +22,7 @@ add_txt_btn.addEventListener('click',function(){
 			fontStyleItalic : font_italic.checked,
 			fontStyleUnderline : font_underline.checked,
 			fontLetterSpacing : font_letter_spacing.value,
-			resizable : true,
+			resizable : false,
 			aspectRatio : false,
 			layerType : 'text',
 			enabled : true,

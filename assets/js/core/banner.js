@@ -1,6 +1,7 @@
 function Banner($canvasId , runMode){
 	fabric.Object.prototype.transparentCorners = false;
 	fabric.Object.prototype.padding = 0;
+
 	this.runMode = (runMode === void 0) ? false : runMode;
 	if(this.runMode){
 		this.canvas = new fabric.StaticCanvas($canvasId);
@@ -19,6 +20,11 @@ function Banner($canvasId , runMode){
 	this.canvas.wrapperEl.style.webkitTransformOrigin = "0 0";
 	this.canvas.wrapperEl.style.msTransformOrigin = "0 0";
 	this.canvas.wrapperEl.style.transformOrigin = "0 0";
+	
+	this.canvas.wrapperEl.style.webkitTransform = "scale(" + this.bannerZoom +  ")";
+	this.canvas.wrapperEl.style.msTransform = "scale(" + this.bannerZoom +  ")";
+	this.canvas.wrapperEl.style.transform = "scale(" + this.bannerZoom +  ")";
+
 
 	
     this.init();
@@ -44,11 +50,21 @@ Banner.prototype.init = function($model){
 	}
 	function selectObject() {
 		return function(e) {
+			$this.checkCornerSize();
             $this.dispatchEvent( { type: 'select', item: e.target});
 		};
 	}
 
 };
+Banner.prototype.checkCornerSize = function(){
+	var $object = this.canvas.getActiveObject();
+	if (!$object) return;
+	if($object['cornerSize']){
+		if(this.bannerZoom < 1){
+			$object['cornerSize'] = (13 / (this.bannerZoom * 13)) * 13;
+		}
+	}
+}
 Banner.prototype.addText = function($model){
 	$model.playlistMode = this.runMode;
 	var $text = new SxText($model);
@@ -119,6 +135,8 @@ Banner.prototype.updateProp = function($prop,$val){
 	this.canvas.wrapperEl.style.msTransform = "scale(" + this.bannerZoom +  ")";
 	this.canvas.wrapperEl.style.transform = "scale(" + this.bannerZoom +  ")";
 	
+	
+	this.checkCornerSize();
 		  
 	this.canvas.renderAll();
 };
