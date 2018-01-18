@@ -239,7 +239,7 @@ Banner.prototype.run = function(){
 				$this.layers[$layerId].run();
 			}
 			$this.bannerDuration = $this.bannerDuration * 1000;
-			if(!this.runMode){
+			if(!$this.runMode){
 				setTimeout(function(){
 					for (var $layerId in $this.layers) {
 						$this.layers[$layerId].reset();

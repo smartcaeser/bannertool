@@ -220,7 +220,11 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     _render: function(ctx) {
 		if(this.enabled === false) return;
 		if(this.playlistMode){
-			ctx.globalAlpha = 0;
+			if(this.transitionIn.type && SxImageTransition[this.transitionIn.type]){
+				ctx.globalAlpha = 0;
+			} else {
+				ctx.drawImage(this.image, -this.width / 2, -this.height / 2);
+			}
 		}
 		this.ctx = ctx;
 		if(this.previewMode){

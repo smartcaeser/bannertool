@@ -75,6 +75,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     initialize: function(options) {
 		this.callSuper('initialize', options);
 		this.ctx = this.context();
+		this.viewItem = false;
 		this.setText(options);
 		if(options.resizable === false){
 			this.setControlsVisibility({
@@ -292,7 +293,11 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		
 		if(this.enabled === false) return;
 		if(this.playlistMode){
-			ctx.globalAlpha = 0;
+			if(this.transitionIn.type && SxTextTransition[this.transitionIn.type]){
+				ctx.globalAlpha = 0;
+			} else {
+				this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
+			}
 		}
 		var exstr = '';
 		if(this.fontStyleBold === true){
