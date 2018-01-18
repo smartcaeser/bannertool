@@ -203,10 +203,12 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	reset : function(){
 		this.previewMode = false;
 		this.runMode = false;
+		this.playlistMode = false;
 		this.fire('text:animated');
 	},
     preview : function($type , $val){
 		this.runMode = false;
+		this.playlistMode = false;
 		this.previewMode = true;
 		this.previewType = $type;
 		this.previewOpts = $val;
@@ -217,7 +219,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	run : function(){
 		this.previewMode = false;
 		this.runMode = true;
-		
+		this.playlistMode = true;
 		this.previewType = 'in';
 		this.previewOpts = this.transitionIn;
 		

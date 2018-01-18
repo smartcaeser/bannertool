@@ -185,10 +185,12 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	reset : function(){
 		this.previewMode = false;
 		this.runMode = false;
+		this.playlistMode = false;
 		this.fire('image:loaded');
 	},
 	preview : function($type , $val){
 		this.runMode = false;
+		this.playlistMode = false;
 		this.previewMode = true;
 		this.previewType = $type;
 		this.previewOpts = $val;
@@ -199,6 +201,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     run : function(){
 		this.previewMode = false;
 		this.runMode = true;
+		this.playlistMode = true;
 		
 		this.previewType = 'in';
 		this.previewOpts = this.transitionIn;
@@ -218,6 +221,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		}
     },
     _render: function(ctx) {
+		
 		if(this.enabled === false) return;
 		if(this.playlistMode){
 			if(this.transitionIn.type && SxImageTransition[this.transitionIn.type]){

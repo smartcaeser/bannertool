@@ -214,10 +214,12 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 	reset : function(){
 		this.previewMode = false;
 		this.runMode = false;
+		this.playlistMode = false;
 		this.fire('image:loaded');
 	},
 	preview : function($type , $val){
 		this.runMode = false;
+		this.playlistMode = false;
 		this.previewMode = true;
 		this.previewType = $type;
 		this.previewOpts = $val;
@@ -234,6 +236,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		
 		this.previewMode = false;
 		this.runMode = true;
+		this.playlistMode = true;
 		
 		this.previewType = 'in';
 		this.previewOpts = this.transitionIn;
