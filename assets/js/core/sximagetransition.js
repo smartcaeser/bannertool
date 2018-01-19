@@ -3,6 +3,7 @@ SxImageTransition.anim1 = {
 	"name" : "Animation 1",
 	"in" : {
     init : function($this , $opts){
+		
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -11,17 +12,17 @@ SxImageTransition.anim1 = {
           $this.positions.push({x: -($this.width / 2) + (x * $this.tileWidth) , y: -($this.height / 2) + (y * $this.tileHeight) , width : 0 });
         }
       }
-	  
       $this.totalTiles = $this.positions.length;
 	  var $duration = parseFloat($opts.duration)/$this.totalTiles * 1000;
       for(var i = 0 ; i < $this.totalTiles ; i++){
+		  
 		(function($pos,$i){
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: $this.tileWidth,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 						$this.fire('image:loaded');
@@ -32,13 +33,14 @@ SxImageTransition.anim1 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
 			
       }
     },
     render : function($this){
       if ($this.loaded) {
+		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -74,8 +76,8 @@ SxImageTransition.anim1 = {
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 						$this.fire('image:loaded');
@@ -86,12 +88,13 @@ SxImageTransition.anim1 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2)))) ;
+			} , ($i * $duration)) ;
 		})($this.positions[i],i);
       }
     },
     render : function($this){
       if ($this.loaded) {
+		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -130,8 +133,8 @@ SxImageTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: $this.tileWidth,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 					}
@@ -139,8 +142,8 @@ SxImageTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.height,
 					endValue: $this.tileHeight,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.height = value;
 						$this.fire('image:loaded');
@@ -151,13 +154,14 @@ SxImageTransition.anim2 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
     },
     render : function($this){
       if ($this.loaded) {
+		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -192,8 +196,8 @@ SxImageTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 					}
@@ -201,8 +205,8 @@ SxImageTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.height,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.height = value;
 						$this.fire('image:loaded');
@@ -213,13 +217,14 @@ SxImageTransition.anim2 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2)))) ;
+			} , ($i * $duration)) ;
 		})($this.positions[i],i);
         
       }
     },
     render : function($this){
       if ($this.loaded) {
+		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -258,8 +263,8 @@ SxImageTransition.anim3 = {
 				fabric.util.animate({
 					startValue: $pos.radius,
 					endValue:  0.5 * Math.sqrt($this.tileWidth * $this.tileWidth + $this.tileHeight * $this.tileHeight),
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.radius = value;
 						$this.fire('image:loaded');
@@ -271,13 +276,14 @@ SxImageTransition.anim3 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
     },
     render : function($this){
       if ($this.loaded) {
+		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -312,8 +318,8 @@ SxImageTransition.anim3 = {
 				fabric.util.animate({
 					startValue: $pos.radius,
 					endValue:  0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.radius = value;
 						$this.fire('image:loaded');
@@ -325,13 +331,14 @@ SxImageTransition.anim3 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2)))) ;
+			} , ($i * $duration )) ;
 		})($this.positions[i],i);
 		
       }
     },
     render : function($this){
       if ($this.loaded) {
+		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -372,8 +379,8 @@ SxImageTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.opacity,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 					}
@@ -381,8 +388,8 @@ SxImageTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.scale,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('image:loaded');
@@ -394,13 +401,14 @@ SxImageTransition.anim4 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
     },
     render : function($this){
       if ($this.loaded) {
+		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
             $this.ctx.save();
@@ -437,8 +445,8 @@ SxImageTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.opacity,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 					}
@@ -446,8 +454,8 @@ SxImageTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.scale,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('image:loaded');
@@ -458,13 +466,14 @@ SxImageTransition.anim4 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2)))) ;
+			} , ($i * $duration)) ;
 		})($this.positions[i],i);
 		
       }
     },
     render : function($this){
       if ($this.loaded) {
+		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
             $this.ctx.save();
@@ -492,7 +501,7 @@ SxImageTransition.fade = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 					$this.fire('image:loaded');
@@ -521,7 +530,7 @@ SxImageTransition.fade = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 				$this.fire('image:loaded');
@@ -555,7 +564,7 @@ SxImageTransition.fadeDown = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -564,7 +573,7 @@ SxImageTransition.fadeDown = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('image:loaded');
@@ -594,7 +603,7 @@ SxImageTransition.fadeDown = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -603,7 +612,7 @@ SxImageTransition.fadeDown = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('image:loaded');
@@ -637,7 +646,7 @@ SxImageTransition.fadeUp = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -646,7 +655,7 @@ SxImageTransition.fadeUp = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('image:loaded');
@@ -676,7 +685,7 @@ SxImageTransition.fadeUp = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -685,7 +694,7 @@ SxImageTransition.fadeUp = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('image:loaded');
@@ -719,7 +728,7 @@ SxImageTransition.fadeRight = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -728,7 +737,7 @@ SxImageTransition.fadeRight = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('image:loaded');
@@ -758,7 +767,7 @@ SxImageTransition.fadeRight = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -767,7 +776,7 @@ SxImageTransition.fadeRight = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('image:loaded');
@@ -801,7 +810,7 @@ SxImageTransition.fadeLeft = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -810,7 +819,7 @@ SxImageTransition.fadeLeft = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('image:loaded');
@@ -840,7 +849,7 @@ SxImageTransition.fadeLeft = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -849,7 +858,7 @@ SxImageTransition.fadeLeft = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('image:loaded');

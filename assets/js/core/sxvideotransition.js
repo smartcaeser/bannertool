@@ -20,8 +20,8 @@ SxVideoTransition.anim1 = {
 					fabric.util.animate({
 						startValue: $pos.width,
 						endValue: $this.tileWidth,
-						duration: $duration + ($duration/2),
-						easing : fabric.util.ease[$opts.easing],
+						duration: $duration ,
+						easing : fabric.util.ease[$opts.easingType + $opts.easing],
 						onChange: function(value) {
 							$pos.width = value;
 							$this.fire('image:loaded');
@@ -32,7 +32,7 @@ SxVideoTransition.anim1 = {
 							}
 						}
 					});
-				} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+				} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 			})($this.positions[i],i);
 		}
 		
@@ -76,8 +76,8 @@ SxVideoTransition.anim1 = {
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 						$this.fire('image:loaded');
@@ -88,7 +88,7 @@ SxVideoTransition.anim1 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2)))) ;
+			} , ($i * $duration)) ;
 		})($this.positions[i],i);
       }
     },
@@ -133,8 +133,8 @@ SxVideoTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: $this.tileWidth,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 					}
@@ -142,8 +142,8 @@ SxVideoTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.height,
 					endValue: $this.tileHeight,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.height = value;
 						$this.fire('image:loaded');
@@ -154,7 +154,7 @@ SxVideoTransition.anim2 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
@@ -196,8 +196,8 @@ SxVideoTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.width,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.width = value;
 					}
@@ -205,8 +205,8 @@ SxVideoTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.height,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.height = value;
 						$this.fire('image:loaded');
@@ -217,7 +217,7 @@ SxVideoTransition.anim2 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) ) ;
+			} , ($i * $duration) ) ;
 		})($this.positions[i],i);
         
       }
@@ -263,8 +263,8 @@ SxVideoTransition.anim3 = {
 				fabric.util.animate({
 					startValue: $pos.radius,
 					endValue:  0.5 * Math.sqrt($this.tileWidth * $this.tileWidth + $this.tileHeight * $this.tileHeight),
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.radius = value;
 						$this.fire('image:loaded');
@@ -276,7 +276,7 @@ SxVideoTransition.anim3 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
@@ -318,8 +318,8 @@ SxVideoTransition.anim3 = {
 				fabric.util.animate({
 					startValue: $pos.radius,
 					endValue:  0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.radius = value;
 						$this.fire('image:loaded');
@@ -331,7 +331,7 @@ SxVideoTransition.anim3 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2)))) ;
+			} , ($i * $duration)) ;
 		})($this.positions[i],i);
 		
       }
@@ -379,8 +379,8 @@ SxVideoTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.opacity,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 					}
@@ -388,8 +388,8 @@ SxVideoTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.scale,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('image:loaded');
@@ -401,7 +401,7 @@ SxVideoTransition.anim4 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[i],i);
         
       }
@@ -445,8 +445,8 @@ SxVideoTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.opacity,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 					}
@@ -454,8 +454,8 @@ SxVideoTransition.anim4 = {
 				fabric.util.animate({
 					startValue: $pos.scale,
 					endValue: 0.2,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('image:loaded');
@@ -467,7 +467,7 @@ SxVideoTransition.anim4 = {
 					}
 				});
 				
-			} , ($i * ($duration - ($duration/2)))) ;
+			} , ($i * $duration)) ;
 		})($this.positions[i],i);
       }
     },
@@ -502,7 +502,7 @@ SxVideoTransition.fade = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 					$this.fire('image:loaded');
@@ -531,7 +531,7 @@ SxVideoTransition.fade = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 				$this.fire('image:loaded');
@@ -565,7 +565,7 @@ SxVideoTransition.fadeDown = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -574,7 +574,7 @@ SxVideoTransition.fadeDown = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('image:loaded');
@@ -604,7 +604,7 @@ SxVideoTransition.fadeDown = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -613,7 +613,7 @@ SxVideoTransition.fadeDown = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('image:loaded');
@@ -647,7 +647,7 @@ SxVideoTransition.fadeUp = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -656,7 +656,7 @@ SxVideoTransition.fadeUp = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('image:loaded');
@@ -686,7 +686,7 @@ SxVideoTransition.fadeUp = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -695,7 +695,7 @@ SxVideoTransition.fadeUp = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('image:loaded');
@@ -729,7 +729,7 @@ SxVideoTransition.fadeRight = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -738,7 +738,7 @@ SxVideoTransition.fadeRight = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('image:loaded');
@@ -768,7 +768,7 @@ SxVideoTransition.fadeRight = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -777,7 +777,7 @@ SxVideoTransition.fadeRight = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('image:loaded');
@@ -811,7 +811,7 @@ SxVideoTransition.fadeLeft = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -820,7 +820,7 @@ SxVideoTransition.fadeLeft = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('image:loaded');
@@ -850,7 +850,7 @@ SxVideoTransition.fadeLeft = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -859,7 +859,7 @@ SxVideoTransition.fadeLeft = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('image:loaded');

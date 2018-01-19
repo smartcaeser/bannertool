@@ -43,7 +43,8 @@ var $img_preview_btn_in = document.getElementById('img_preview_btn_in'),
 $img_preview_btn_in.addEventListener('click',function(){
 	banner.previewTransitionToSelectedObject('in' , {
 		type : $img_anim_type_in.value,
-		easing : $img_easing_type_in.value + $img_easing_in.value,
+		easingType : $img_easing_type_in.value,
+		easing : $img_easing_in.value,
 		cols : img_cols_in.value,
 		rows : img_rows_in.value,
 		duration : img_duration_in.value,
@@ -54,7 +55,8 @@ $img_preview_btn_in.addEventListener('click',function(){
 $img_apply_btn_in.addEventListener('click',function(){
 	banner.updateSelectedObject( 'transitionIn', {
 		type : $img_anim_type_in.value,
-		easing : $img_easing_type_in.value + $img_easing_in.value,
+		easingType : $img_easing_type_in.value,
+		easing : $img_easing_in.value,
 		cols : img_cols_in.value,
 		rows : img_rows_in.value,
 		duration : img_duration_in.value,
@@ -66,7 +68,8 @@ $img_apply_btn_in.addEventListener('click',function(){
 $img_preview_btn_out.addEventListener('click',function(){
 	banner.previewTransitionToSelectedObject('out' , {
 		type : $img_anim_type_out.value,
-		easing : $img_easing_type_out.value + $img_easing_out.value,
+		easingType : $img_easing_type_out.value,
+		easing : $img_easing_out.value,
 		cols : img_cols_out.value,
 		rows : img_rows_out.value,
 		duration : img_duration_out.value,
@@ -77,7 +80,8 @@ $img_preview_btn_out.addEventListener('click',function(){
 $img_apply_btn_out.addEventListener('click',function(){
 	banner.updateSelectedObject( 'transitionOut', {
 		type : $img_anim_type_out.value,
-		easing : $img_easing_type_out.value + $img_easing_out.value,
+		easingType : $img_easing_type_out.value,
+		easing : $img_easing_out.value,
 		cols : img_cols_out.value,
 		rows : img_rows_out.value,
 		duration : img_duration_out.value,

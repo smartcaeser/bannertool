@@ -53,7 +53,8 @@ var $txt_preview_btn_in = document.getElementById('txt_preview_btn_in'),
 $txt_preview_btn_in.addEventListener('click',function(){
 	banner.previewTransitionToSelectedObject('in' , {
 		type : $txt_anim_type_in.value,
-		easing : $txt_easing_type_in.value + $txt_easing_in.value,
+		easingType : $txt_easing_type_in.value,
+		easing : $txt_easing_in.value,
 		duration : txt_duration_in.value,
 		delay : txt_delay_in.value
     });
@@ -62,7 +63,8 @@ $txt_preview_btn_in.addEventListener('click',function(){
 $txt_apply_btn_in.addEventListener('click',function(){
 	banner.updateSelectedObject( 'transitionIn', {
 		type : $txt_anim_type_in.value,
-		easing : $txt_easing_type_in.value + $txt_easing_in.value,
+		easingType : $txt_easing_type_in.value,
+		easing : $txt_easing_in.value,
 		duration : txt_duration_in.value,
 		delay : txt_delay_in.value
     });
@@ -72,7 +74,8 @@ $txt_apply_btn_in.addEventListener('click',function(){
 $txt_preview_btn_out.addEventListener('click',function(){
 	banner.previewTransitionToSelectedObject('out' , {
 		type : $txt_anim_type_out.value,
-		easing : $txt_easing_type_out.value + $txt_easing_out.value,
+		easingType : $txt_easing_type_out.value,
+		easing : $txt_easing_out.value,
 		duration : txt_duration_out.value,
 		delay : txt_delay_out.value
     });
@@ -81,7 +84,8 @@ $txt_preview_btn_out.addEventListener('click',function(){
 $txt_apply_btn_out.addEventListener('click',function(){
 	banner.updateSelectedObject( 'transitionOut', {
 		type : $txt_anim_type_out.value,
-		easing : $txt_easing_type_out.value + $txt_easing_out.value,
+		easingType : $txt_easing_type_out.value,
+		easing : $txt_easing_out.value,
 		duration : txt_duration_out.value,
 		delay : txt_delay_out.value
     });

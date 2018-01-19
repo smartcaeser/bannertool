@@ -63,7 +63,8 @@ For Preview : image either text both have two properties for animation `in|out`
 	// Please check Example assets/js/imgHandler.js and  assets/js/txtHandler.js
 	banner.previewTransitionToSelectedObject('in' , {
 		type : $img_anim_type_in.value,
-		easing : $img_easing_type_in.value + $img_easing_in.value, 
+		easingType : $img_easing_type_in.value, 
+		easing : $img_easing_in.value, 
 		cols : img_cols_in.value,
 		rows : img_rows_in.value,
 		duration : img_duration_in.value,
@@ -75,7 +76,8 @@ For Apply Animation : both image and text have two properties for animation `tra
 	// Please check Example assets/js/imgHandler.js and  assets/js/txtHandler.js
 	banner.updateSelectedObject( 'transitionIn', {
 		type : $img_anim_type_in.value,
-		easing : $img_easing_type_in.value + $img_easing_in.value,
+		easingType : $img_easing_type_in.value,
+		easing : $img_easing_in.value,
 		cols : img_cols_in.value,
 		rows : img_rows_in.value,
 		duration : img_duration_in.value,

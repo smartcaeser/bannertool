@@ -43,7 +43,8 @@ var $vid_preview_btn_in = document.getElementById('vid_preview_btn_in'),
 $vid_preview_btn_in.addEventListener('click',function(){
 	banner.previewTransitionToSelectedObject('in' , {
 		type : $vid_anim_type_in.value,
-		easing : $vid_easing_type_in.value + $vid_easing_in.value,
+		easingType : $vid_easing_type_in.value,
+		easing : $vid_easing_in.value,
 		cols : vid_cols_in.value,
 		rows : vid_rows_in.value,
 		duration : vid_duration_in.value,
@@ -54,7 +55,8 @@ $vid_preview_btn_in.addEventListener('click',function(){
 $vid_apply_btn_in.addEventListener('click',function(){
 	banner.updateSelectedObject( 'transitionIn', {
 		type : $vid_anim_type_in.value,
-		easing : $vid_easing_type_in.value + $vid_easing_in.value,
+		easingType : $vid_easing_type_in.value,
+		easing : $vid_easing_in.value,
 		cols : vid_cols_in.value,
 		rows : vid_rows_in.value,
 		duration : vid_duration_in.value,
@@ -66,7 +68,8 @@ $vid_apply_btn_in.addEventListener('click',function(){
 $vid_preview_btn_out.addEventListener('click',function(){
 	banner.previewTransitionToSelectedObject('out' , {
 		type : $vid_anim_type_out.value,
-		easing : $vid_easing_type_out.value + $vid_easing_out.value,
+		easingType : $vid_easing_type_out.value,
+		easing : $vid_easing_out.value,
 		cols : vid_cols_out.value,
 		rows : vid_rows_out.value,
 		duration : vid_duration_out.value,
@@ -77,7 +80,8 @@ $vid_preview_btn_out.addEventListener('click',function(){
 $vid_apply_btn_out.addEventListener('click',function(){
 	banner.updateSelectedObject( 'transitionOut', {
 		type : $vid_anim_type_out.value,
-		easing : $vid_easing_type_out.value + $vid_easing_out.value,
+		easingType : $vid_easing_type_out.value,
+		easing : $vid_easing_out.value,
 		cols : vid_cols_out.value,
 		rows : vid_rows_out.value,
 		duration : vid_duration_out.value,

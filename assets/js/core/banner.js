@@ -244,7 +244,9 @@ Banner.prototype.run = function(){
 					for (var $layerId in $this.layers) {
 						$this.layers[$layerId].reset();
 					}
+					
 				},$this.bannerDuration);
+				
 			}
 			
 		}

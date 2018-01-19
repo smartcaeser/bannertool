@@ -12,12 +12,13 @@ SxTextTransition.anim1 = {
 	  var $duration = parseFloat($opts.duration)/$this.length * 1000;
       for(var j = 0 ; j < $this.length ; j++){
 		(function($pos,$i){
+			
 			setTimeout(function(){
 				fabric.util.animate({
 					startValue: $pos.opacity,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 					}
@@ -25,8 +26,8 @@ SxTextTransition.anim1 = {
 				fabric.util.animate({
 					startValue: $pos.scale,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('text:animated');
@@ -37,7 +38,7 @@ SxTextTransition.anim1 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[j],j);
 		
       }
@@ -71,8 +72,8 @@ SxTextTransition.anim1 = {
 				fabric.util.animate({
 					startValue: $pos.opacity,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 					}
@@ -80,8 +81,8 @@ SxTextTransition.anim1 = {
 				fabric.util.animate({
 					startValue: $pos.scale,
 					endValue: 0.2,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.scale = value;
 						$this.fire('text:animated');
@@ -92,7 +93,7 @@ SxTextTransition.anim1 = {
 						}
 					}
 				});
-			} ,  ($i * ($duration - ($duration/2)))) ;
+			} ,  ($i * $duration)) ;
 		})($this.positions[j],j);
 		
         
@@ -132,8 +133,8 @@ SxTextTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.y + 20,
 					endValue: $pos.y,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.y = value;
 					}
@@ -141,8 +142,8 @@ SxTextTransition.anim2 = {
 				fabric.util.animate({
 					startValue: 0,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
@@ -153,7 +154,7 @@ SxTextTransition.anim2 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[j],j);
 		
       }
@@ -186,8 +187,8 @@ SxTextTransition.anim2 = {
 				fabric.util.animate({
 					startValue: $pos.y,
 					endValue: $pos.y - 20,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.y = value;
 					}
@@ -195,8 +196,8 @@ SxTextTransition.anim2 = {
 				fabric.util.animate({
 					startValue: 1,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
@@ -207,7 +208,7 @@ SxTextTransition.anim2 = {
 						}
 					}
 				});
-			} ,  ($i * ($duration - ($duration/2)))) ;
+			} ,  ($i * $duration)) ;
 		})($this.positions[j],j);
 		
         
@@ -244,8 +245,8 @@ SxTextTransition.anim3 = {
 				fabric.util.animate({
 					startValue: $pos.x - 100,
 					endValue: $pos.x,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.x = value;
 					}
@@ -253,8 +254,8 @@ SxTextTransition.anim3 = {
 				fabric.util.animate({
 					startValue: -90,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.rotation = value;
 					}
@@ -262,8 +263,8 @@ SxTextTransition.anim3 = {
 				fabric.util.animate({
 					startValue: 0,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
@@ -274,7 +275,7 @@ SxTextTransition.anim3 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[j],j);
 		
       }
@@ -309,8 +310,8 @@ SxTextTransition.anim3 = {
 				fabric.util.animate({
 					startValue: $pos.x,
 					endValue: $pos.x - 100,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.x = value;
 					}
@@ -318,8 +319,8 @@ SxTextTransition.anim3 = {
 				fabric.util.animate({
 					startValue: 0,
 					endValue: -90,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.rotation = value;
 					}
@@ -327,8 +328,8 @@ SxTextTransition.anim3 = {
 				fabric.util.animate({
 					startValue: 1,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
@@ -339,7 +340,7 @@ SxTextTransition.anim3 = {
 						}
 					}
 				});
-			} ,  ($i * ($duration - ($duration/2)))) ;
+			} ,  ($i * $duration)) ;
 		})($this.positions[j],j);
 		
       }
@@ -378,8 +379,8 @@ SxTextTransition.anim4 = {
 				fabric.util.animate({
 					startValue: -180,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.rotation = value;
 					}
@@ -387,8 +388,8 @@ SxTextTransition.anim4 = {
 				fabric.util.animate({
 					startValue: 0,
 					endValue: 1,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
@@ -399,7 +400,7 @@ SxTextTransition.anim4 = {
 						}
 					}
 				});
-			} , ($i * ($duration - ($duration/2))) + (parseFloat($opts.delay) * 1000)) ;
+			} , ($i * $duration) + (parseFloat($opts.delay) * 1000)) ;
 		})($this.positions[j],j);
 		
         
@@ -434,8 +435,8 @@ SxTextTransition.anim4 = {
 				fabric.util.animate({
 					startValue: 0,
 					endValue: -90,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.rotation = value;
 					}
@@ -443,8 +444,8 @@ SxTextTransition.anim4 = {
 				fabric.util.animate({
 					startValue: 1,
 					endValue: 0,
-					duration: $duration + ($duration/2),
-					easing : fabric.util.ease[$opts.easing],
+					duration: $duration ,
+					easing : fabric.util.ease[$opts.easingType + $opts.easing],
 					onChange: function(value) {
 						$pos.opacity = value;
 						$this.fire('text:animated');
@@ -455,7 +456,7 @@ SxTextTransition.anim4 = {
 						}
 					}
 				});
-			} ,  ($i * ($duration - ($duration/2)))) ;
+			} ,  ($i * $duration)) ;
 		})($this.positions[j],j);
 		
       }
@@ -489,7 +490,7 @@ SxTextTransition.fade = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 					$this.fire('text:animated');
@@ -523,7 +524,7 @@ SxTextTransition.fade = {
 			startValue: 0,
 			endValue: 1,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 				$this.fire('text:animated');
@@ -560,7 +561,7 @@ SxTextTransition.fadeDown = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -569,7 +570,7 @@ SxTextTransition.fadeDown = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('text:animated');
@@ -605,7 +606,7 @@ SxTextTransition.fadeDown = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -614,7 +615,7 @@ SxTextTransition.fadeDown = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('text:animated');
@@ -652,7 +653,7 @@ SxTextTransition.fadeUp = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -661,7 +662,7 @@ SxTextTransition.fadeUp = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.yStart = value;
 					$this.fire('text:animated');
@@ -697,7 +698,7 @@ SxTextTransition.fadeUp = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -706,7 +707,7 @@ SxTextTransition.fadeUp = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.yStart = value;
 				$this.fire('text:animated');
@@ -743,7 +744,7 @@ SxTextTransition.fadeRight = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -752,7 +753,7 @@ SxTextTransition.fadeRight = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('text:animated');
@@ -788,7 +789,7 @@ SxTextTransition.fadeRight = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -797,7 +798,7 @@ SxTextTransition.fadeRight = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('text:animated');
@@ -834,7 +835,7 @@ SxTextTransition.fadeLeft = {
 				startValue: 0,
 				endValue: 1,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.opacityVal = value;
 				}
@@ -843,7 +844,7 @@ SxTextTransition.fadeLeft = {
 				startValue: 200,
 				endValue: 0,
 				duration: $duration ,
-				easing : fabric.util.ease[$opts.easing],
+				easing : fabric.util.ease[$opts.easingType + $opts.easing],
 				onChange: function(value) {
 					$this.xStart = value;
 					$this.fire('text:animated');
@@ -879,7 +880,7 @@ SxTextTransition.fadeLeft = {
 			startValue: 1,
 			endValue: 0,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.opacityVal = value;
 			}
@@ -888,7 +889,7 @@ SxTextTransition.fadeLeft = {
 			startValue: 0,
 			endValue: 200,
 			duration: $duration ,
-			easing : fabric.util.ease[$opts.easing],
+			easing : fabric.util.ease[$opts.easingType + $opts.easing],
 			onChange: function(value) {
 				$this.xStart = value;
 				$this.fire('text:animated');

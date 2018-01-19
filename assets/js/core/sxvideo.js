@@ -22,24 +22,6 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 	sortOrder : 0,
 	transitionIn : {},
 	transitionOut : {},
-    transition : {
-      "in" : {
-        type : 'none',
-        easing : 'easeOutExpo',
-        cols : 1,
-        rows : 1,
-        duration : 1,
-        delay : 0
-      },
-      "out" : {
-        type : 'none',
-        easing : 'easeOutExpo',
-        cols : 1,
-        rows : 1,
-        duration : 1,
-        delay : 0
-      }
-    },
 	angle : 0,
     tileWidth : 0,
     tileHeight : 0,
@@ -47,7 +29,6 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     objectCaching: false,
     toObject: function() {
       return fabric.util.object.extend(this.callSuper('toObject'), {
-        transition: this.get('transition'),
         transitionIn: this.get('transitionIn'),
         transitionOut: this.get('transitionOut'),
         runMode: this.get('runMode'),
@@ -197,14 +178,6 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 			this.getElement().play();
 		}
 	},
-    setTransition : function($type , $opts){
-		for (var key in $opts) {
-			if ($opts.hasOwnProperty(key)) {
-				this.transition[$type][key] = $opts[key];
-			}
-		}
-		this.preview($type);
-    },
 	animationComplete : function(){
 		if(this.previewMode){
 			this.previewMode = false;

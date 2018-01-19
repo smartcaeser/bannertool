@@ -30,27 +30,12 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	angle : 0,
 	transitionIn : {},
 	transitionOut : {},
-    transition : {
-      "in" : {
-        type : 'none',
-        easing : 'Expo.easeOut',
-        duration : 0,
-        delay : 0
-      },
-      "out" : {
-        type : 'none',
-        easing : 'Expo.easeOut',
-        duration : 0,
-        delay : 0
-      }
-    },
     i : 0,
     objectCaching: false,
     toObject: function() {
       return fabric.util.object.extend(this.callSuper('toObject'), {
 		id : this.get('id'),
         type : this.get('type'),
-        transition: this.get('transition'),
 		transitionIn: this.get('transitionIn'),
         transitionOut: this.get('transitionOut'),
         runMode: this.get('runMode'),
@@ -185,14 +170,6 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		this.ctx.font = exstr + this.fontSize + ' ' + this.fontFamily;
 		this.width = (this.finalWidth >= 0) ? this.finalWidth : this.ctx.measureText(this.text).width;
 		this.height = parseInt(this.fontSize);
-    },
-    setTransition : function($type , $opts){
-		for (var key in $opts) {
-			if ($opts.hasOwnProperty(key)) {
-				this.transition[$type][key] = $opts[key];
-			}
-		}
-		this.preview($type);
     },
 	animationComplete : function(){
 		if(this.previewMode){
