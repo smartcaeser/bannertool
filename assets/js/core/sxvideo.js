@@ -238,7 +238,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 			if(this.transitionIn.type && SxImageTransition[this.transitionIn.type]){
 				ctx.globalAlpha = 0;
 			} else {
-				ctx.drawImage(this.image, -this.width / 2, -this.height / 2);
+				ctx.drawImage(this.video, -this.width / 2, -this.height / 2);
 			}
 		}
 		
