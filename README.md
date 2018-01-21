@@ -27,6 +27,7 @@
 
 ## Useful Methods
 - `selectLayer($layerId)` Select Object on banner stage by `layer id`
+- `unSelectLayers()` unSelect all layers on stage
 - `updateSelectedObject($prop,$val)` Update properties for selected object on banner stage
 - `settings() Return object with all available setting like `banner.getSettings().animations.image|banner.getSettings().animations.text`
 - `previewTransitionToSelectedObject($type,$val)` Make an animation preview for selected object on banner stage , `$type:string(in|out)` 
