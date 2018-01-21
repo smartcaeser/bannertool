@@ -1,4 +1,46 @@
 var SxVideoTransition = {};
+SxVideoTransition.none = {
+	"name" : "None",
+	"in" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		setTimeout(function(){
+			$this.opacityVal = 1;
+			$this.fire('image:loaded');
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.video, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		setTimeout(function(){
+			$this.opacityVal = 0;
+			$this.fire('image:loaded');
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		if ($this.loaded) {
+			$this.ctx.save();
+            $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
+            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.drawImage($this.video, 0, 0);
+			$this.ctx.restore();
+		}
+    }
+  }
+};
+
 SxVideoTransition.anim1 = {
 	"name" : "Animation 1",
 	"in" : {

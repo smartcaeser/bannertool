@@ -1,5 +1,55 @@
 var SxTextTransition = {};
-
+SxTextTransition.none = {
+	"name" : "None",
+	"in": {
+    init : function($this , $opts){
+		var $w = 0 , $char = '';
+		$this.positions = [];
+		for(var i = 0 ; i < $this.txtPositions.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , char : $this.txtPositions[i].char});
+		}
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 0;
+		setTimeout(function(){
+			$this.opacityVal = 1;
+			$this.fire('text:animated');
+		} , (parseFloat($opts.delay) * 1000)) ;
+		
+    },
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y);
+		}
+		$this.ctx.restore();
+    }
+  },
+  "out" : {
+    init : function($this , $opts){
+		var $w = 0 , $char = '';
+		$this.positions = [];
+		for(var i = 0 ; i < $this.length ; i++){
+			$this.positions.push({x: $this.txtPositions[i].x , y: $this.txtPositions[i].y , opacity : 1, char : $this.txtPositions[i].char});
+		}
+	  
+		var $duration = parseFloat($opts.duration) * 1000;
+		$this.opacityVal = 1;
+		setTimeout(function(){
+			$this.opacityVal = 0;
+			$this.fire('text:animated');
+		} , (parseFloat($opts.delay) * 1000)) ;
+    },
+    render : function($this){
+		$this.ctx.save();
+		$this.ctx.globalAlpha = $this.opacityVal;
+		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
+			$this.ctx.fillText($this.positions[$this.i].char, $this.positions[$this.i].x ,$this.positions[$this.i].y);
+		}
+		$this.ctx.restore();
+    }
+  }
+};
 SxTextTransition.anim1 = {
 	"name" : "Animation 1",
 	"in": {
