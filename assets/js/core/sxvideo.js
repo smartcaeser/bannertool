@@ -204,6 +204,10 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		
 		
     },
+	isEmpty : function(obj) { 
+	   for (var x in obj) { return false; }
+	   return true;
+	},
     run : function(){
 		var $this = this;
 		
@@ -213,7 +217,6 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		
 		this.previewType = 'in';
 		this.previewOpts = this.transitionIn;
-		
 		if(SxVideoTransition[this.transitionIn.type]){
 			SxVideoTransition[this.transitionIn.type]['in'].init(this , this.transitionIn);
 			setTimeout(function(){
@@ -230,7 +233,9 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 				},parseFloat(this.transitionOut.delay) * 1000);
 			}
 		}
-		
+		if(this.isEmpty(this.transitionIn)){
+			$this.playVideo();
+		}
     },
     _render: function(ctx) {
 		if(this.enabled === false) return;
