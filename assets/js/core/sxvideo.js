@@ -12,6 +12,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     previewType : '',
 	previewOpts : {},
 	opacity : 1,
+	loop : false,
 	resizable : true,
 	aspectRatio : false,
 	videoUrl : '',
@@ -41,6 +42,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		layerType : this.get('layerType'),
 		readonly : this.get('readonly'),
 		loopVideo : this.get('loopVideo'),
+		loop : this.get('loop'),
 		muteVideo : this.get('muteVideo'),
 		enabled : this.get('enabled'),
 		sortOrder : this.get('sortOrder')
@@ -53,6 +55,9 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		this.video.src = options.videoUrl;
 		this.video.autoPlay = false;
 		this.video.loop = options.loopVideo;
+		if(!this.previewMode){
+			
+		}
 		this.video.muted = options.muteVideo;
 		this.videoContainer = {
 			 video : this.video,
@@ -61,6 +66,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		this.video.onerror = function(e){
 			
 		};
+		
 		this.video.oncanplay = this.readyToPlayVideo.bind(this);
 		this.loaded = false;
 		this.setVideo(options.videoUrl);
@@ -182,6 +188,11 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		if(this.previewMode){
 			this.previewMode = false;
 			this.fire('image:loaded');
+		} else {
+			this.totalAnims--;
+			if(this.totalAnims == 0 && this.loop){
+				this.run();
+			}
 		}
 	},
 	reset : function(){
@@ -209,8 +220,8 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 	   return true;
 	},
     run : function(){
+		this.totalAnims = 0;
 		var $this = this;
-		
 		this.previewMode = false;
 		this.runMode = true;
 		this.playlistMode = true;
@@ -218,6 +229,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		this.previewType = 'in';
 		this.previewOpts = this.transitionIn;
 		if(SxVideoTransition[this.transitionIn.type]){
+			this.totalAnims++;
 			SxVideoTransition[this.transitionIn.type]['in'].init(this , this.transitionIn);
 			setTimeout(function(){
 				$this.playVideo();
@@ -225,6 +237,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		}
 		if(this.transitionOut.type){
 			if(SxVideoTransition[this.transitionOut.type]){
+				this.totalAnims++;
 				var $this = this;
 				setTimeout(function(){
 					$this.previewType = 'out';

@@ -12,6 +12,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     previewType : '',
 	previewOpts : {},
 	opacity : 1,
+	loop : false,
 	resizable : true,
 	aspectRatio : false,
 	imageUrl : '',
@@ -38,6 +39,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		resizable : this.get('resizable'),
 		layerType : this.get('layerType'),
 		readonly : this.get('readonly'),
+		loop : this.get('loop'),
 		enabled : this.get('enabled'),
 		sortOrder : this.get('sortOrder')
       });
@@ -153,6 +155,11 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		if(this.previewMode){
 			this.previewMode = false;
 			this.fire('image:loaded');
+		} else {
+			this.totalAnims--;
+			if(this.totalAnims == 0 && this.loop){
+				this.run();
+			}
 		}
 	},
 	reset : function(){
@@ -172,6 +179,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		}
     },
     run : function(){
+		this.totalAnims = 0;
 		this.previewMode = false;
 		this.runMode = true;
 		this.playlistMode = true;
@@ -180,10 +188,12 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		this.previewOpts = this.transitionIn;
 				
 		if(SxImageTransition[this.transitionIn.type]){
+			this.totalAnims++;
 			SxImageTransition[this.transitionIn.type]['in'].init(this , this.transitionIn);
 		}
 		if(this.transitionOut.type){
 			if(SxImageTransition[this.transitionOut.type]){
+				this.totalAnims++;
 				var $this = this;
 				setTimeout(function(){
 					$this.previewType = 'out';

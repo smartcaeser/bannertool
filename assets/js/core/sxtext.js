@@ -21,6 +21,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     positions : [],
 	txtPositions : [],
 	opacity : 1,
+	loop : false,
 	resizable : true,
 	aspectRatio : false,
 	imageUrl : '',
@@ -51,6 +52,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		fontLetterSpacing : this.get('fontLetterSpacing'),
 		aspectRatio : this.get('aspectRatio'),
 		resizable : this.get('resizable'),
+		loop : this.get('loop'),
 		layerType : this.get('layerType'),
 		readonly : this.get('readonly'),
 		enabled : this.get('enabled'),
@@ -175,6 +177,11 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		if(this.previewMode){
 			this.previewMode = false;
 			this.fire('text:animated');
+		} else {
+			this.totalAnims--;
+			if(this.totalAnims == 0 && this.loop){
+				this.run();
+			}
 		}
 	},
 	reset : function(){
@@ -194,6 +201,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		}
     },
 	run : function(){
+		this.totalAnims = 0;
 		this.previewMode = false;
 		this.runMode = true;
 		this.playlistMode = true;
@@ -201,10 +209,12 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		this.previewOpts = this.transitionIn;
 		
 		if(SxTextTransition[this.transitionIn.type]){
+			this.totalAnims++;
 			SxTextTransition[this.transitionIn.type]['in'].init(this , this.transitionIn);
 		}
 		if(this.transitionOut.type){
 			if(SxTextTransition[this.transitionOut.type]){
+				this.totalAnims++;
 				var $this = this;
 				setTimeout(function(){
 					$this.previewType = 'out';
