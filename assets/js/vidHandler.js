@@ -7,6 +7,7 @@ add_video_btn.addEventListener('click',function(){
 			id : 'vid' + (new Date()).getTime(),
 			top: 0,
 			left: 0,
+			scene:vid_scene.value,
 			videoUrl : video_url.value,
 			resizable : true,
 			aspectRatio : false,

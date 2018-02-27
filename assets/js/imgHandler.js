@@ -7,6 +7,7 @@ add_image_btn.addEventListener('click',function(){
 			id : 'img' + (new Date()).getTime(),
 			top: 0,
 			left: 0,
+			scene:img_scene.value,
 			imageUrl : image_url.value,
 			resizable : true,
 			aspectRatio : false,

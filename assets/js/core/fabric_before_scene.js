@@ -1,51 +1,5 @@
 /* build: `node build.js modules=ALL exclude=json,gestures minifier=uglifyjs` */
  /*! Fabric.js Copyright 2008-2015, Printio (Juriy Zaytsev, Maxim Chernyak) */
-if (!Object.keys) {
-    Object.keys = function (obj) {
-        var arr = [],
-            key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                arr.push(key);
-            }
-        }
-        return arr;
-    };
-}
-if (!Array.prototype.filter) {
-  Array.prototype.filter = function(fun/*, thisArg*/) {
-    'use strict';
-
-    if (this === void 0 || this === null) {
-      throw new TypeError();
-    }
-
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== 'function') {
-      throw new TypeError();
-    }
-
-    var res = [];
-    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-    for (var i = 0; i < len; i++) {
-      if (i in t) {
-        var val = t[i];
-
-        // NOTE: Technically this should Object.defineProperty at
-        //       the next index, as push can be affected by
-        //       properties on Object.prototype and Array.prototype.
-        //       But that method's new, and collisions should be
-        //       rare, so use the more-compatible alternative.
-        if (fun.call(thisArg, val, i, t)) {
-          res.push(val);
-        }
-      }
-    }
-
-    return res;
-  };
-}
 
 var fabric = fabric || { version: "1.7.16" };
 if (typeof exports !== 'undefined') {
@@ -76,7 +30,7 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
  * @type boolean
  */
 fabric.isTouchSupported = "ontouchstart" in fabric.document.documentElement;
-fabric.currentScene = '';
+
 /**
  * True when in environment that's probably Node.js
  * @type boolean
@@ -7057,7 +7011,7 @@ fabric.ElementsParser.prototype.checkIfDone = function() {
      */
     renderAll: function () {
       var canvasToDrawOn = this.contextContainer;
-      this.renderCanvas(canvasToDrawOn, this._objects.filter(function(e) { return e.scene == fabric.currentScene;}));
+      this.renderCanvas(canvasToDrawOn, this._objects);
       return this;
     },
 
@@ -7087,7 +7041,6 @@ fabric.ElementsParser.prototype.checkIfDone = function() {
      * @chainable
      */
     renderCanvas: function(ctx, objects) {
-		objects
       this.calcViewportBoundaries();
       this.clearContext(ctx);
       this.fire('before:render');
@@ -9008,13 +8961,9 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
       else {
         objsToRender = this._objects;
       }
-	  if(fabric.currentScene == ''){
-		  return objsToRender;
-	  } else {
-		  return objsToRender.filter(function(e) { return e.scene == fabric.currentScene;});
-	  }
-	  
+      return objsToRender;
     },
+
     /**
      * Renders both the top canvas and the secondary container canvas.
      * @return {fabric.Canvas} instance
@@ -9759,7 +9708,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
      * @param {Boolean} skipGroup when true, activeGroup is skipped and only objects are traversed through
      */
     findTarget: function (e, skipGroup) {
-		
       if (this.skipTargetFind) {
         return;
       }
@@ -9780,7 +9728,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
       // if we hit the corner of an activeObject, let's return that.
       if (activeObject && activeObject._findTargetCorner(pointer)) {
         this._fireOverOutEvents(activeObject, e);
-		
         return activeObject;
       }
       if (activeObject && activeObject === this._searchPossibleTargets([activeObject], pointer)) {
@@ -9806,11 +9753,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
      */
     _fireOverOutEvents: function(target, e) {
       var overOpt, outOpt, hoveredTarget = this._hoveredTarget;
-	  
-	  if(target && typeof target.scene !== 'undefined' && target.scene != fabric.currentScene){
-		  return false;
-	  }
-		
       if (hoveredTarget !== target) {
         overOpt = { e: e, target: target, previousTarget: this._hoveredTarget };
         outOpt = { e: e, target: this._hoveredTarget, nextTarget: target };
@@ -9836,7 +9778,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
      * @private
      */
     _checkTarget: function(pointer, obj) {
-		if(obj && obj.scene && obj.scene != fabric.currentScene){ return false;}
       if (obj &&
           obj.visible &&
           obj.evented &&
@@ -10299,10 +10240,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
         if (!this._objects[i] || !this._objects[i].active) {
           continue;
         }
-		if(this._objects[i].scene == fabric.currentScene){
-			this._objects[i]._renderControls(ctx);
-		}
-        
+        this._objects[i]._renderControls(ctx);
       }
     },
 
@@ -10775,9 +10713,6 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
      * @param {Boolean} isClick for left button only, indicates that the mouse up happened without move.
      */
     _handleEvent: function(e, eventType, targetObj, button, isClick) {
-		if(targetObj && targetObj.scene && targetObj.scene != fabric.currentScene){
-			return false;
-		}
       var target = typeof targetObj === 'undefined' ? this.findTarget(e) : targetObj,
           targets = this.targets || [],
           options = {
@@ -10802,6 +10737,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
 
       var transform = this._currentTransform,
           target = transform.target;
+
       if (target._scaling) {
         target._scaling = false;
       }
@@ -11180,7 +11116,7 @@ fabric.PatternBrush = fabric.util.createClass(fabric.PencilBrush, /** @lends fab
         this.setCursor(this.defaultCursor);
         return false;
       }
-		if(target.scene && target.scene != fabric.currentScene){ return false; }
+
       var hoverCursor = target.hoverCursor || this.hoverCursor,
           activeGroup = this.getActiveGroup(),
           // only show proper corner when group selection is not active

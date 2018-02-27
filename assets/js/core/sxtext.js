@@ -21,6 +21,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
     positions : [],
 	txtPositions : [],
 	opacity : 1,
+	scene : '',
 	loop : false,
 	resizable : true,
 	aspectRatio : false,
@@ -53,6 +54,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		aspectRatio : this.get('aspectRatio'),
 		resizable : this.get('resizable'),
 		loop : this.get('loop'),
+		scene : this.get('scene'),
 		layerType : this.get('layerType'),
 		readonly : this.get('readonly'),
 		enabled : this.get('enabled'),
@@ -200,7 +202,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			SxTextTransition[$val.type][$type].init(this , $val);
 		}
     },
-	run : function(){
+    run : function(){
 		this.totalAnims = 0;
 		this.previewMode = false;
 		this.runMode = true;
@@ -279,7 +281,6 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		this.width = this.finalWidth - $spacing;
 	},
     _render: function(ctx) {
-		
 		if(this.enabled === false) return;
 		if(this.playlistMode){
 			if(this.transitionIn.type && SxTextTransition[this.transitionIn.type]){

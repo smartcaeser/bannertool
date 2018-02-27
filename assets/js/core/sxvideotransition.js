@@ -3,6 +3,8 @@ SxVideoTransition.none = {
 	"name" : "None",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		setTimeout(function(){
@@ -12,6 +14,7 @@ SxVideoTransition.none = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -22,6 +25,8 @@ SxVideoTransition.none = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		setTimeout(function(){
@@ -31,6 +36,7 @@ SxVideoTransition.none = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -45,6 +51,8 @@ SxVideoTransition.anim1 = {
 	"name" : "Animation 1",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		  $this.tileWidth = Math.ceil($this.width / $opts.cols);
 		  $this.tileHeight = Math.ceil($this.height / $opts.rows);
 		  $this.positions = [];
@@ -82,6 +90,7 @@ SxVideoTransition.anim1 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.inStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -99,6 +108,8 @@ SxVideoTransition.anim1 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -136,6 +147,7 @@ SxVideoTransition.anim1 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.outStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -157,6 +169,8 @@ SxVideoTransition.anim2 = {
 	"name" : "Animation 2",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -203,6 +217,7 @@ SxVideoTransition.anim2 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.inStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -220,6 +235,8 @@ SxVideoTransition.anim2 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -266,6 +283,7 @@ SxVideoTransition.anim2 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.outStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -287,6 +305,8 @@ SxVideoTransition.anim3 = {
 	"name" : "Animation 3",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -325,6 +345,7 @@ SxVideoTransition.anim3 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.inStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -342,6 +363,8 @@ SxVideoTransition.anim3 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -380,6 +403,7 @@ SxVideoTransition.anim3 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.outStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -402,6 +426,8 @@ SxVideoTransition.anim4 = {
 	"name" : "Animation 4",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -450,6 +476,7 @@ SxVideoTransition.anim4 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.inStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -468,6 +495,8 @@ SxVideoTransition.anim4 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -515,6 +544,7 @@ SxVideoTransition.anim4 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.outStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -537,6 +567,8 @@ SxVideoTransition.fade = {
 	"name" : "Fade",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		setTimeout(function(){
@@ -557,6 +589,7 @@ SxVideoTransition.fade = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -567,6 +600,8 @@ SxVideoTransition.fade = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		fabric.util.animate({
@@ -585,6 +620,7 @@ SxVideoTransition.fade = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -599,6 +635,8 @@ SxVideoTransition.fadeDown = {
 	"name" : "Fade Down",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.yStart = 0;
@@ -629,6 +667,7 @@ SxVideoTransition.fadeDown = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) - $this.yStart);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -639,6 +678,8 @@ SxVideoTransition.fadeDown = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.yStart = 0;
@@ -667,6 +708,7 @@ SxVideoTransition.fadeDown = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) + $this.yStart);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -681,6 +723,8 @@ SxVideoTransition.fadeUp = {
 	"name" : "Fade Up",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.yStart = 0;
@@ -711,6 +755,7 @@ SxVideoTransition.fadeUp = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) + $this.yStart);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -721,6 +766,8 @@ SxVideoTransition.fadeUp = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.yStart = 0;
@@ -749,6 +796,7 @@ SxVideoTransition.fadeUp = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) - $this.yStart);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -763,6 +811,8 @@ SxVideoTransition.fadeRight = {
 	"name" : "Fade Right",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.xStart = 0;
@@ -793,6 +843,7 @@ SxVideoTransition.fadeRight = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate((-$this.width / 2) + $this.xStart ,(-$this.height / 2));
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -803,6 +854,8 @@ SxVideoTransition.fadeRight = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.xStart = 0;
@@ -831,6 +884,7 @@ SxVideoTransition.fadeRight = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate((-$this.width / 2) + $this.xStart ,(-$this.height / 2));
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -845,6 +899,8 @@ SxVideoTransition.fadeLeft = {
 	"name" : "Fade Left",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.xStart = 0;
@@ -875,6 +931,7 @@ SxVideoTransition.fadeLeft = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate((-$this.width / 2) - $this.xStart ,(-$this.height / 2));
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -885,6 +942,8 @@ SxVideoTransition.fadeLeft = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.xStart = 0;
@@ -913,6 +972,7 @@ SxVideoTransition.fadeLeft = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate((-$this.width / 2) - $this.xStart ,(-$this.height / 2));
             $this.ctx.globalAlpha = $this.opacityVal;

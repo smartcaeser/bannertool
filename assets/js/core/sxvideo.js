@@ -12,6 +12,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     previewType : '',
 	previewOpts : {},
 	opacity : 1,
+	scene : '',
 	loop : false,
 	resizable : true,
 	aspectRatio : false,
@@ -43,12 +44,14 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		readonly : this.get('readonly'),
 		loopVideo : this.get('loopVideo'),
 		loop : this.get('loop'),
+		scene : this.get('scene'),
 		muteVideo : this.get('muteVideo'),
 		enabled : this.get('enabled'),
 		sortOrder : this.get('sortOrder')
       });
     },
     initialize: function(options) {
+		this.isIE = /*@cc_on!@*/false || !!document.documentMode;	
 		this.options = options;
 		this.video = document.createElement("video");
 		this.callSuper('initialize' , this.video, this.options);
@@ -170,15 +173,44 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		window.requestAnimationFrame(this.renderVideo.bind(this));
     },
 	readyToPlayVideo : function(e){
-		
+		if(this.isIE){
+			e.target.playbackRate = 0.5;
+		}
 		this.width = e.target.videoWidth;
 		this.height = e.target.videoHeight;
 		this.loaded = true;
 		this.setCoords();
 		this.fire('image:loaded');
-		
+		this.fire('object:loaded',{target : this.type});
 		this.renderVideo();
     },
+	adjust:function($coords){
+		var scaleVal;
+		if(this.width > this.height){
+			if(this.width > $coords.width){
+				scaleVal = ($coords.width / this.width) * 0.7;
+			} else {
+				scaleVal = ($coords.height / this.height) * 0.7;
+			}
+			this.scaleX = scaleVal;
+			this.scaleY = scaleVal;
+			this.left = ($coords.width - (this.width * scaleVal)) * 0.5;
+			this.top = ($coords.height - (this.height * scaleVal)) * 0.5;
+			this.fire('image:loaded');
+		} else {
+			
+			if(this.height > $coords.height){
+				scaleVal = ($coords.height / this.height) * 0.7;
+			} else {
+				scaleVal = ($coords.width / this.width) * 0.7;
+			}
+			this.scaleX = scaleVal;
+			this.scaleY = scaleVal;
+			this.left = ($coords.width - (this.width * scaleVal)) * 0.5;
+			this.top = ($coords.height - (this.height * scaleVal)) * 0.5;
+			this.fire('image:loaded');
+		}
+	},
 	playVideo : function(){
 		if(this.loaded){
 			this.getElement().play();
@@ -220,6 +252,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 	   return true;
 	},
     run : function(){
+		
 		this.totalAnims = 0;
 		var $this = this;
 		this.previewMode = false;

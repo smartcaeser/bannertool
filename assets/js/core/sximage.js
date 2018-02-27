@@ -12,6 +12,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     previewType : '',
 	previewOpts : {},
 	opacity : 1,
+	scene : '',
 	loop : false,
 	resizable : true,
 	aspectRatio : false,
@@ -40,13 +41,13 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		layerType : this.get('layerType'),
 		readonly : this.get('readonly'),
 		loop : this.get('loop'),
+		scene : this.get('scene'),
 		enabled : this.get('enabled'),
 		sortOrder : this.get('sortOrder')
       });
     },
     initialize: function(options) {
 		this.callSuper('initialize', options);
-		
 		this.setImage(options.imageUrl);
 		if(options.resizable === false){
 			this.setControlsVisibility({
@@ -149,8 +150,36 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			this.loaded = true;
 			this.setCoords();
 			this.fire('image:loaded');
+			this.fire('object:loaded',{target : this.type});
 		}).bind(this);
     },
+	adjust:function($coords){
+		var scaleVal;
+		if(this.width > this.height){
+			if(this.width > $coords.width){
+				scaleVal = ($coords.width / this.width) * 0.7;
+			} else {
+				scaleVal = ($coords.height / this.height) * 0.7;
+			}
+			this.scaleX = scaleVal;
+			this.scaleY = scaleVal;
+			this.left = ($coords.width - (this.width * scaleVal)) * 0.5;
+			this.top = ($coords.height - (this.height * scaleVal)) * 0.5;
+			this.fire('image:loaded');
+		} else {
+			
+			if(this.height > $coords.height){
+				scaleVal = ($coords.height / this.height) * 0.7;
+			} else {
+				scaleVal = ($coords.width / this.width) * 0.7;
+			}
+			this.scaleX = scaleVal;
+			this.scaleY = scaleVal;
+			this.left = ($coords.width - (this.width * scaleVal)) * 0.5;
+			this.top = ($coords.height - (this.height * scaleVal)) * 0.5;
+			this.fire('image:loaded');
+		}
+	},
 	animationComplete : function(){
 		if(this.previewMode){
 			this.previewMode = false;
@@ -204,7 +233,6 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		}
     },
     _render: function(ctx) {
-		
 		if(this.enabled === false) return;
 		if(this.playlistMode){
 			if(this.transitionIn.type && SxImageTransition[this.transitionIn.type]){

@@ -3,6 +3,8 @@ SxImageTransition.none = {
 	"name" : "None",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		setTimeout(function(){
@@ -12,6 +14,7 @@ SxImageTransition.none = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -22,6 +25,8 @@ SxImageTransition.none = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		setTimeout(function(){
@@ -31,6 +36,7 @@ SxImageTransition.none = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -45,7 +51,8 @@ SxImageTransition.anim1 = {
 	"name" : "Animation 1",
 	"in" : {
     init : function($this , $opts){
-		
+		$this.inStarted = true;
+		$this.outStarted = false;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -82,6 +89,7 @@ SxImageTransition.anim1 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.inStarted) return;
 		  $this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -99,6 +107,8 @@ SxImageTransition.anim1 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -136,6 +146,7 @@ SxImageTransition.anim1 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.outStarted) return;
 		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -157,6 +168,8 @@ SxImageTransition.anim2 = {
 	"name" : "Animation 2",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -203,6 +216,7 @@ SxImageTransition.anim2 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.inStarted) return;
 		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -220,6 +234,8 @@ SxImageTransition.anim2 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -266,6 +282,7 @@ SxImageTransition.anim2 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.outStarted) return;
 		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -287,6 +304,8 @@ SxImageTransition.anim3 = {
 	"name" : "Animation 3",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -325,6 +344,7 @@ SxImageTransition.anim3 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.inStarted) return;
 		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -342,6 +362,8 @@ SxImageTransition.anim3 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -380,6 +402,7 @@ SxImageTransition.anim3 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.outStarted) return;
 		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           $this.ctx.beginPath();
@@ -402,6 +425,8 @@ SxImageTransition.anim4 = {
 	"name" : "Animation 4",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -450,6 +475,7 @@ SxImageTransition.anim4 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.inStarted) return;
 		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -468,6 +494,8 @@ SxImageTransition.anim4 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       $this.tileWidth = Math.ceil($this.width / $opts.cols);
       $this.tileHeight = Math.ceil($this.height / $opts.rows);
       $this.positions = [];
@@ -515,6 +543,7 @@ SxImageTransition.anim4 = {
     },
     render : function($this){
       if ($this.loaded) {
+		  if(!$this.outStarted) return;
 		$this.ctx.globalAlpha = 1;
         if($this.totalTiles && $this.totalTiles > 0){
           for($this.i = 0 ; $this.i < $this.totalTiles ; $this.i++){
@@ -536,6 +565,8 @@ SxImageTransition.fade = {
 	"name" : "Fade",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		setTimeout(function(){
@@ -556,6 +587,7 @@ SxImageTransition.fade = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -566,6 +598,8 @@ SxImageTransition.fade = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		fabric.util.animate({
@@ -584,6 +618,7 @@ SxImageTransition.fade = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,-$this.height / 2);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -601,6 +636,8 @@ SxImageTransition.fadeDown = {
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.yStart = 0;
+		$this.inStarted = true;
+		$this.outStarted = false;
 		setTimeout(function(){
 			fabric.util.animate({
 				startValue: 0,
@@ -628,16 +665,20 @@ SxImageTransition.fadeDown = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
-            $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) - $this.yStart);
-            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) - $this.yStart);
+			$this.ctx.globalAlpha = $this.opacityVal;
 			$this.ctx.drawImage($this.image, 0, 0);
 			$this.ctx.restore();
+			
 		}
     }
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.yStart = 0;
@@ -666,11 +707,13 @@ SxImageTransition.fadeDown = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
-            $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) + $this.yStart);
-            $this.ctx.globalAlpha = $this.opacityVal;
+			$this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) + $this.yStart);
+			$this.ctx.globalAlpha = $this.opacityVal;
 			$this.ctx.drawImage($this.image, 0, 0);
 			$this.ctx.restore();
+			
 		}
     }
   }
@@ -680,6 +723,8 @@ SxImageTransition.fadeUp = {
 	"name" : "Fade Up",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.yStart = 0;
@@ -710,6 +755,7 @@ SxImageTransition.fadeUp = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) + $this.yStart);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -720,6 +766,8 @@ SxImageTransition.fadeUp = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.yStart = 0;
@@ -748,6 +796,7 @@ SxImageTransition.fadeUp = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate(-$this.width / 2 ,(-$this.height / 2) - $this.yStart);
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -762,6 +811,8 @@ SxImageTransition.fadeRight = {
 	"name" : "Fade Right",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.xStart = 0;
@@ -792,6 +843,7 @@ SxImageTransition.fadeRight = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate((-$this.width / 2) + $this.xStart ,(-$this.height / 2));
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -802,6 +854,8 @@ SxImageTransition.fadeRight = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.xStart = 0;
@@ -830,6 +884,7 @@ SxImageTransition.fadeRight = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate((-$this.width / 2) + $this.xStart ,(-$this.height / 2));
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -844,6 +899,8 @@ SxImageTransition.fadeLeft = {
 	"name" : "Fade Left",
 	"in" : {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.xStart = 0;
@@ -874,6 +931,7 @@ SxImageTransition.fadeLeft = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.inStarted) return;
 			$this.ctx.save();
             $this.ctx.translate((-$this.width / 2) - $this.xStart ,(-$this.height / 2));
             $this.ctx.globalAlpha = $this.opacityVal;
@@ -884,6 +942,8 @@ SxImageTransition.fadeLeft = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.xStart = 0;
@@ -912,6 +972,7 @@ SxImageTransition.fadeLeft = {
     },
     render : function($this){
 		if ($this.loaded) {
+			if(!$this.outStarted) return;
 			$this.ctx.save();
             $this.ctx.translate((-$this.width / 2) - $this.xStart ,(-$this.height / 2));
             $this.ctx.globalAlpha = $this.opacityVal;

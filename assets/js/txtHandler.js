@@ -14,6 +14,7 @@ add_txt_btn.addEventListener('click',function(){
 			id : 'txt' + (new Date()).getTime(),
 			top: 0,
 			left: 0,
+			scene:txt_scene.value,
 			text : add_txt.value,
 			fontFamily : font_family.value,
 			fontSize : font_size.value,

@@ -33,13 +33,37 @@
               </button>
             </div>
           </div>
+		  <div class="accordion">
+            <h1>
+                Scenes Setting
+            </h1>
+            <div class="accordion-body">
+				<label>Scene Name</label>
+				<input type="text" name="scene_name" value="Scene 1">
+				<label>Scene Duration</label>
+				<input type="text" name="scene_duration" value="60">Seconds
+				<label>Sort Order</label>
+				<input type="text" name="scene_sort_order" value="0">
+				<button id="scene_btn">Add Scene</button>
+				<br>
+				<label>Scenes</label>
+				<select id="scenes_list">
+					
+				</select>
+				<button id="active_scene_btn">Active Scene</button>
+            </div>
+          </div>
           <div class="accordion">
             <h1>
                 Image
             </h1>
             <div class="accordion-body">
               <label>Image Url</label>
-              <input type="text" name="image_url" value="http://data2.finalsite.com/cf67/mountstmarys/data/news/thumbs/1352.large.jpg">
+              <input type="text" name="image_url" value="logo.png">
+			  <label>Add to scene</label>
+				<select id="img_scene">
+					
+				</select>
               <button id="add_image_btn">
                 Add Image
               </button>
@@ -52,6 +76,10 @@
             <div class="accordion-body">
               <label>Video Url</label>
               <input type="text" name="video_url" value="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4">
+			  <label>Add to scene</label>
+				<select id="vid_scene">
+					
+				</select>
               <button id="add_video_btn">
                 Add Video
               </button>
@@ -85,11 +113,11 @@
               
               <label>Font Size</label>
               <select id="font-size">
-                <option value="10pt">10pt</option>
-                <option value="14pt">14pt</option>
-                <option value="18pt">18pt</option>
-                <option value="22pt">22pt</option>
-                <option value="30pt">30pt</option>
+                <option value="10">10</option>
+                <option value="14">14</option>
+                <option value="18">18</option>
+                <option value="22">22</option>
+                <option value="30">30</option>
               </select>
               
               <label>Font Color</label>
@@ -111,6 +139,10 @@
 			  <br>
 			  <label>Letter Spacing</label>
 			  <input type="text" id="font-letter-spacing" value="0"/>
+			  <label>Add to scene</label>
+				<select id="txt_scene">
+					
+				</select>
               <button id="add_txt_btn">
                 Add Text
               </button>
@@ -467,6 +499,7 @@
 		<script src="assets/js/imgHandler.js"></script>
 		<script src="assets/js/vidHandler.js"></script>
 		<script src="assets/js/txtHandler.js"></script>
+		<script src="assets/js/sceneHandler.js"></script>
 		<script src="assets/js/tools-animation.js"></script>
     </body>
 </html>

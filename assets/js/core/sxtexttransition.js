@@ -3,6 +3,8 @@ SxTextTransition.none = {
 	"name" : "None",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $w = 0 , $char = '';
 		$this.positions = [];
 		for(var i = 0 ; i < $this.txtPositions.length ; i++){
@@ -17,6 +19,7 @@ SxTextTransition.none = {
 		
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -27,6 +30,10 @@ SxTextTransition.none = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $w = 0 , $char = '';
 		$this.positions = [];
 		for(var i = 0 ; i < $this.length ; i++){
@@ -41,6 +48,7 @@ SxTextTransition.none = {
 		} , (parseFloat($opts.delay) * 1000)) ;
     },
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -54,6 +62,8 @@ SxTextTransition.anim1 = {
 	"name" : "Animation 1",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.txtPositions.length ; i++){
@@ -94,6 +104,7 @@ SxTextTransition.anim1 = {
       }
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
@@ -108,6 +119,8 @@ SxTextTransition.anim1 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
@@ -150,6 +163,7 @@ SxTextTransition.anim1 = {
       }
     },
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
@@ -169,6 +183,8 @@ SxTextTransition.anim2 = {
 	"name" : "Animation 2",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
@@ -210,6 +226,7 @@ SxTextTransition.anim2 = {
       }
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
@@ -222,6 +239,8 @@ SxTextTransition.anim2 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
@@ -265,6 +284,7 @@ SxTextTransition.anim2 = {
       }
     },
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
@@ -281,6 +301,8 @@ SxTextTransition.anim3 = {
 	"name" : "Animation 3",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
@@ -331,6 +353,7 @@ SxTextTransition.anim3 = {
       }
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
@@ -345,6 +368,8 @@ SxTextTransition.anim3 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
@@ -396,6 +421,7 @@ SxTextTransition.anim3 = {
       }
     },
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
@@ -413,6 +439,8 @@ SxTextTransition.anim4 = {
 	"name" : "Animation 4",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
       var $w = 0 , $char = '' , $lw = 0;
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
@@ -457,6 +485,7 @@ SxTextTransition.anim4 = {
       }
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
@@ -470,6 +499,8 @@ SxTextTransition.anim4 = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
       var $w = 0 , $char = '';
       $this.positions = [];
       for(var i = 0 ; i < $this.length ; i++){
@@ -512,6 +543,7 @@ SxTextTransition.anim4 = {
       }
     },
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.globalAlpha = 1;
       for($this.i = 0 ; $this.i < $this.length ; $this.i++){
             $this.ctx.save();
@@ -528,6 +560,8 @@ SxTextTransition.fade = {
 	"name" : "Fade",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $w = 0 , $char = '';
 		$this.positions = [];
 		$this.opacityVal = 0;
@@ -553,6 +587,7 @@ SxTextTransition.fade = {
 		
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -563,6 +598,8 @@ SxTextTransition.fade = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $w = 0 , $char = '';
 		$this.positions = [];
 		for(var i = 0 ; i < $this.length ; i++){
@@ -585,6 +622,7 @@ SxTextTransition.fade = {
 		});
     },
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -599,6 +637,8 @@ SxTextTransition.fadeDown = {
 	"name" : "FadeDown",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $w = 0 , $char = '' ,$duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.yStart = 0;
@@ -632,6 +672,7 @@ SxTextTransition.fadeDown = {
 		} , (parseFloat($opts.delay) * 1000)) ;
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -643,6 +684,8 @@ SxTextTransition.fadeDown = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $w = 0 , $char = '' , $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.yStart = 0;
@@ -676,6 +719,7 @@ SxTextTransition.fadeDown = {
 		});
 	},
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -691,6 +735,8 @@ SxTextTransition.fadeUp = {
 	"name" : "FadeUp",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $w = 0 , $char = '' ,$duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.yStart = 0;
@@ -724,6 +770,7 @@ SxTextTransition.fadeUp = {
 		} , (parseFloat($opts.delay) * 1000)) ;
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -735,6 +782,8 @@ SxTextTransition.fadeUp = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $w = 0 , $char = '' , $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.yStart = 0;
@@ -768,6 +817,7 @@ SxTextTransition.fadeUp = {
 		});
 	},
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -782,6 +832,8 @@ SxTextTransition.fadeRight = {
 	"name" : "FadeRight",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $w = 0 , $char = '' ,$duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.xStart = 0;
@@ -815,6 +867,7 @@ SxTextTransition.fadeRight = {
 		} , (parseFloat($opts.delay) * 1000)) ;
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -826,6 +879,8 @@ SxTextTransition.fadeRight = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $w = 0 , $char = '' , $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.xStart = 0;
@@ -859,6 +914,7 @@ SxTextTransition.fadeRight = {
 		});
 	},
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -873,6 +929,8 @@ SxTextTransition.fadeLeft = {
 	"name" : "FadeLeft",
 	"in": {
     init : function($this , $opts){
+		$this.inStarted = true;
+		$this.outStarted = false;
 		var $w = 0 , $char = '' ,$duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 0;
 		$this.xStart = 0;
@@ -906,6 +964,7 @@ SxTextTransition.fadeLeft = {
 		} , (parseFloat($opts.delay) * 1000)) ;
     },
     render : function($this){
+		if(!$this.inStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
@@ -917,6 +976,8 @@ SxTextTransition.fadeLeft = {
   },
   "out" : {
     init : function($this , $opts){
+		$this.inStarted = false;
+		$this.outStarted = true;
 		var $w = 0 , $char = '' , $duration = parseFloat($opts.duration) * 1000;
 		$this.opacityVal = 1;
 		$this.xStart = 0;
@@ -950,6 +1011,7 @@ SxTextTransition.fadeLeft = {
 		});
 	},
     render : function($this){
+		if(!$this.outStarted) return;
 		$this.ctx.save();
 		$this.ctx.globalAlpha = $this.opacityVal;
 		for($this.i = 0 ; $this.i < $this.length ; $this.i++){
