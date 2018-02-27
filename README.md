@@ -15,6 +15,9 @@
 </script>
 ```
 ## Main Methods
+- `addScene($model)` Adding scene to hold layers (images,text,videos) and passing `id` , `name` , `duration:in seconds` , `sortOrder`
+- `removeScene($scene_id)` remove specific scene on id.
+- `activeScene($scene_id)` active specific scene and hide rest.
 - `addImage($model)` Adding Image layer as `Object` include `id` , `top:int` , `left:int` , `loop:true|false` , `imageUrl:string` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
 - `addVideo($model)` Adding Video layer as `Object` include `id` , `top:int` , `left:int` , `loopVideo:true|false` , `loop:true|false` , `videoUrl:string` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text|video` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
 - `addText($model)` Adding text layer as `Object` include `id` , `top:int` , `left:int` , `loop:true|false` , `text:string` , `fontFamily:string` , `fontSize:int` , `fontColor:string` , `fontStyleBold:true|false` , `fontStyleItalic:true|false` , `fontStyleUnderline:true|false` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
@@ -31,7 +34,7 @@
 - `updateSelectedObject($prop,$val)` Update properties for selected object on banner stage
 - `settings() Return object with all available setting like `banner.getSettings().animations.image|banner.getSettings().animations.text`
 - `previewTransitionToSelectedObject($type,$val)` Make an animation preview for selected object on banner stage , `$type:string(in|out)` 
-
+- `takeScreenShot` return base64 screenshot images.
 ## Events
 - `addEventListener('select',function(e){ console.log(e.item);});` Event listener on select text or image on the stage return in function in `e.item`
 ```html

@@ -72,6 +72,11 @@ Banner.prototype.addScene = function($model){
 	this.scenes[$model.id] = $model;
 	this.activeScene($model.id);
 };
+Banner.prototype.removeScene = function($scene_id){
+	if(this.scenes[$scene_id]){
+		delete this.scenes[$scene_id];
+	}
+};
 Banner.prototype.activeScene = function($scene_id){
 	if(this.scenes[$scene_id]){
 		this.currentScene = $scene_id;
