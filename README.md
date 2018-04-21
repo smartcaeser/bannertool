@@ -18,6 +18,7 @@
 - `addScene($model)` Adding scene to hold layers (images,text,videos) and passing `id` , `name` , `duration:in seconds` , `sortOrder`
 - `removeScene($scene_id)` remove specific scene on id.
 - `activeScene($scene_id)` active specific scene and hide rest.
+- `updateSceneProp($sceneId, $prop, $val)` Update Scene properties such as `name:string`  , `duration:int` , `sortOrder:int`.
 - `addImage($model)` Adding Image layer as `Object` include `id` , `top:int` , `left:int` , `loop:true|false` , `imageUrl:string` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
 - `addVideo($model)` Adding Video layer as `Object` include `id` , `top:int` , `left:int` , `loopVideo:true|false` , `loop:true|false` , `videoUrl:string` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text|video` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`
 - `addText($model)` Adding text layer as `Object` include `id` , `top:int` , `left:int` , `loop:true|false` , `text:string` , `fontFamily:string` , `fontSize:int` , `fontColor:string` , `fontStyleBold:true|false` , `fontStyleItalic:true|false` , `fontStyleUnderline:true|false` , `resizable:true|false` , `aspectRatio:true|false` , `layerType:image|text` , `enabled:true|false` , `readonly:true|false` , `sortOrder:int`

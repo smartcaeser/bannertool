@@ -84,6 +84,11 @@ Banner.prototype.activeScene = function($scene_id){
 	}
 	this.canvas.renderAll();
 };
+Banner.prototype.updateSceneProp = function($sceneId, $prop, $val){
+	if(this.scenes[$sceneId]){
+		this.scenes[$sceneId][$prop] = $val;
+	}
+};
 Banner.prototype.addText = function($model){
 	$model.playlistMode = this.runMode;
 	var $text = new SxText($model);
