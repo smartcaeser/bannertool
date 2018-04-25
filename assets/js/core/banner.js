@@ -78,6 +78,7 @@ Banner.prototype.removeScene = function($scene_id){
 	}
 };
 Banner.prototype.activeScene = function($scene_id){
+	
 	if(this.scenes[$scene_id]){
 		this.currentScene = $scene_id;
 		fabric.currentScene = $scene_id;
