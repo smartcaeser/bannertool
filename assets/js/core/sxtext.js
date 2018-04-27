@@ -282,13 +282,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 	},
     _render: function(ctx) {
 		if(this.enabled === false) return;
-		if(this.playlistMode){
-			if(this.transitionIn.type && SxTextTransition[this.transitionIn.type]){
-				ctx.globalAlpha = 0;
-			} else {
-				this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
-			}
-		}
+		
 		var exstr = '';
 		if(this.fontStyleBold === true){
 			exstr += 'bold ';
@@ -298,6 +292,16 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		}
 		ctx.font = exstr + this.fontSize + 'pt ' + this.fontFamily;
 		ctx.fillStyle = this.fontColor;
+		
+		
+		if(this.playlistMode){
+			if(this.transitionIn.type && SxTextTransition[this.transitionIn.type]){
+				ctx.globalAlpha = 0;
+			} else {
+				this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
+			}
+		}
+		
 		if(this.previewMode){
 			if(SxTextTransition[this.previewOpts.type]){
 				SxTextTransition[this.previewOpts.type][this.previewType].render(this);
