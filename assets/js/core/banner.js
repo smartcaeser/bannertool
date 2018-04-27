@@ -291,8 +291,10 @@ Banner.prototype.run = function(){
 			for(var i = 0 ; i < sortableScene.length ; i++){
 				(function($time,$lyr){
 					setTimeout(function(){
-						$lyr.run();
+						
 						$this.activeScene($lyr.scene);
+						$lyr.run();
+						
 					},$time * 1000);
 				})(initDuration,sortableScene[i][1].layer);
 				initDuration += parseInt($this.scenes[sortableScene[i][1].layer.scene].duration);

@@ -297,18 +297,11 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		if(this.playlistMode){
 			if(this.transitionIn.type && SxTextTransition[this.transitionIn.type]){
 				ctx.globalAlpha = 0;
-			} else {
-				this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
+				
 			}
-		}
-		
-		if(this.previewMode){
-			if(SxTextTransition[this.previewOpts.type]){
-				SxTextTransition[this.previewOpts.type][this.previewType].render(this);
-			} else {
-				this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
-			}
-		} else if(this.runMode){
+			
+			this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
+			
 			if(this.transitionIn.type){
 				if(SxTextTransition[this.transitionIn.type]){
 					SxTextTransition[this.transitionIn.type]['in'].render(this);
@@ -319,8 +312,13 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 					SxTextTransition[this.transitionOut.type]['out'].render(this);
 				}
 			}
+		} else if(this.previewMode){
+			if(SxTextTransition[this.previewOpts.type]){
+				SxTextTransition[this.previewOpts.type][this.previewType].render(this);
+			} else {
+				this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
+			}
 		} else {
-			
 			this._letterSpacing(ctx, this.text, -this.width / 2,parseInt(this.fontSize)/3, this.fontLetterSpacing);
 			
 		}
