@@ -11,6 +11,8 @@ function Banner($canvasId , runMode){
 	this.objectsBank = {}
 	this.$layersData = {};
 	this.pause = false;
+	this.inVal1 = 0;
+	this.inVal2 = 0;
 	this.layers = [];
 	this.scenes = {};
 	this.currentScene = '';
@@ -255,6 +257,9 @@ Banner.prototype.getAnimations = function($type){
 Banner.prototype.run = function(){
 	var $this = this , sceneLayers = {};
 	this.runVal = 0 , this.layersLoaded = 0 , this.layersSize = 0 , this.bannerDuration = 0;
+	clearInterval(this.runVal);
+	clearTimeout(this.inVal1);
+	clearTimeout(this.inVal2);
 	this.runVal = setInterval(function(){
 		$this.layersLoaded = 0;
 		$this.layersSize = 0;
@@ -290,7 +295,7 @@ Banner.prototype.run = function(){
 			
 			for(var i = 0 ; i < sortableScene.length ; i++){
 				(function($time,$lyr){
-					setTimeout(function(){
+					$this.inVal1 = setTimeout(function(){
 						
 						$this.activeScene($lyr.scene);
 						$lyr.run();
@@ -301,7 +306,7 @@ Banner.prototype.run = function(){
 			}
 			
 			if(!$this.runMode){
-				setTimeout(function(){
+				$this.inVal2 = setTimeout(function(){
 					for (var $layerId in $this.layers) {
 						$this.layers[$layerId].reset();
 					}
@@ -348,6 +353,14 @@ Banner.prototype.load = function($data){
 			this.addVideo(this.$layersData[$layer]);
 		}
 	}
+	var sortableScene = [];
+	for (var sceneObject in this.scenes) {
+		sortableScene.push([sceneObject, this.scenes[sceneObject]]);
+	}
+	sortableScene.sort(function(a, b) {
+		return parseInt(a[1].sortOrder) - parseInt(b[1].sortOrder);
+	});
+	this.activeScene(sortableScene[0][0]);
 };
 Banner.prototype.getBannerModel = function(){
 	

@@ -171,8 +171,8 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		this.fontFamily = options.fontFamily;
 		this.fontSize = options.fontSize;
 		this.fontColor = options.fontColor;
-		this.ctx.font = exstr + this.fontSize + ' ' + this.fontFamily;
-		this.width = (this.finalWidth >= 0) ? this.finalWidth : this.ctx.measureText(this.text).width;
+		this.ctx.font = exstr + this.fontSize + 'pt ' + this.fontFamily;
+		this.width = (this.finalWidth >= 0) ? this.finalWidth : (this.ctx.measureText(this.text).width + (this.text.length * this.fontLetterSpacing));
 		this.height = parseInt(this.fontSize);
     },
 	animationComplete : function(){
@@ -255,6 +255,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		context.moveTo(startX,startY);
 		context.lineTo(endX,endY);
 		context.stroke();
+		
 	},
 	_letterSpacing : function($context, $text, $x, $y, $spacing){
 		$spacing = parseInt($spacing);
@@ -278,6 +279,7 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 
 			txtWidth = $wShorter;
 		} while ($text != "");
+		
 		this.width = this.finalWidth - $spacing;
 	},
     _render: function(ctx) {
