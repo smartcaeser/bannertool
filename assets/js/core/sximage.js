@@ -96,7 +96,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		});
     },
 	refresh : function(){
-		this.setImage(this.imageUrl);
+		//this.setImage(this.imageUrl);
 		if(this.resizable === false){
 			this.setControlsVisibility({
 				mt: false, 
@@ -150,6 +150,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			this.loaded = true;
 			this.setCoords();
 			this.fire('image:loaded');
+			this.fire('media:rendered');
 			this.fire('object:loaded',{target : this.type});
 		}).bind(this);
     },
@@ -207,6 +208,9 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			SxImageTransition[$val.type][$type].init(this , $val);
 		}
     },
+	destroy : function(){
+		
+	},
     run : function(){
 		this.totalAnims = 0;
 		this.previewMode = false;

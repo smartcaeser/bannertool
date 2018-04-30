@@ -180,6 +180,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		this.height = e.target.videoHeight;
 		this.loaded = true;
 		this.setCoords();
+		this.fire('media:rendered');
 		this.fire('image:loaded');
 		this.fire('object:loaded',{target : this.type});
 		this.renderVideo();
@@ -283,6 +284,11 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 			$this.playVideo();
 		}
     },
+	destroy : function(){
+		if(this.loaded){
+			this.getElement().pause();
+		}
+	},
     _render: function(ctx) {
 		if(this.enabled === false) return;
 		if(this.playlistMode){

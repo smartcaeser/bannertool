@@ -13,6 +13,7 @@ function Banner($canvasId , runMode){
 	this.pause = false;
 	this.inVal1 = 0;
 	this.inVal2 = 0;
+	this.addedLayers = [];
 	this.layers = [];
 	this.scenes = {};
 	this.currentScene = '';
@@ -108,7 +109,7 @@ Banner.prototype.addImage = function($model){
 	this.canvas.add($image);
 	this.layers[$image.id] = $image;
 	if(!this.objectsBank[$image.id]){
-		$image.on("object:loaded", function(e){
+		$image.on("media:rendered", function(e){
 			$image.adjust({width:$this.bannerWidth , height : $this.bannerHeight});
 		});
 	}
@@ -122,7 +123,7 @@ Banner.prototype.addVideo = function($model){
 	this.canvas.add($video);
 	this.layers[$video.id] = $video;
 	if(!this.objectsBank[$video.id]){
-		$video.on("object:loaded", function(e){
+		$video.on("media:rendered", function(e){
 			$video.adjust({width:$this.bannerWidth , height : $this.bannerHeight});
 		});
 	}
@@ -296,10 +297,10 @@ Banner.prototype.run = function(){
 			for(var i = 0 ; i < sortableScene.length ; i++){
 				(function($time,$lyr){
 					$this.inVal1 = setTimeout(function(){
-						
+						$this.deactivatePrevLayers();
 						$this.activeScene($lyr.scene);
 						$lyr.run();
-						
+						$this.addedLayers.push($lyr);
 					},$time * 1000);
 				})(initDuration,sortableScene[i][1].layer);
 				initDuration += parseInt($this.scenes[sortableScene[i][1].layer.scene].duration);
@@ -317,7 +318,14 @@ Banner.prototype.run = function(){
 	},200);
     
 };
-
+Banner.prototype.deactivatePrevLayers = function(){
+	if(this.addedLayers.length == 0) return false;
+	var i = 0;
+	for(i = 0 ; i < this.addedLayers.length ; i++){
+		this.addedLayers[i].destroy();
+		this.addedLayers.splice(i,1);
+	}
+};
 Banner.prototype.renderAll = function(){
 	if(this.pause) return false;
 	this.canvas.renderAll();

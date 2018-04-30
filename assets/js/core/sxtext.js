@@ -282,6 +282,9 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 		
 		this.width = this.finalWidth - $spacing;
 	},
+	destroy : function(){
+		
+	},
     _render: function(ctx) {
 		if(this.enabled === false) return;
 		

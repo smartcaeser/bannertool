@@ -2,6 +2,12 @@ body{
   margin:0px;
   padding:0px;
 }
+#viewer{
+	display:inline-block;
+	position:fixed;
+	top:0px;
+	left:0px;
+}
 #canvas{
   border:1px solid #000;
   margin:10px;
