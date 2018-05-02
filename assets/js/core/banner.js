@@ -14,6 +14,7 @@ function Banner($canvasId , runMode){
 	this.inVal1 = 0;
 	this.inVal2 = 0;
 	this.addedLayers = [];
+	this.cloney = [];
 	this.layers = [];
 	this.scenes = {};
 	this.currentScene = '';
@@ -280,7 +281,13 @@ Banner.prototype.run = function(){
 				if($this.layers[$layerId].transitionOut.duration){
 					$this.bannerDuration += parseFloat($this.layers[$layerId].transitionOut.duration) + parseFloat($this.layers[$layerId].transitionOut.delay);
 				}
-				sceneLayers[$this.layers[$layerId].scene] = {sortOrder : $this.scenes[$this.layers[$layerId].scene].sortOrder , layer : $this.layers[$layerId]};
+				if(sceneLayers[$this.layers[$layerId].scene]){
+					sceneLayers[$this.layers[$layerId].scene].layer.push($this.layers[$layerId]);
+				} else {
+					sceneLayers[$this.layers[$layerId].scene] = { sortOrder : 0 , layer : [$this.layers[$layerId]]};
+				}
+				sceneLayers[$this.layers[$layerId].scene].sortOrder = $this.scenes[$this.layers[$layerId].scene].sortOrder;
+				
 				//$this.layers[$layerId].run();
 			}
 			$this.bannerDuration = $this.bannerDuration * 1000;
@@ -293,17 +300,24 @@ Banner.prototype.run = function(){
 			sortableScene.sort(function(a, b) {
 				return parseInt(a[1].sortOrder) - parseInt(b[1].sortOrder);
 			});
-			
+			var j = 0;
 			for(var i = 0 ; i < sortableScene.length ; i++){
-				(function($time,$lyr){
+				(function($level , $time,$sceneId,$lyrs){
 					$this.inVal1 = setTimeout(function(){
 						$this.deactivatePrevLayers();
-						$this.activeScene($lyr.scene);
-						$lyr.run();
-						$this.addedLayers.push($lyr);
+						$this.addedLayers = [];
+						$this.activeScene($sceneId);
+						for(var ij = 0 ; ij < $lyrs.length ; ij++){
+							$lyrs[ij].run();
+							$this.addedLayers.push($lyrs[ij]);
+						}
+						$this.cloney  = $this.addedLayers.slice(0);
+						
 					},$time * 1000);
-				})(initDuration,sortableScene[i][1].layer);
-				initDuration += parseInt($this.scenes[sortableScene[i][1].layer.scene].duration);
+				})(i , initDuration,sortableScene[i][0] , sortableScene[i][1].layer);
+				for( j = 0 ; j < sortableScene[i][1].layer.length ; j++){
+					initDuration += parseInt($this.scenes[sortableScene[i][1].layer[j].scene].duration);
+				}
 			}
 			
 			if(!$this.runMode){
@@ -320,10 +334,9 @@ Banner.prototype.run = function(){
 };
 Banner.prototype.deactivatePrevLayers = function(){
 	if(this.addedLayers.length == 0) return false;
-	var i = 0;
-	for(i = 0 ; i < this.addedLayers.length ; i++){
-		this.addedLayers[i].destroy();
-		this.addedLayers.splice(i,1);
+ 	var i = 0 , len = this.cloney.length;
+	for(i = 0 ; i < len ; i++){
+		this.cloney[i].destroy();
 	}
 };
 Banner.prototype.renderAll = function(){

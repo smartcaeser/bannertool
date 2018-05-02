@@ -111,6 +111,10 @@ var SxText = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			this.selectable = false;
 		}
 		
+		if(options.new){
+			this.isnew = options.new;
+		}
+		
     },
 	refresh : function(){
 		this.setText(this);

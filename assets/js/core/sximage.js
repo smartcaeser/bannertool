@@ -26,6 +26,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     tileWidth : 0,
     tileHeight : 0,
     totalTiles : 0,
+	isnew:false,
     objectCaching: false,
     toObject: function() {
       return fabric.util.object.extend(this.callSuper('toObject'), {
@@ -90,6 +91,9 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
 			}
 		} else {
 			this.selectable = false;
+		}
+		if(options.new){
+			this.isnew = options.new;
 		}
 		this.on('event:modified',function(){
 			console.log('changed');
@@ -156,6 +160,7 @@ var SxImage = fabric.util.createClass(fabric.Object, fabric.Observable, {
     },
 	adjust:function($coords){
 		var scaleVal;
+		if(!this.isnew) return;
 		if(this.width > this.height){
 			if(this.width > $coords.width){
 				scaleVal = ($coords.width / this.width) * 0.7;

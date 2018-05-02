@@ -28,6 +28,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     tileWidth : 0,
     tileHeight : 0,
     totalTiles : 0,
+	isnew:false,
     objectCaching: false,
     toObject: function() {
       return fabric.util.object.extend(this.callSuper('toObject'), {
@@ -187,6 +188,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     },
 	adjust:function($coords){
 		var scaleVal;
+		if(!this.isnew) return;
 		if(this.width > this.height){
 			if(this.width > $coords.width){
 				scaleVal = ($coords.width / this.width) * 0.7;
@@ -253,7 +255,6 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 	   return true;
 	},
     run : function(){
-		
 		this.totalAnims = 0;
 		var $this = this;
 		this.previewMode = false;
@@ -286,6 +287,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     },
 	destroy : function(){
 		if(this.loaded){
+			
 			this.getElement().pause();
 		}
 	},
