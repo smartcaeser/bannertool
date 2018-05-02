@@ -117,6 +117,11 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		} else {
 			this.selectable = false;
 		}
+		
+		if(options.new){
+			this.isnew = options.new;
+		}
+		
 		this.on('event:modified',function(){
 			console.log('changed');
 		});
