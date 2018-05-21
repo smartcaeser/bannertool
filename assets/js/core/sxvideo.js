@@ -176,7 +176,10 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     },
 	renderVideo : function(){
 		this.fire('image:loaded');
-		window.requestAnimationFrame(this.renderVideo.bind(this));
+		if(this.playlistMode || this.previewMode){
+			window.requestAnimationFrame(this.renderVideo.bind(this));
+		}
+		
     },
 	readyToPlayVideo : function(e){
 		if(this.isIE){
@@ -185,15 +188,30 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		this.width = e.target.videoWidth;
 		this.height = e.target.videoHeight;
 		this.loaded = true;
+
 		this.setCoords();
+				
+
 		this.fire('media:rendered');
 		this.fire('image:loaded');
 		this.fire('object:loaded',{target : this.type});
 		this.renderVideo();
+		this.defaultTime();
+		
     },
+	defaultTime:function(){
+		if(!this.previewMode && !this.playlistMode){
+			if(this.loaded){
+				this.getElement().currentTime = 1;
+				this.getElement().pause();
+				
+			}
+		}
+	},
 	adjust:function($coords){
 		var scaleVal;
 		if(!this.isnew) return;
+		this.isnew = false;
 		if(this.width > this.height){
 			if(this.width > $coords.width){
 				scaleVal = ($coords.width / this.width) * 0.7;
@@ -206,7 +224,6 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 			this.top = ($coords.height - (this.height * scaleVal)) * 0.5;
 			this.fire('image:loaded');
 		} else {
-			
 			if(this.height > $coords.height){
 				scaleVal = ($coords.height / this.height) * 0.7;
 			} else {
@@ -221,6 +238,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 	},
 	playVideo : function(){
 		if(this.loaded){
+			this.getElement().currentTime = 0;
 			this.getElement().play();
 		}
 	},
@@ -231,6 +249,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		} else {
 			this.totalAnims--;
 			if(this.totalAnims == 0 && this.loop){
+				this.getElement().pause();
 				this.run();
 			}
 		}
@@ -239,6 +258,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		this.previewMode = false;
 		this.runMode = false;
 		this.playlistMode = false;
+		this.defaultTime();
 		this.fire('image:loaded');
 	},
 	preview : function($type , $val){
@@ -292,7 +312,6 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
     },
 	destroy : function(){
 		if(this.loaded){
-			
 			this.getElement().pause();
 		}
 	},
@@ -308,7 +327,6 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 		
 		this.ctx = ctx;
 		//this.callSuper('_render', ctx);
-		
 		if(this.previewMode){
 			if(SxVideoTransition[this.previewOpts.type]){
 				SxVideoTransition[this.previewOpts.type][this.previewType].render(this);
@@ -328,6 +346,7 @@ var SxVideo = fabric.util.createClass(fabric.Image, fabric.Observable, {
 			}
 			
 		} else {
+			
 			ctx.drawImage(this.video, -this.width / 2, -this.height / 2);
 		}
 		

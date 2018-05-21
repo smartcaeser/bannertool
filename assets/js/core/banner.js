@@ -8,6 +8,7 @@ function Banner($canvasId , runMode){
 	} else {
 		this.canvas = new fabric.Canvas($canvasId,{ preserveObjectStacking: true });
 	}
+	this.sortableScene = [];
 	this.objectsBank = {}
 	this.$layersData = {};
 	this.pause = false;
@@ -96,6 +97,7 @@ Banner.prototype.updateSceneProp = function($sceneId, $prop, $val){
 };
 Banner.prototype.addText = function($model){
 	$model.playlistMode = this.runMode;
+	$model.runMode = this.runMode;
 	var $text = new SxText($model);
     $text.on("text:animated", this.renderAll.bind(this));
 	this.canvas.add($text);
@@ -105,6 +107,7 @@ Banner.prototype.addText = function($model){
 Banner.prototype.addImage = function($model){
 	var $this = this;
 	$model.playlistMode = this.runMode;
+	$model.runMode = this.runMode;
 	var $image = new SxImage($model);
 	$image.on("image:loaded", this.renderAll.bind(this));
 	this.canvas.add($image);
@@ -119,6 +122,7 @@ Banner.prototype.addImage = function($model){
 Banner.prototype.addVideo = function($model){
 	var $this = this;
 	$model.playlistMode = this.runMode;
+	$model.runMode = this.runMode;
 	var $video = new SxVideo($model);
 	$video.on("image:loaded", this.renderAll.bind(this));
 	this.canvas.add($video);
@@ -293,15 +297,15 @@ Banner.prototype.run = function(){
 			$this.bannerDuration = $this.bannerDuration * 1000;
 			
 			var initDuration = 0;
-			var sortableScene = [];
+			$this.sortableScene = [];
 			for (var sceneObject in sceneLayers) {
-				sortableScene.push([sceneObject, sceneLayers[sceneObject]]);
+				$this.sortableScene.push([sceneObject, sceneLayers[sceneObject]]);
 			}
-			sortableScene.sort(function(a, b) {
+			$this.sortableScene.sort(function(a, b) {
 				return parseInt(a[1].sortOrder) - parseInt(b[1].sortOrder);
 			});
 			var j = 0;
-			for(var i = 0 ; i < sortableScene.length ; i++){
+			for(var i = 0 ; i < $this.sortableScene.length ; i++){
 				(function($level , $time,$sceneId,$lyrs){
 					$this.inVal1 = setTimeout(function(){
 						$this.deactivatePrevLayers();
@@ -314,9 +318,9 @@ Banner.prototype.run = function(){
 						$this.cloney  = $this.addedLayers.slice(0);
 						
 					},$time * 1000);
-				})(i , initDuration,sortableScene[i][0] , sortableScene[i][1].layer);
-				for( j = 0 ; j < sortableScene[i][1].layer.length ; j++){
-					initDuration += parseInt($this.scenes[sortableScene[i][1].layer[j].scene].duration);
+				})(i , initDuration,$this.sortableScene[i][0] , $this.sortableScene[i][1].layer);
+				for( j = 0 ; j < $this.sortableScene[i][1].layer.length ; j++){
+					initDuration += parseInt($this.scenes[$this.sortableScene[i][1].layer[j].scene].duration);
 				}
 			}
 			
@@ -325,6 +329,8 @@ Banner.prototype.run = function(){
 					for (var $layerId in $this.layers) {
 						$this.layers[$layerId].reset();
 					}
+					console.log('finished');
+					$this.activeScene($this.sortableScene[0][0]);
 				},initDuration * 1000);
 			}
 			
@@ -374,14 +380,14 @@ Banner.prototype.load = function($data){
 			this.addVideo(this.$layersData[$layer]);
 		}
 	}
-	var sortableScene = [];
+	this.sortableScene = [];
 	for (var sceneObject in this.scenes) {
-		sortableScene.push([sceneObject, this.scenes[sceneObject]]);
+		this.sortableScene.push([sceneObject, this.scenes[sceneObject]]);
 	}
-	sortableScene.sort(function(a, b) {
+	this.sortableScene.sort(function(a, b) {
 		return parseInt(a[1].sortOrder) - parseInt(b[1].sortOrder);
 	});
-	this.activeScene(sortableScene[0][0]);
+	this.activeScene(this.sortableScene[0][0]);
 };
 Banner.prototype.getBannerModel = function(){
 	

@@ -10,6 +10,7 @@ add_video_btn.addEventListener('click',function(){
 			scene:vid_scene.value,
 			videoUrl : video_url.value,
 			resizable : true,
+			new : true,
 			aspectRatio : false,
 			layerType : 'video',
 			enabled : true,
